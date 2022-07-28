@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32630.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log4OMQSLEmailerPNG", "Log4OMQSLEmailer\Log4OMQSLEmailerPNG.csproj", "{2CBDDCDE-D8FE-4CDD-B107-D18D8C4F9709}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CBDDCDE-D8FE-4CDD-B107-D18D8C4F9709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CBDDCDE-D8FE-4CDD-B107-D18D8C4F9709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CBDDCDE-D8FE-4CDD-B107-D18D8C4F9709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CBDDCDE-D8FE-4CDD-B107-D18D8C4F9709}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F102235-3BE8-4B72-90EF-74A3CB6C234C}
+	EndGlobalSection
+EndGlobal
