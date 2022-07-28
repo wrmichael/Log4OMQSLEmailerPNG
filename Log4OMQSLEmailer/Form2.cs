@@ -36,6 +36,7 @@ namespace Log4OMQSLEmailer
             txtSMTPPort.Text = Properties.Settings.Default.SMTPPort;
             txtBody.Text = Properties.Settings.Default.MessageBody;
             txtExclusionList.Text = Properties.Settings.Default.ExclusionList;
+            txtTMP.Text = Properties.Settings.Default.TMPDIR; 
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -52,6 +53,7 @@ namespace Log4OMQSLEmailer
             Properties.Settings.Default.SMTPPort = txtSMTPPort.Text;
             Properties.Settings.Default.MessageBody = txtBody.Text;
             Properties.Settings.Default.ExclusionList = txtExclusionList.Text;
+            Properties.Settings.Default.TMPDIR = txtTMP.Text;
             Properties.Settings.Default.Save();
 
         }
@@ -68,6 +70,15 @@ namespace Log4OMQSLEmailer
         private void txtSMTPPassword_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnTmp_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+
+            fbd.SelectedPath = txtTMP.Text;
+            fbd.ShowDialog();
+            txtTMP.Text = fbd.SelectedPath;
         }
     }
 }

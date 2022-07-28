@@ -125,6 +125,21 @@ namespace Log4OMQSLEmailer
             {
                 return;
             }
+
+            if (Properties.Settings.Default.QSLDir.Trim().Length == 0)
+            {
+                return;
+            }
+
+            if (Properties.Settings.Default.TMPDIR.Trim().Length ==0)
+            {
+                return;
+            }
+
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.TMPDIR))
+            {
+                return;
+            }
             string template = listBox1.SelectedItem.ToString();
 
             
@@ -186,6 +201,8 @@ COLUMNS (
             while (reader.Read())
             {
 
+
+
                 try
                 {
                     string mytime = "";
@@ -194,6 +211,8 @@ COLUMNS (
                     string myname = reader["name"].ToString();
                     string myemail = reader["email"].ToString();
                     string rst = reader["rstsent"].ToString();
+
+
 
                     if (Properties.Settings.Default.ExclusionList.Contains("," + mycall.ToUpper().Trim() + ","))
                     {
@@ -221,14 +240,14 @@ COLUMNS (
                     string myqsoid = reader["qsoid"].ToString();
 
                     //check to see if it is a DUP 
-                    if (!checklog(  "," + myqsoid + ","))
+                    if (checklog(  "," + myqsoid + ","))
                     {
                         continue; // skip printing and sending
                     }
                     writetolog("," +  myqsoid + ",");
                     Image img = Image.FromFile(listBox1.SelectedItem.ToString());
                     
-                    string myfile = "c:\\tmp\\" + myqsoid + ".png";
+                    string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR  ,  myqsoid + ".png");
                     //save PNG here
                     Graphics g = Graphics.FromImage(img);
                     Font font = new Font("Arial", int.Parse(Properties.Settings.Default.FontSize), FontStyle.Bold, GraphicsUnit.Pixel);
@@ -243,7 +262,7 @@ COLUMNS (
 
 
 
-                    img.Save(@"c:\tmp\" + myqsoid + ".png", System.Drawing.Imaging.ImageFormat.Png);
+                    img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid + ".png"), System.Drawing.Imaging.ImageFormat.Png);
 
                     this.MySendMail(myname, mycall, myfile, myemail,Properties.Settings.Default.MessageBody.Replace("<NAME>",myname));
                     int rc = LookupQSLConformation(myqsoid);

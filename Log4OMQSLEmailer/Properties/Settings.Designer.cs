@@ -310,5 +310,17 @@ namespace Log4OMQSLEmailer.Properties {
                 this["FontSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TMPDIR {
+            get {
+                return ((string)(this["TMPDIR"]));
+            }
+            set {
+                this["TMPDIR"] = value;
+            }
+        }
     }
 }
