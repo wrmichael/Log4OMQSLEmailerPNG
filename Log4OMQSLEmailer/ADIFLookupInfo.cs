@@ -26,7 +26,7 @@ namespace Log4OMQSLEmailer
         {
 
 
-            this.Close()
+            this.Close();
         }
     }
 }
