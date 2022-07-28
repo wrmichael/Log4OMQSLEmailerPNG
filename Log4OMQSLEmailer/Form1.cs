@@ -20,6 +20,8 @@ namespace Log4OMQSLEmailer
     public partial class Form1 : Form
     {
 
+        public string alllog = ""; 
+
         
         public Form1()
         {
@@ -218,9 +220,15 @@ COLUMNS (
                     string mode = reader["mode"].ToString();
                     string myqsoid = reader["qsoid"].ToString();
 
+                    //check to see if it is a DUP 
+                    if (!checklog(  "," + myqsoid + ","))
+                    {
+                        continue; // skip printing and sending
+                    }
+                    writetolog("," +  myqsoid + ",");
                     Image img = Image.FromFile(listBox1.SelectedItem.ToString());
                     
-                string myfile = "c:\\tmp\\" + myqsoid + ".png";
+                    string myfile = "c:\\tmp\\" + myqsoid + ".png";
                     //save PNG here
                     Graphics g = Graphics.FromImage(img);
                     Font font = new Font("Arial", int.Parse(Properties.Settings.Default.FontSize), FontStyle.Bold, GraphicsUnit.Pixel);
@@ -270,6 +278,25 @@ COLUMNS (
             }
            
             MessageBox.Show("Complete");
+
+        }
+
+        void writetolog(string myqsl)
+        {
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(@"c:\qsl\sent.log",true))
+            {
+                sw.WriteLine(myqsl);
+                sw.Close();
+            }
+            alllog = alllog + "\r\n" + myqsl;
+        }
+
+        bool checklog(string myqsl)
+        {
+            
+            if (alllog.Contains(myqsl))
+            { return true; }
+            else { return false; }
 
         }
 
