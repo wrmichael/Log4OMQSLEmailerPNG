@@ -40,14 +40,14 @@ namespace Log4OMQSLEmailer
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.layoytSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aDIFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lookupInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.lstlog = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.aDIFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lookupInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -125,9 +125,9 @@ namespace Log4OMQSLEmailer
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
+            this.aDIFToolStripMenuItem,
             this.layoytSettingsToolStripMenuItem,
-            this.exitToolStripMenuItem,
-            this.aDIFToolStripMenuItem});
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -152,6 +152,20 @@ namespace Log4OMQSLEmailer
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // aDIFToolStripMenuItem
+            // 
+            this.aDIFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lookupInfoToolStripMenuItem});
+            this.aDIFToolStripMenuItem.Name = "aDIFToolStripMenuItem";
+            this.aDIFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aDIFToolStripMenuItem.Text = "ADIF";
+            // 
+            // lookupInfoToolStripMenuItem
+            // 
+            this.lookupInfoToolStripMenuItem.Name = "lookupInfoToolStripMenuItem";
+            this.lookupInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lookupInfoToolStripMenuItem.Text = "Lookup Info";
             // 
             // button1
             // 
@@ -208,20 +222,6 @@ namespace Log4OMQSLEmailer
             this.label4.TabIndex = 12;
             this.label4.Text = "ADIF File (When selected will ignore dates and will not use LOG4OM2 DB Info -> Wi" +
     "ll need to lookup email from qrzcq or qrz)";
-            // 
-            // aDIFToolStripMenuItem
-            // 
-            this.aDIFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lookupInfoToolStripMenuItem});
-            this.aDIFToolStripMenuItem.Name = "aDIFToolStripMenuItem";
-            this.aDIFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.aDIFToolStripMenuItem.Text = "ADIF";
-            // 
-            // lookupInfoToolStripMenuItem
-            // 
-            this.lookupInfoToolStripMenuItem.Name = "lookupInfoToolStripMenuItem";
-            this.lookupInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.lookupInfoToolStripMenuItem.Text = "Lookup Info";
             // 
             // Form1
             // 

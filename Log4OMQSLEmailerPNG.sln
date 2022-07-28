@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32630.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log4OMQSLEmailerPNG", "Log4OMQSLEmailer\Log4OMQSLEmailerPNG.csproj", "{2CBDDCDE-D8FE-4CDD-B107-D18D8C4F9709}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AC9HP QSL Emailer", "AC9HP QSL Emailer\AC9HP QSL Emailer.vdproj", "{F2A79252-2CC3-4252-88F6-E20E7D0688A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{2CBDDCDE-D8FE-4CDD-B107-D18D8C4F9709}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CBDDCDE-D8FE-4CDD-B107-D18D8C4F9709}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CBDDCDE-D8FE-4CDD-B107-D18D8C4F9709}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2A79252-2CC3-4252-88F6-E20E7D0688A0}.Debug|Any CPU.ActiveCfg = Debug
+		{F2A79252-2CC3-4252-88F6-E20E7D0688A0}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
