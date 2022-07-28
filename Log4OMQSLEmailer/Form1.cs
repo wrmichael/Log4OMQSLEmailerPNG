@@ -43,6 +43,11 @@ namespace Log4OMQSLEmailer
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (Properties.Settings.Default.QSLDir.Trim().Length == 0)
+            {
+                return;
+            }
+
             foreach (string d in System.IO.Directory.GetFiles(Properties.Settings.Default.QSLDir))
             {
                 if (d.ToUpper().Contains(".PNG"))
