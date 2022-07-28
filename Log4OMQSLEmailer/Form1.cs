@@ -219,28 +219,19 @@ COLUMNS (
                     string myqsoid = reader["qsoid"].ToString();
 
                     Image img = Image.FromFile(listBox1.SelectedItem.ToString());
-
                     
-                replacetext(band.Trim(), "<BAND>");
-                replacetext(mode.Trim(), "<MD>");
-                replacetext(mydate.Trim(), "<DATE>");
-                replacetext(mytime.Trim(), "<UTC>");
-                replacetext(rst.Trim(), "<RST>");
-
-                replacetext(mycall.Trim(), "<CALL>");
-                replacetext(myname.Trim(), "<NAME>");
                 string myfile = "c:\\tmp\\" + myqsoid + ".png";
                     //save PNG here
                     Graphics g = Graphics.FromImage(img);
-                    Font font = new Font("Arial", 60, FontStyle.Bold, GraphicsUnit.Pixel);
+                    Font font = new Font("Arial", int.Parse(Properties.Settings.Default.FontSize), FontStyle.Bold, GraphicsUnit.Pixel);
 
-                    g.DrawString(band, font, Brushes.Black, new PointF(1340, 910));
-                    g.DrawString(mycall, font, Brushes.Black, new PointF(85, 910));
-                    g.DrawString(mode, font, Brushes.Black, new PointF(1110, 910));
+                    g.DrawString(band, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.BAND_X), int.Parse(Properties.Settings.Default.BAND_Y)));
+                    g.DrawString(mycall, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.CALL_X), int.Parse(Properties.Settings.Default.CALL_Y)));
+                    g.DrawString(mode, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.MODE_X), int.Parse(Properties.Settings.Default.MODE_Y)));
 
-                    g.DrawString(mydate, font, Brushes.Black, new PointF(350, 910));
-                    g.DrawString(mytime, font, Brushes.Black, new PointF(690, 910));
-                    g.DrawString(rst, font, Brushes.Black, new PointF(960, 910));
+                    g.DrawString(mydate, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.DATE_X), int.Parse(Properties.Settings.Default.DATE_Y)));
+                    g.DrawString(mytime, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.TIME_X), int.Parse(Properties.Settings.Default.TIME_Y)));
+                    g.DrawString(rst, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.RST_X), int.Parse(Properties.Settings.Default.RST_Y)));
 
 
 
@@ -308,22 +299,20 @@ COLUMNS (
             }
         }
 
-        public void replacetext(string t, string r)
-        {
-
-            string txtFIND;
-            string txtREPLACE;
-
-            txtFIND = r;
-
-            txtREPLACE = t;
-           
-
-        }
+      
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.button1_Click(sender, e);
 
+        }
+
+        private void layoytSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (DataLayout dl = new DataLayout())
+            {
+                dl.ShowDialog();
+            }
         }
     }
 
