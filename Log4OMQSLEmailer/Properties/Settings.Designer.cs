@@ -322,5 +322,77 @@ namespace Log4OMQSLEmailer.Properties {
                 this["TMPDIR"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string QRZUser {
+            get {
+                return ((string)(this["QRZUser"]));
+            }
+            set {
+                this["QRZUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string QRZPassword {
+            get {
+                return ((string)(this["QRZPassword"]));
+            }
+            set {
+                this["QRZPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string QRZCQUser {
+            get {
+                return ((string)(this["QRZCQUser"]));
+            }
+            set {
+                this["QRZCQUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string QRZCQPassword {
+            get {
+                return ((string)(this["QRZCQPassword"]));
+            }
+            set {
+                this["QRZCQPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string QRZEnabled {
+            get {
+                return ((string)(this["QRZEnabled"]));
+            }
+            set {
+                this["QRZEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string QRZCQEnabled {
+            get {
+                return ((string)(this["QRZCQEnabled"]));
+            }
+            set {
+                this["QRZCQEnabled"] = value;
+            }
+        }
     }
 }

@@ -38,54 +38,61 @@ namespace Log4OMQSLEmailer
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.layoytSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.lstlog = new System.Windows.Forms.ListBox();
-            this.layoytSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.aDIFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lookupInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtStart
             // 
-            this.txtStart.Location = new System.Drawing.Point(9, 46);
-            this.txtStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtStart.Location = new System.Drawing.Point(6, 88);
+            this.txtStart.Margin = new System.Windows.Forms.Padding(2);
             this.txtStart.Name = "txtStart";
-            this.txtStart.Size = new System.Drawing.Size(76, 20);
+            this.txtStart.Size = new System.Drawing.Size(132, 20);
             this.txtStart.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 30);
+            this.label1.Location = new System.Drawing.Point(6, 72);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Start Date (YYYY-MM-DD)";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(151, 30);
+            this.label2.Location = new System.Drawing.Point(151, 72);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 13);
+            this.label2.Size = new System.Drawing.Size(129, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "End Date";
+            this.label2.Text = "End Date (YYYY-MM-DD)";
             // 
             // txtEnd
             // 
-            this.txtEnd.Location = new System.Drawing.Point(151, 46);
-            this.txtEnd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEnd.Location = new System.Drawing.Point(151, 88);
+            this.txtEnd.Margin = new System.Windows.Forms.Padding(2);
             this.txtEnd.Name = "txtEnd";
-            this.txtEnd.Size = new System.Drawing.Size(76, 20);
+            this.txtEnd.Size = new System.Drawing.Size(138, 20);
             this.txtEnd.TabIndex = 2;
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(9, 89);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox1.Location = new System.Drawing.Point(6, 128);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
             this.listBox1.ScrollAlwaysVisible = true;
             this.listBox1.Size = new System.Drawing.Size(583, 82);
@@ -93,12 +100,12 @@ namespace Log4OMQSLEmailer
             // 
             // btnQuery
             // 
-            this.btnQuery.Location = new System.Drawing.Point(247, 43);
-            this.btnQuery.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnQuery.Location = new System.Drawing.Point(482, 88);
+            this.btnQuery.Margin = new System.Windows.Forms.Padding(2);
             this.btnQuery.Name = "btnQuery";
             this.btnQuery.Size = new System.Drawing.Size(110, 24);
             this.btnQuery.TabIndex = 5;
-            this.btnQuery.Text = "Email Log4OM2";
+            this.btnQuery.Text = "Email";
             this.btnQuery.UseVisualStyleBackColor = true;
             this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
             // 
@@ -119,7 +126,8 @@ namespace Log4OMQSLEmailer
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
             this.layoytSettingsToolStripMenuItem,
-            this.exitToolStripMenuItem});
+            this.exitToolStripMenuItem,
+            this.aDIFToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -127,21 +135,28 @@ namespace Log4OMQSLEmailer
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
+            // layoytSettingsToolStripMenuItem
+            // 
+            this.layoytSettingsToolStripMenuItem.Name = "layoytSettingsToolStripMenuItem";
+            this.layoytSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.layoytSettingsToolStripMenuItem.Text = "Layoyt Settings";
+            this.layoytSettingsToolStripMenuItem.Click += new System.EventHandler(this.layoytSettingsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(136, 344);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Location = new System.Drawing.Point(533, 214);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(56, 19);
             this.button1.TabIndex = 7;
@@ -152,25 +167,71 @@ namespace Log4OMQSLEmailer
             // lstlog
             // 
             this.lstlog.FormattingEnabled = true;
-            this.lstlog.Location = new System.Drawing.Point(9, 175);
-            this.lstlog.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lstlog.Location = new System.Drawing.Point(6, 234);
+            this.lstlog.Margin = new System.Windows.Forms.Padding(2);
             this.lstlog.Name = "lstlog";
             this.lstlog.ScrollAlwaysVisible = true;
             this.lstlog.Size = new System.Drawing.Size(583, 160);
             this.lstlog.TabIndex = 8;
             // 
-            // layoytSettingsToolStripMenuItem
+            // label3
             // 
-            this.layoytSettingsToolStripMenuItem.Name = "layoytSettingsToolStripMenuItem";
-            this.layoytSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.layoytSettingsToolStripMenuItem.Text = "Layoyt Settings";
-            this.layoytSettingsToolStripMenuItem.Click += new System.EventHandler(this.layoytSettingsToolStripMenuItem_Click);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 111);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(116, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Select Template Image";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(553, 40);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(36, 23);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "...";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 40);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(541, 20);
+            this.textBox1.TabIndex = 11;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(592, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "ADIF File (When selected will ignore dates and will not use LOG4OM2 DB Info -> Wi" +
+    "ll need to lookup email from qrzcq or qrz)";
+            // 
+            // aDIFToolStripMenuItem
+            // 
+            this.aDIFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lookupInfoToolStripMenuItem});
+            this.aDIFToolStripMenuItem.Name = "aDIFToolStripMenuItem";
+            this.aDIFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aDIFToolStripMenuItem.Text = "ADIF";
+            // 
+            // lookupInfoToolStripMenuItem
+            // 
+            this.lookupInfoToolStripMenuItem.Name = "lookupInfoToolStripMenuItem";
+            this.lookupInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lookupInfoToolStripMenuItem.Text = "Lookup Info";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.ClientSize = new System.Drawing.Size(600, 405);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.lstlog);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnQuery);
@@ -181,7 +242,7 @@ namespace Log4OMQSLEmailer
             this.Controls.Add(this.txtStart);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "QSL Emailer";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -207,6 +268,12 @@ namespace Log4OMQSLEmailer
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox lstlog;
         private System.Windows.Forms.ToolStripMenuItem layoytSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aDIFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lookupInfoToolStripMenuItem;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label4;
     }
 }
 
