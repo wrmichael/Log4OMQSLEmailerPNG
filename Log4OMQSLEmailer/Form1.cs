@@ -283,12 +283,20 @@ COLUMNS (
 
         void writetolog(string myqsl)
         {
-            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(@"c:\qsl\sent.log",true))
+            try
             {
-                sw.WriteLine(myqsl);
-                sw.Close();
+                using (System.IO.StreamWriter sw = new System.IO.StreamWriter(System.IO.Path.Combine(Properties.Settings.Default.QSLDir, "log.txt"), true))
+                {
+                    sw.WriteLine(myqsl);
+                    sw.Close();
+                }
+                alllog = alllog + "\r\n" + myqsl;
             }
-            alllog = alllog + "\r\n" + myqsl;
+            catch (Exception ex)
+            {
+                listBox1.Items.Add("Error writing to log: " + myqsl + " -- " + ex.Message);
+                //its only a hobby - move on...             
+            }
         }
 
         bool checklog(string myqsl)
@@ -331,6 +339,14 @@ COLUMNS (
         private void Form1_Load(object sender, EventArgs e)
         {
             this.button1_Click(sender, e);
+            if (System.IO.File.Exists(System.IO.Path.Combine(Properties.Settings.Default.QSLDir, "log.txt")))
+            {
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(System.IO.Path.Combine(Properties.Settings.Default.QSLDir, "log.txt")))
+                {
+                    alllog = sr.ReadToEnd();
+                    sr.Close();
+                }
+            }
 
         }
 
@@ -342,13 +358,5 @@ COLUMNS (
             }
         }
     }
-
-
-
-
-
-
-
-
 }
 
