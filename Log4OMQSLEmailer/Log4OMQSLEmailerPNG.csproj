@@ -81,6 +81,8 @@
     <Compile Include="ADIFLookupInfo.Designer.cs">
       <DependentUpon>ADIFLookupInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="ADIFReader.cs" />
+    <Compile Include="ADIFRecord.cs" />
     <Compile Include="DataLayout.cs">
       <SubType>Form</SubType>
     </Compile>

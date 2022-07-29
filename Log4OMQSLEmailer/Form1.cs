@@ -119,8 +119,117 @@ namespace Log4OMQSLEmailer
             }
         }
 
+        private void ProcessADIF()
+        {
+
+            if (System.IO.File.Exists(txtADIFFile.Text))
+            {
+                ADIFReader ar = new ADIFReader();
+                ar.ADIFPath = txtADIFFile.Text;
+
+                ar.start();
+                foreach (ADIFRecord rec in ar.records)
+                {
+
+                    if (rec.email.Trim().Length == 0)
+                    {
+                        continue;
+                    }
+
+                    try
+                    {
+                        string mytime = rec.time;
+                        string mydate = rec.date;
+                        string mycall = rec.call;
+                        string myname = rec.name;
+                        string myemail = rec.email;
+                        string rst = rec.sent;
+
+                        string band = rec.band;
+                        string mode = rec.mode;
+                        string myqsoid = rec.call + "_" + rec.mode + "_" + rec.band + "_" + rec.date + "_" + rec.time + "_" + rec.band;
+
+                        //strip any non filename values... 
+                        string exclude_char = "*()!@#$%^&+={}[]|\\;:'\"?/.,<>~`";
+
+                        foreach(char c in exclude_char.ToArray())
+                        {
+                            myqsoid = myqsoid.Replace(c, '_');
+                        }
+
+
+                        if (Properties.Settings.Default.ExclusionList.Contains("," + mycall.ToUpper().Trim() + ","))
+                        {
+                            continue;
+                        }
+                        
+                        
+                        //check to see if it is a DUP 
+                        
+                        if (checklog("," + myqsoid + ","))
+                        {
+                            continue; // skip printing and sending
+                        }
+                        //writetolog("," + myqsoid + ",");
+                        Image img = Image.FromFile(listBox1.SelectedItem.ToString());
+
+                        string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid + ".png");
+                        //save PNG here
+                        Graphics g = Graphics.FromImage(img);
+                        Font font = new Font("Arial", int.Parse(Properties.Settings.Default.FontSize), FontStyle.Bold, GraphicsUnit.Pixel);
+
+                        g.DrawString(band, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.BAND_X), int.Parse(Properties.Settings.Default.BAND_Y)));
+                        g.DrawString(mycall, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.CALL_X), int.Parse(Properties.Settings.Default.CALL_Y)));
+                        g.DrawString(mode, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.MODE_X), int.Parse(Properties.Settings.Default.MODE_Y)));
+
+                        g.DrawString(mydate, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.DATE_X), int.Parse(Properties.Settings.Default.DATE_Y)));
+                        g.DrawString(mytime, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.TIME_X), int.Parse(Properties.Settings.Default.TIME_Y)));
+                        g.DrawString(rst, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.RST_X), int.Parse(Properties.Settings.Default.RST_Y)));
+
+
+
+                        img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid + ".png"), System.Drawing.Imaging.ImageFormat.Png);
+
+                        this.MySendMail(myname, mycall, myfile, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname));
+                        //int rc = LookupQSLConformation(myqsoid);
+                        lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
+                        writetolog(","+ myqsoid +",");
+                        System.Windows.Forms.Application.DoEvents();
+                        try
+                        {
+                            System.Threading.Thread.Sleep(50);
+                            System.IO.File.Delete(myfile);
+
+                        }
+                        catch (Exception fex)
+                        {
+                            //ignore this...
+                            System.Console.WriteLine(fex.Message);
+
+                        }
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error:" + ex.Message);
+
+                    }
+
+                }
+
+
+            }
+         }
+        
         private void btnQuery_Click(object sender, EventArgs e)
         {
+
+            if (txtADIFFile.Text.Trim().Length > 0)
+            {
+                this.ProcessADIF();
+                return;
+            }
 
             if (listBox1.SelectedIndex == -1)
             {
@@ -384,6 +493,28 @@ COLUMNS (
 
         private void label1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            
+            ofd.ShowDialog();
+            txtADIFFile.Text = ofd.FileName;
+
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lookupInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ADIFLookupInfo lk = new ADIFLookupInfo();
+            lk.ShowDialog();
 
         }
     }
