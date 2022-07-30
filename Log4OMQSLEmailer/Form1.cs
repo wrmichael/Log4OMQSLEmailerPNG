@@ -251,6 +251,14 @@ namespace Log4OMQSLEmailer
         private void btnQuery_Click(object sender, EventArgs e)
         {
 
+            string layoutfile = listBox1.SelectedItem.ToString();
+            layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
+            if (!System.IO.File.Exists(layoutfile))
+            {
+                MessageBox.Show("Missing layout settings for QSL Image");
+                return;
+            }
+
             if (txtADIFFile.Text.Trim().Length > 0)
             {
                 this.ProcessADIF();
@@ -394,8 +402,6 @@ COLUMNS (
                     
                     QSLLayout ql = new QSLLayout();
 
-                    string layoutfile = listBox1.SelectedItem.ToString();
-                    layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
                     using (System.IO.StreamReader sr = new System.IO.StreamReader(layoutfile))
                     {
                         string sql = sr.ReadToEnd();
