@@ -48,6 +48,7 @@ namespace Log4OMQSLEmailer
             this.button2 = new System.Windows.Forms.Button();
             this.txtADIFFile = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -144,13 +145,13 @@ namespace Log4OMQSLEmailer
             this.aDIFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lookupInfoToolStripMenuItem});
             this.aDIFToolStripMenuItem.Name = "aDIFToolStripMenuItem";
-            this.aDIFToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.aDIFToolStripMenuItem.Size = new System.Drawing.Size(192, 26);
             this.aDIFToolStripMenuItem.Text = "ADIF";
             // 
             // lookupInfoToolStripMenuItem
             // 
             this.lookupInfoToolStripMenuItem.Name = "lookupInfoToolStripMenuItem";
-            this.lookupInfoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.lookupInfoToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
             this.lookupInfoToolStripMenuItem.Text = "Lookup Info";
             this.lookupInfoToolStripMenuItem.Click += new System.EventHandler(this.lookupInfoToolStripMenuItem_Click);
             // 
@@ -203,7 +204,7 @@ namespace Log4OMQSLEmailer
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(737, 49);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(48, 28);
             this.button2.TabIndex = 10;
@@ -214,7 +215,7 @@ namespace Log4OMQSLEmailer
             // txtADIFFile
             // 
             this.txtADIFFile.Location = new System.Drawing.Point(8, 49);
-            this.txtADIFFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtADIFFile.Margin = new System.Windows.Forms.Padding(4);
             this.txtADIFFile.Name = "txtADIFFile";
             this.txtADIFFile.Size = new System.Drawing.Size(720, 22);
             this.txtADIFFile.TabIndex = 11;
@@ -230,11 +231,22 @@ namespace Log4OMQSLEmailer
             this.label4.Text = "ADIF File (When selected will ignore dates and will not use LOG4OM2 DB Info -> Wi" +
     "ll need to lookup email from qrzcq or qrz)";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(618, 263);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 13;
+            this.button3.Text = "Layout";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 498);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtADIFFile);
             this.Controls.Add(this.button2);
@@ -281,6 +293,7 @@ namespace Log4OMQSLEmailer
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox txtADIFFile;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button3;
     }
 }
 

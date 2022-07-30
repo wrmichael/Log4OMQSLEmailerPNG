@@ -517,6 +517,24 @@ COLUMNS (
             lk.ShowDialog();
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (this.listBox1.SelectedItem.ToString().Trim().Length == 0)
+            {
+                return;    
+            }
+
+            string layoutfile = this.listBox1.SelectedItem.ToString();
+
+            layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
+
+            DataLayoutByImage dblbi = new DataLayoutByImage();
+            dblbi.QSLImage = this.listBox1.SelectedItem.ToString();
+            dblbi.LayoutFile = layoutfile;
+            dblbi.ShowDialog();
+
+        }
     }
 }
 

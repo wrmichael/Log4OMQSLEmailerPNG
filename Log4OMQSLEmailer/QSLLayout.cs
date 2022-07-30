@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Log4OMQSLEmailer
+{
+    public class QSLLayout
+    {
+        public int FontSize; 
+        public System.Drawing.PointF Callsign { get; set; }
+        public System.Drawing.PointF Date { get; set; }
+        public System.Drawing.PointF Time { get; set; }
+        public System.Drawing.PointF SentRST { get; set; }
+        public System.Drawing.PointF Mode { get; set; }
+        public System.Drawing.PointF Band { get; set; }
+
+    }
+}
