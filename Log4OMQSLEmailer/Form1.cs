@@ -176,6 +176,32 @@ namespace Log4OMQSLEmailer
                         string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid + ".png");
                         //save PNG here
                         Graphics g = Graphics.FromImage(img);
+
+                        QSLLayout ql = new QSLLayout();
+
+                        string layoutfile = listBox1.SelectedItem.ToString();
+                        layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
+                        using (System.IO.StreamReader sr = new System.IO.StreamReader(layoutfile))
+                        {
+                            string sql = sr.ReadToEnd();
+                            ql = JsonConvert.DeserializeObject<QSLLayout>(sql);
+                            sr.Close();
+                        }
+                        Font font = new Font("Arial", ql.FontSize, FontStyle.Bold, GraphicsUnit.Pixel);
+
+
+                        g.DrawString(band, font, Brushes.Black, ql.Band);
+                        g.DrawString(mycall, font, Brushes.Black, ql.Callsign);
+                        g.DrawString(mode, font, Brushes.Black, ql.Mode);
+
+                        g.DrawString(mydate, font, Brushes.Black, ql.Date);
+                        g.DrawString(mytime, font, Brushes.Black, ql.Time);
+                        g.DrawString(rst, font, Brushes.Black, ql.SentRST);
+
+
+
+
+                        /*
                         Font font = new Font("Arial", int.Parse(Properties.Settings.Default.FontSize), FontStyle.Bold, GraphicsUnit.Pixel);
 
                         g.DrawString(band, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.BAND_X), int.Parse(Properties.Settings.Default.BAND_Y)));
@@ -185,7 +211,7 @@ namespace Log4OMQSLEmailer
                         g.DrawString(mydate, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.DATE_X), int.Parse(Properties.Settings.Default.DATE_Y)));
                         g.DrawString(mytime, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.TIME_X), int.Parse(Properties.Settings.Default.TIME_Y)));
                         g.DrawString(rst, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.RST_X), int.Parse(Properties.Settings.Default.RST_Y)));
-
+                        */
 
 
                         img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid + ".png"), System.Drawing.Imaging.ImageFormat.Png);
@@ -358,14 +384,38 @@ COLUMNS (
                     {
                         continue; // skip printing and sending
                     }
-                    writetolog("," +  myqsoid + ",");
                     Image img = Image.FromFile(listBox1.SelectedItem.ToString());
                     
                     string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR  ,  myqsoid + ".png");
                     //save PNG here
                     Graphics g = Graphics.FromImage(img);
-                    Font font = new Font("Arial", int.Parse(Properties.Settings.Default.FontSize), FontStyle.Bold, GraphicsUnit.Pixel);
+                    //Font font = new Font("Arial", int.Parse(Properties.Settings.Default.FontSize), FontStyle.Bold, GraphicsUnit.Pixel);
 
+                    
+                    QSLLayout ql = new QSLLayout();
+
+                    string layoutfile = listBox1.SelectedItem.ToString();
+                    layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
+                    using (System.IO.StreamReader sr = new System.IO.StreamReader(layoutfile))
+                    {
+                        string sql = sr.ReadToEnd();
+                        ql = JsonConvert.DeserializeObject<QSLLayout>(sql);
+                        sr.Close();
+                    }
+                    Font font = new Font("Arial", ql.FontSize, FontStyle.Bold, GraphicsUnit.Pixel);
+
+
+                    g.DrawString(band, font, Brushes.Black, ql.Band);
+                    g.DrawString(mycall, font, Brushes.Black, ql.Callsign);
+                    g.DrawString(mode, font, Brushes.Black, ql.Mode);
+
+                    g.DrawString(mydate, font, Brushes.Black, ql.Date);
+                    g.DrawString(mytime, font, Brushes.Black, ql.Time);
+                    g.DrawString(rst, font, Brushes.Black, ql.SentRST);
+
+
+
+                    /*
                     g.DrawString(band, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.BAND_X), int.Parse(Properties.Settings.Default.BAND_Y)));
                     g.DrawString(mycall, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.CALL_X), int.Parse(Properties.Settings.Default.CALL_Y)));
                     g.DrawString(mode, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.MODE_X), int.Parse(Properties.Settings.Default.MODE_Y)));
@@ -373,13 +423,14 @@ COLUMNS (
                     g.DrawString(mydate, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.DATE_X), int.Parse(Properties.Settings.Default.DATE_Y)));
                     g.DrawString(mytime, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.TIME_X), int.Parse(Properties.Settings.Default.TIME_Y)));
                     g.DrawString(rst, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.RST_X), int.Parse(Properties.Settings.Default.RST_Y)));
-
+                    */
 
 
                     img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid + ".png"), System.Drawing.Imaging.ImageFormat.Png);
 
                     this.MySendMail(myname, mycall, myfile, myemail,Properties.Settings.Default.MessageBody.Replace("<NAME>",myname));
                     int rc = LookupQSLConformation(myqsoid);
+                    writetolog("," + myqsoid + ",");
                     lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
                     
                     System.Windows.Forms.Application.DoEvents();

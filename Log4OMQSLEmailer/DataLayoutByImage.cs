@@ -109,6 +109,20 @@ namespace Log4OMQSLEmailer
 
         private void button3_Click(object sender, EventArgs e)
         {
+
+
+            ql.Band = new System.Drawing.PointF(int.Parse(txtBandX.Text), int.Parse(txtBandY.Text));
+            ql.Mode = new PointF(int.Parse(txtModeX.Text), int.Parse(txtModeY.Text));
+            ql.Date = new PointF(int.Parse(txtDateX.Text), int.Parse(txtDateY.Text));
+
+            ql.Time = new PointF(int.Parse(txtTimeX.Text), int.Parse(txtTimeY.Text));
+
+            ql.Callsign = new PointF(int.Parse(txtCallX.Text), int.Parse(txtCallY.Text));
+            ql.SentRST = new PointF(int.Parse(txtRSTX.Text), int.Parse(txtRSTY.Text));
+            ql.FontSize = int.Parse(txtFontSize.Text);
+
+
+
             Image img = Image.FromFile(QSLImage);
 
             string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, "TEST" + ".png");
