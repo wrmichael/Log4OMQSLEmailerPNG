@@ -274,9 +274,11 @@ namespace Log4OMQSLEmailer
 
             string imgext = System.IO.Path.GetExtension(listBox1.SelectedItem.ToString());
 
+            string layoutfile = this.listBox1.SelectedItem.ToString();
 
-            string layoutfile = listBox1.SelectedItem.ToString();
-            layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
+            layoutfile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(layoutfile), System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout");
+
+            //layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
             if (!System.IO.File.Exists(layoutfile))
             {
                 MessageBox.Show("Missing layout settings for QSL Image");
@@ -622,7 +624,8 @@ COLUMNS (
 
             string layoutfile = this.listBox1.SelectedItem.ToString();
 
-            layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
+            layoutfile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(layoutfile), System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout");
+
 
             DataLayoutByImage dblbi = new DataLayoutByImage();
             dblbi.QSLImage = this.listBox1.SelectedItem.ToString();

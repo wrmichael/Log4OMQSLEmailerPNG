@@ -14,14 +14,16 @@ namespace Log4OMQSLEmailer
 
         public Image writeImage(string sourceimage, string newImageName, string band, string mode, string mycall, string rst, string mydate, string mytime)
         {
-            string layoutfile = System.IO.Path.GetFileNameWithoutExtension(sourceimage) + ".layout";
+
+            
+            string layoutfile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(sourceimage),System.IO.Path.GetFileNameWithoutExtension(sourceimage) + ".layout");
 
             string sourceExt = System.IO.Path.GetExtension(sourceimage);
 
 
             Image img = Image.FromFile(sourceimage);
 
-            string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, newImageName + "." + sourceExt);
+            //string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, newImageName + "." + sourceExt);
             //save PNG here
             Graphics g = Graphics.FromImage(img);
             //Font font = new Font("Arial", int.Parse(Properties.Settings.Default.FontSize), FontStyle.Bold, GraphicsUnit.Pixel);
