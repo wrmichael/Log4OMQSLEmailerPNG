@@ -100,10 +100,10 @@ namespace Log4OMQSLEmailer
             // 
             // btnQuery
             // 
-            this.btnQuery.Location = new System.Drawing.Point(643, 108);
+            this.btnQuery.Location = new System.Drawing.Point(690, 108);
             this.btnQuery.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnQuery.Name = "btnQuery";
-            this.btnQuery.Size = new System.Drawing.Size(147, 30);
+            this.btnQuery.Size = new System.Drawing.Size(94, 30);
             this.btnQuery.TabIndex = 5;
             this.btnQuery.Text = "Email";
             this.btnQuery.UseVisualStyleBackColor = true;

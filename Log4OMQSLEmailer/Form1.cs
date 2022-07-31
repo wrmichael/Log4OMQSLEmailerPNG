@@ -50,7 +50,9 @@ namespace Log4OMQSLEmailer
 
             foreach (string d in System.IO.Directory.GetFiles(Properties.Settings.Default.QSLDir))
             {
-                if (d.ToUpper().Contains(".PNG"))
+
+
+                if (d.ToUpper().Contains(".PNG") || d.ToUpper().Contains(".JPG"))
                 {
                     listBox1.Items.Add(d);
                 }
@@ -119,6 +121,16 @@ namespace Log4OMQSLEmailer
             }
         }
 
+        string fixADIFTime(string inTime)
+        {
+            return inTime.Substring(0, 2) + ":" + inTime.Substring(2, 2) + ":" + inTime.Substring(4, 2); 
+        }
+
+        string fixDate(string inDate)
+        {
+            return inDate.Substring(4, 2) + "/" + inDate.Substring(6, 2) + "/" + inDate.Substring(0, 4);
+        }
+
         private void ProcessADIF()
         {
 
@@ -138,8 +150,8 @@ namespace Log4OMQSLEmailer
 
                     try
                     {
-                        string mytime = rec.time;
-                        string mydate = rec.date;
+                        string mytime =  fixADIFTime(rec.time);
+                        string mydate = fixDate(rec.date);
                         string mycall = rec.call;
                         string myname = rec.name;
                         string myemail = rec.email;
@@ -171,9 +183,18 @@ namespace Log4OMQSLEmailer
                             continue; // skip printing and sending
                         }
                         //writetolog("," + myqsoid + ",");
-                        Image img = Image.FromFile(listBox1.SelectedItem.ToString());
 
-                        string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid + ".png");
+                        //Image img = Image.FromFile(listBox1.SelectedItem.ToString());
+
+                        string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid);
+
+                        string imgext = System.IO.Path.GetExtension(listBox1.SelectedItem.ToString());
+
+                        ImageWriter iw = new ImageWriter();
+                        
+                            iw.writeImage(listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
+                        
+                        /*
                         //save PNG here
                         Graphics g = Graphics.FromImage(img);
 
@@ -197,7 +218,7 @@ namespace Log4OMQSLEmailer
                         g.DrawString(mydate, font, Brushes.Black, ql.Date);
                         g.DrawString(mytime, font, Brushes.Black, ql.Time);
                         g.DrawString(rst, font, Brushes.Black, ql.SentRST);
-
+                        */
 
 
 
@@ -214,9 +235,9 @@ namespace Log4OMQSLEmailer
                         */
 
 
-                        img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid + ".png"), System.Drawing.Imaging.ImageFormat.Png);
+                        //img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid + ".png"), System.Drawing.Imaging.ImageFormat.Png);
 
-                        this.MySendMail(myname, mycall, myfile, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname));
+                        this.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname));
                         //int rc = LookupQSLConformation(myqsoid);
                         lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
                         writetolog(","+ myqsoid +",");
@@ -224,7 +245,7 @@ namespace Log4OMQSLEmailer
                         try
                         {
                             System.Threading.Thread.Sleep(50);
-                            System.IO.File.Delete(myfile);
+                            System.IO.File.Delete(myfile + imgext);
 
                         }
                         catch (Exception fex)
@@ -251,6 +272,9 @@ namespace Log4OMQSLEmailer
         private void btnQuery_Click(object sender, EventArgs e)
         {
 
+            string imgext = System.IO.Path.GetExtension(listBox1.SelectedItem.ToString());
+
+
             string layoutfile = listBox1.SelectedItem.ToString();
             layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
             if (!System.IO.File.Exists(layoutfile))
@@ -262,6 +286,7 @@ namespace Log4OMQSLEmailer
             if (txtADIFFile.Text.Trim().Length > 0)
             {
                 this.ProcessADIF();
+                MessageBox.Show("complete");
                 return;
             }
 
@@ -392,14 +417,21 @@ COLUMNS (
                     {
                         continue; // skip printing and sending
                     }
-                    Image img = Image.FromFile(listBox1.SelectedItem.ToString());
                     
-                    string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR  ,  myqsoid + ".png");
+                    //Image img = Image.FromFile(listBox1.SelectedItem.ToString());
+                    
+                    string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR  ,  myqsoid );
                     //save PNG here
-                    Graphics g = Graphics.FromImage(img);
+                    
+                    ImageWriter iw = new ImageWriter();
+                    
+                    Image img = iw.writeImage(listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
+
+
+                    //Graphics g = Graphics.FromImage(img);
                     //Font font = new Font("Arial", int.Parse(Properties.Settings.Default.FontSize), FontStyle.Bold, GraphicsUnit.Pixel);
 
-                    
+                    /*
                     QSLLayout ql = new QSLLayout();
 
                     using (System.IO.StreamReader sr = new System.IO.StreamReader(layoutfile))
@@ -407,7 +439,9 @@ COLUMNS (
                         string sql = sr.ReadToEnd();
                         ql = JsonConvert.DeserializeObject<QSLLayout>(sql);
                         sr.Close();
-                    }
+                    }*/
+                    
+                    /*
                     Font font = new Font("Arial", ql.FontSize, FontStyle.Bold, GraphicsUnit.Pixel);
 
 
@@ -429,12 +463,12 @@ COLUMNS (
                     g.DrawString(mydate, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.DATE_X), int.Parse(Properties.Settings.Default.DATE_Y)));
                     g.DrawString(mytime, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.TIME_X), int.Parse(Properties.Settings.Default.TIME_Y)));
                     g.DrawString(rst, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.RST_X), int.Parse(Properties.Settings.Default.RST_Y)));
-                    */
+                    
 
 
                     img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid + ".png"), System.Drawing.Imaging.ImageFormat.Png);
-
-                    this.MySendMail(myname, mycall, myfile, myemail,Properties.Settings.Default.MessageBody.Replace("<NAME>",myname));
+                    */
+                    this.MySendMail(myname, mycall, myfile + imgext, myemail,Properties.Settings.Default.MessageBody.Replace("<NAME>",myname));
                     int rc = LookupQSLConformation(myqsoid);
                     writetolog("," + myqsoid + ",");
                     lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
@@ -443,7 +477,7 @@ COLUMNS (
                     try
                     {
                         System.Threading.Thread.Sleep(50);
-                   System.IO.File.Delete(myfile);
+                   System.IO.File.Delete(myfile + imgext);
 
                 }
                 catch (Exception fex)
@@ -470,6 +504,8 @@ COLUMNS (
             MessageBox.Show("Complete");
 
         }
+
+        
 
         void writetolog(string myqsl)
         {
@@ -528,6 +564,8 @@ COLUMNS (
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            //cmbImageType.Text = "JPG";
             this.button1_Click(sender, e);
             if (System.IO.File.Exists(System.IO.Path.Combine(Properties.Settings.Default.QSLDir, "log.txt")))
             {

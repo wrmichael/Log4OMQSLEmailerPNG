@@ -64,12 +64,13 @@
             this.label19 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblImageSize = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(583, 158);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 0;
@@ -80,7 +81,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(475, 158);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
             this.button2.TabIndex = 1;
@@ -91,7 +92,7 @@
             // txtCallX
             // 
             this.txtCallX.Location = new System.Drawing.Point(75, 89);
-            this.txtCallX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCallX.Margin = new System.Windows.Forms.Padding(4);
             this.txtCallX.Name = "txtCallX";
             this.txtCallX.Size = new System.Drawing.Size(64, 22);
             this.txtCallX.TabIndex = 2;
@@ -99,7 +100,7 @@
             // txtCallY
             // 
             this.txtCallY.Location = new System.Drawing.Point(75, 126);
-            this.txtCallY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCallY.Margin = new System.Windows.Forms.Padding(4);
             this.txtCallY.Name = "txtCallY";
             this.txtCallY.Size = new System.Drawing.Size(64, 22);
             this.txtCallY.TabIndex = 3;
@@ -167,7 +168,7 @@
             // txtDateY
             // 
             this.txtDateY.Location = new System.Drawing.Point(187, 126);
-            this.txtDateY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDateY.Margin = new System.Windows.Forms.Padding(4);
             this.txtDateY.Name = "txtDateY";
             this.txtDateY.Size = new System.Drawing.Size(64, 22);
             this.txtDateY.TabIndex = 8;
@@ -175,7 +176,7 @@
             // txtDateX
             // 
             this.txtDateX.Location = new System.Drawing.Point(187, 89);
-            this.txtDateX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDateX.Margin = new System.Windows.Forms.Padding(4);
             this.txtDateX.Name = "txtDateX";
             this.txtDateX.Size = new System.Drawing.Size(64, 22);
             this.txtDateX.TabIndex = 7;
@@ -213,7 +214,7 @@
             // txtTimeY
             // 
             this.txtTimeY.Location = new System.Drawing.Point(292, 126);
-            this.txtTimeY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTimeY.Margin = new System.Windows.Forms.Padding(4);
             this.txtTimeY.Name = "txtTimeY";
             this.txtTimeY.Size = new System.Drawing.Size(64, 22);
             this.txtTimeY.TabIndex = 13;
@@ -221,7 +222,7 @@
             // txtTimeX
             // 
             this.txtTimeX.Location = new System.Drawing.Point(292, 89);
-            this.txtTimeX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTimeX.Margin = new System.Windows.Forms.Padding(4);
             this.txtTimeX.Name = "txtTimeX";
             this.txtTimeX.Size = new System.Drawing.Size(64, 22);
             this.txtTimeX.TabIndex = 12;
@@ -259,7 +260,7 @@
             // txtModeY
             // 
             this.txtModeY.Location = new System.Drawing.Point(400, 126);
-            this.txtModeY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtModeY.Margin = new System.Windows.Forms.Padding(4);
             this.txtModeY.Name = "txtModeY";
             this.txtModeY.Size = new System.Drawing.Size(64, 22);
             this.txtModeY.TabIndex = 18;
@@ -267,7 +268,7 @@
             // txtModeX
             // 
             this.txtModeX.Location = new System.Drawing.Point(400, 89);
-            this.txtModeX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtModeX.Margin = new System.Windows.Forms.Padding(4);
             this.txtModeX.Name = "txtModeX";
             this.txtModeX.Size = new System.Drawing.Size(64, 22);
             this.txtModeX.TabIndex = 17;
@@ -305,7 +306,7 @@
             // txtBandY
             // 
             this.txtBandY.Location = new System.Drawing.Point(509, 126);
-            this.txtBandY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBandY.Margin = new System.Windows.Forms.Padding(4);
             this.txtBandY.Name = "txtBandY";
             this.txtBandY.Size = new System.Drawing.Size(64, 22);
             this.txtBandY.TabIndex = 23;
@@ -313,7 +314,7 @@
             // txtBandX
             // 
             this.txtBandX.Location = new System.Drawing.Point(509, 93);
-            this.txtBandX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBandX.Margin = new System.Windows.Forms.Padding(4);
             this.txtBandX.Name = "txtBandX";
             this.txtBandX.Size = new System.Drawing.Size(64, 22);
             this.txtBandX.TabIndex = 22;
@@ -351,7 +352,7 @@
             // txtRSTY
             // 
             this.txtRSTY.Location = new System.Drawing.Point(612, 126);
-            this.txtRSTY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtRSTY.Margin = new System.Windows.Forms.Padding(4);
             this.txtRSTY.Name = "txtRSTY";
             this.txtRSTY.Size = new System.Drawing.Size(64, 22);
             this.txtRSTY.TabIndex = 28;
@@ -359,7 +360,7 @@
             // txtRSTX
             // 
             this.txtRSTX.Location = new System.Drawing.Point(612, 89);
-            this.txtRSTX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtRSTX.Margin = new System.Windows.Forms.Padding(4);
             this.txtRSTX.Name = "txtRSTX";
             this.txtRSTX.Size = new System.Drawing.Size(64, 22);
             this.txtRSTX.TabIndex = 27;
@@ -367,7 +368,7 @@
             // txtFontSize
             // 
             this.txtFontSize.Location = new System.Drawing.Point(75, 23);
-            this.txtFontSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFontSize.Margin = new System.Windows.Forms.Padding(4);
             this.txtFontSize.Name = "txtFontSize";
             this.txtFontSize.Size = new System.Drawing.Size(64, 22);
             this.txtFontSize.TabIndex = 32;
@@ -399,11 +400,21 @@
             this.panel1.Size = new System.Drawing.Size(671, 324);
             this.panel1.TabIndex = 35;
             // 
+            // lblImageSize
+            // 
+            this.lblImageSize.AutoSize = true;
+            this.lblImageSize.Location = new System.Drawing.Point(22, 164);
+            this.lblImageSize.Name = "lblImageSize";
+            this.lblImageSize.Size = new System.Drawing.Size(30, 17);
+            this.lblImageSize.TabIndex = 36;
+            this.lblImageSize.Text = "0x0";
+            // 
             // DataLayoutByImage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(708, 529);
+            this.Controls.Add(this.lblImageSize);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label19);
@@ -440,7 +451,7 @@
             this.Controls.Add(this.txtCallX);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DataLayoutByImage";
             this.Text = "DataLayout";
             this.Load += new System.EventHandler(this.DataLayout_Load);
@@ -487,5 +498,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblImageSize;
     }
 }

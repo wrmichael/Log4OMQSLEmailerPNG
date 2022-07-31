@@ -109,6 +109,61 @@ namespace Log4OMQSLEmailer
 
         private void button3_Click(object sender, EventArgs e)
         {
+            
+            if (txtBandX.Text.Equals(""))
+            {
+                txtBandX.Text = "0";
+            }
+            if (txtBandY.Text.Equals(""))
+            {
+                txtBandY.Text = "0";
+            }
+            if (txtModeX.Text.Equals(""))
+            {
+                txtModeX.Text = "0";
+            }
+            if (txtModeY.Text.Equals(""))
+            {
+                txtModeY.Text = "0";
+            }
+            if (txtDateX.Text.Equals(""))
+            {
+                txtDateX.Text = "0";
+            }
+            if (txtDateY.Text.Equals(""))
+            {
+                txtDateY.Text = "0";
+            }
+            if (txtTimeX.Text.Equals(""))
+            {
+                txtTimeX.Text = "0";
+            }
+            if (txtTimeY.Text.Equals(""))
+            {
+                txtTimeY.Text = "0";
+            }
+            if (txtRSTX.Text.Equals(""))
+            {
+                txtRSTX.Text = "0";
+            }
+            if (txtRSTY.Text.Equals(""))
+            {
+                txtRSTY.Text = "0";
+            }
+
+            if (txtCallX.Text.Equals(""))
+            {
+                txtCallX.Text = "0";
+            }
+            if (txtCallY.Text.Equals(""))
+            {
+                txtCallY.Text = "0";
+            }
+
+            if (txtFontSize.Text.Equals(""))
+            {
+                txtFontSize.Text = "100";
+            }
 
 
             ql.Band = new System.Drawing.PointF(int.Parse(txtBandX.Text), int.Parse(txtBandY.Text));
@@ -123,9 +178,19 @@ namespace Log4OMQSLEmailer
 
 
 
+
             Image img = Image.FromFile(QSLImage);
 
-            string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, "TEST" + ".png");
+            lblImageSize.Text = img.Width.ToString() + "/" + img.Height.ToString();
+
+
+
+            ImageWriter iw = new ImageWriter();
+
+            string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, "TEST");
+            img = iw.writeImage(QSLImage, myfile, "160M", "FSK", "A1TST", "599", "YYYY-MM-DD", "HH:MM:SS");
+
+            /*
             //save PNG here
             Graphics g = Graphics.FromImage(img);
             Font font = new Font("Arial", ql.FontSize, FontStyle.Bold, GraphicsUnit.Pixel);
@@ -141,8 +206,8 @@ namespace Log4OMQSLEmailer
 
 
             img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, "TEST" + ".png"), System.Drawing.Imaging.ImageFormat.Png);
-
-
+            */
+            
             panel1.BackgroundImage = ResizeImage(img, panel1.Width, panel1.Height);
             
             panel1.Refresh();
