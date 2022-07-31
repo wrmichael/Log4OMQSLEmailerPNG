@@ -567,8 +567,54 @@ COLUMNS (
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            //cmbImageType.Text = "JPG";
-            this.button1_Click(sender, e);
+            string tmppath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string qslpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (Properties.Settings.Default.TMPDIR.Trim().Length == 0)
+            {
+                //predefine the TMP and QSL folders in documents 
+                
+                tmppath = System.IO.Path.Combine(tmppath, "TMP");
+                Properties.Settings.Default.TMPDIR = tmppath;
+                Properties.Settings.Default.Save();
+                
+            }
+            try
+            {
+                if (!System.IO.Directory.Exists(Properties.Settings.Default.TMPDIR))
+                {
+                    System.IO.Directory.CreateDirectory(Properties.Settings.Default.TMPDIR);
+                }
+            }
+            catch
+            { //ignore for now
+              }
+
+
+
+                if (Properties.Settings.Default.QSLDir.Trim().Length == 0) 
+            { 
+                
+                qslpath = System.IO.Path.Combine(qslpath, "QSL");
+                Properties.Settings.Default.QSLDir = qslpath;
+                Properties.Settings.Default.Save();
+
+
+            }
+                try
+                {
+                    if (!System.IO.Directory.Exists(Properties.Settings.Default.QSLDir))
+                    {
+                        System.IO.Directory.CreateDirectory(Properties.Settings.Default.QSLDir);
+                    }
+                }
+                catch
+                { //ignore for now
+                  }
+
+
+
+                    //cmbImageType.Text = "JPG";
+                    this.button1_Click(sender, e);
             if (System.IO.File.Exists(System.IO.Path.Combine(Properties.Settings.Default.QSLDir, "log.txt")))
             {
                 using (System.IO.StreamReader sr = new System.IO.StreamReader(System.IO.Path.Combine(Properties.Settings.Default.QSLDir, "log.txt")))

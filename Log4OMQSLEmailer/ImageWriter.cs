@@ -30,7 +30,7 @@ namespace Log4OMQSLEmailer
 
 
             QSLLayout ql = new QSLLayout();
-
+       
             using (System.IO.StreamReader sr = new System.IO.StreamReader(layoutfile))
             {
                 string sql = sr.ReadToEnd();

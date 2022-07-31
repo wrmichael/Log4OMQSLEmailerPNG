@@ -80,7 +80,15 @@ namespace Log4OMQSLEmailer
         {
 
 
-            ql.Band =  new System.Drawing.PointF(int.Parse(txtBandX.Text), int.Parse(txtBandY.Text));
+            savelayout();
+            this.Close();
+
+        }
+
+        void savelayout()
+        {
+
+            ql.Band = new System.Drawing.PointF(int.Parse(txtBandX.Text), int.Parse(txtBandY.Text));
             ql.Mode = new PointF(int.Parse(txtModeX.Text), int.Parse(txtModeY.Text));
             ql.Date = new PointF(int.Parse(txtDateX.Text), int.Parse(txtDateY.Text));
 
@@ -97,9 +105,6 @@ namespace Log4OMQSLEmailer
                 sw.Write(sql);
                 sw.Close();
             }
-
-            this.Close();
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -164,7 +169,7 @@ namespace Log4OMQSLEmailer
             {
                 txtFontSize.Text = "100";
             }
-
+            savelayout();
 
             ql.Band = new System.Drawing.PointF(int.Parse(txtBandX.Text), int.Parse(txtBandY.Text));
             ql.Mode = new PointF(int.Parse(txtModeX.Text), int.Parse(txtModeY.Text));
