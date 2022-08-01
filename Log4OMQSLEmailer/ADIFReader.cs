@@ -20,7 +20,7 @@ namespace Log4OMQSLEmailer
         public int count = 0;
         public int index = -1;
         public ADIFRecord currentRecord { get; set; }
-        public void start()
+        public void start(bool mailimage =true)
         {
             GlobalClassSmall gc = new GlobalClassSmall();
             if (ADIFPath.Trim().ToString().Length == 0)
@@ -55,25 +55,37 @@ namespace Log4OMQSLEmailer
                 ADIFRecord rec = new ADIFRecord();
                 int x = 0;
 
-                
+
                 rec.call = getvalue(r, "CALL");
                 rec.band = getvalue(r, "BAND");
                 rec.mode = getvalue(r, "MODE");
                 rec.sent = getvalue(r, "RST_SENT");
                 rec.time = getvalue(r, "TIME_ON");
                 rec.date = getvalue(r, "QSO_DATE");
-                
 
 
-                
+
+
                 //if (gc.getQSLByMail(li.Text,k).Equals("1"))
                 //{
+                if (mailimage)
+                {
                     rec.name = gc.getNameOnly(rec.call, k).Trim();
+                }
                 
                 if (!Properties.Settings.Default.ExclusionList.ToUpper().Contains("," + rec.call + ","))
                 {
-                    rec.email = gc.getEmailOnly(rec.call, k).Trim();
-                    if (rec.email.Trim().Length > 0)
+                    if (mailimage)
+                    {
+                        rec.email = gc.getEmailOnly(rec.call, k).Trim();
+
+                        if (rec.email.Trim().Length > 0)
+                        {
+                            records.Add(rec);
+                            idx++;
+                        }
+                    }
+                    else
                     {
                         records.Add(rec);
                         idx++;

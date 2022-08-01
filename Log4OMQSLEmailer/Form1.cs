@@ -131,7 +131,7 @@ namespace Log4OMQSLEmailer
             return inDate.Substring(4, 2) + "/" + inDate.Substring(6, 2) + "/" + inDate.Substring(0, 4);
         }
 
-        private void ProcessADIF()
+        private void ProcessADIF(bool deleteimage=true, bool mailimage=true)
         {
 
             if (System.IO.File.Exists(txtADIFFile.Text))
@@ -139,7 +139,7 @@ namespace Log4OMQSLEmailer
                 ADIFReader ar = new ADIFReader();
                 ar.ADIFPath = txtADIFFile.Text;
 
-                ar.start();
+                ar.start(mailimage);
                 foreach (ADIFRecord rec in ar.records)
                 {
 
@@ -174,13 +174,16 @@ namespace Log4OMQSLEmailer
                         {
                             continue;
                         }
-                        
-                        
-                        //check to see if it is a DUP 
-                        
-                        if (checklog("," + myqsoid + ","))
+
+
+                        //check to see if it is a DUP
+                        //No reason to add to log if making a local copy only 
+                        if (mailimage)
                         {
-                            continue; // skip printing and sending
+                            if (checklog("," + myqsoid + ","))
+                            {
+                                continue; // skip printing and sending
+                            }
                         }
                         //writetolog("," + myqsoid + ",");
 
@@ -193,60 +196,22 @@ namespace Log4OMQSLEmailer
                         ImageWriter iw = new ImageWriter();
                         
                             iw.writeImage(listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
-                        
-                        /*
-                        //save PNG here
-                        Graphics g = Graphics.FromImage(img);
 
-                        QSLLayout ql = new QSLLayout();
-
-                        string layoutfile = listBox1.SelectedItem.ToString();
-                        layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
-                        using (System.IO.StreamReader sr = new System.IO.StreamReader(layoutfile))
+                        if (mailimage)
                         {
-                            string sql = sr.ReadToEnd();
-                            ql = JsonConvert.DeserializeObject<QSLLayout>(sql);
-                            sr.Close();
+                            this.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname));
+                            //int rc = LookupQSLConformation(myqsoid);
+                            lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
+                            writetolog("," + myqsoid + ",");
                         }
-                        Font font = new Font("Arial", ql.FontSize, FontStyle.Bold, GraphicsUnit.Pixel);
-
-
-                        g.DrawString(band, font, Brushes.Black, ql.Band);
-                        g.DrawString(mycall, font, Brushes.Black, ql.Callsign);
-                        g.DrawString(mode, font, Brushes.Black, ql.Mode);
-
-                        g.DrawString(mydate, font, Brushes.Black, ql.Date);
-                        g.DrawString(mytime, font, Brushes.Black, ql.Time);
-                        g.DrawString(rst, font, Brushes.Black, ql.SentRST);
-                        */
-
-
-
-                        /*
-                        Font font = new Font("Arial", int.Parse(Properties.Settings.Default.FontSize), FontStyle.Bold, GraphicsUnit.Pixel);
-
-                        g.DrawString(band, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.BAND_X), int.Parse(Properties.Settings.Default.BAND_Y)));
-                        g.DrawString(mycall, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.CALL_X), int.Parse(Properties.Settings.Default.CALL_Y)));
-                        g.DrawString(mode, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.MODE_X), int.Parse(Properties.Settings.Default.MODE_Y)));
-
-                        g.DrawString(mydate, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.DATE_X), int.Parse(Properties.Settings.Default.DATE_Y)));
-                        g.DrawString(mytime, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.TIME_X), int.Parse(Properties.Settings.Default.TIME_Y)));
-                        g.DrawString(rst, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.RST_X), int.Parse(Properties.Settings.Default.RST_Y)));
-                        */
-
-
-                        //img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid + ".png"), System.Drawing.Imaging.ImageFormat.Png);
-
-                        this.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname));
-                        //int rc = LookupQSLConformation(myqsoid);
-                        lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
-                        writetolog(","+ myqsoid +",");
                         System.Windows.Forms.Application.DoEvents();
                         try
                         {
-                            System.Threading.Thread.Sleep(50);
-                            System.IO.File.Delete(myfile + imgext);
-
+                            if (deleteimage)
+                            {
+                                System.Threading.Thread.Sleep(50);
+                                System.IO.File.Delete(myfile + imgext);
+                            }
                         }
                         catch (Exception fex)
                         {
@@ -271,6 +236,10 @@ namespace Log4OMQSLEmailer
         
         private void btnQuery_Click(object sender, EventArgs e)
         {
+            ProcessImages();
+
+            return; 
+            //sold code here.   
 
             string imgext = System.IO.Path.GetExtension(listBox1.SelectedItem.ToString());
 
@@ -428,48 +397,7 @@ COLUMNS (
                     ImageWriter iw = new ImageWriter();
                     
                     Image img = iw.writeImage(listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
-
-
-                    //Graphics g = Graphics.FromImage(img);
-                    //Font font = new Font("Arial", int.Parse(Properties.Settings.Default.FontSize), FontStyle.Bold, GraphicsUnit.Pixel);
-
-                    /*
-                    QSLLayout ql = new QSLLayout();
-
-                    using (System.IO.StreamReader sr = new System.IO.StreamReader(layoutfile))
-                    {
-                        string sql = sr.ReadToEnd();
-                        ql = JsonConvert.DeserializeObject<QSLLayout>(sql);
-                        sr.Close();
-                    }*/
                     
-                    /*
-                    Font font = new Font("Arial", ql.FontSize, FontStyle.Bold, GraphicsUnit.Pixel);
-
-
-                    g.DrawString(band, font, Brushes.Black, ql.Band);
-                    g.DrawString(mycall, font, Brushes.Black, ql.Callsign);
-                    g.DrawString(mode, font, Brushes.Black, ql.Mode);
-
-                    g.DrawString(mydate, font, Brushes.Black, ql.Date);
-                    g.DrawString(mytime, font, Brushes.Black, ql.Time);
-                    g.DrawString(rst, font, Brushes.Black, ql.SentRST);
-
-
-
-                    /*
-                    g.DrawString(band, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.BAND_X), int.Parse(Properties.Settings.Default.BAND_Y)));
-                    g.DrawString(mycall, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.CALL_X), int.Parse(Properties.Settings.Default.CALL_Y)));
-                    g.DrawString(mode, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.MODE_X), int.Parse(Properties.Settings.Default.MODE_Y)));
-
-                    g.DrawString(mydate, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.DATE_X), int.Parse(Properties.Settings.Default.DATE_Y)));
-                    g.DrawString(mytime, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.TIME_X), int.Parse(Properties.Settings.Default.TIME_Y)));
-                    g.DrawString(rst, font, Brushes.Black, new PointF(int.Parse(Properties.Settings.Default.RST_X), int.Parse(Properties.Settings.Default.RST_Y)));
-                    
-
-
-                    img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid + ".png"), System.Drawing.Imaging.ImageFormat.Png);
-                    */
                     this.MySendMail(myname, mycall, myfile + imgext, myemail,Properties.Settings.Default.MessageBody.Replace("<NAME>",myname));
                     int rc = LookupQSLConformation(myqsoid);
                     writetolog("," + myqsoid + ",");
@@ -507,7 +435,218 @@ COLUMNS (
 
         }
 
-        
+
+        void ProcessImages(bool deleteimage = true, bool mailimage = true)
+        {
+            if (listBox1.SelectedItem == null)
+            {
+                MessageBox.Show("Select a template first!");
+                return;
+            }
+
+            string imgext = System.IO.Path.GetExtension(listBox1.SelectedItem.ToString());
+
+            string layoutfile = this.listBox1.SelectedItem.ToString();
+
+            layoutfile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(layoutfile), System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout");
+
+            //layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
+            if (!System.IO.File.Exists(layoutfile))
+            {
+                MessageBox.Show("Missing layout settings for QSL Image");
+                return;
+            }
+
+            if (txtADIFFile.Text.Trim().Length > 0)
+            {
+                this.ProcessADIF(deleteimage, mailimage);
+                MessageBox.Show("complete");
+                return;
+            }
+
+            if (listBox1.SelectedIndex == -1)
+            {
+                return;
+            }
+            if (listBox1.SelectedItem.ToString().Trim().Length == 0)
+            {
+                return;
+            }
+
+            if (Properties.Settings.Default.QSLDir.Trim().Length == 0)
+            {
+                return;
+            }
+
+            if (Properties.Settings.Default.TMPDIR.Trim().Length == 0)
+            {
+                return;
+            }
+
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.TMPDIR))
+            {
+                return;
+            }
+            string template = listBox1.SelectedItem.ToString();
+
+
+
+            MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+            {
+                Server = Properties.Settings.Default.DBHost,
+                UserID = Properties.Settings.Default.DBUser,
+                Password = Properties.Settings.Default.DBPassword,
+                Database = Properties.Settings.Default.DBDatabase
+
+            };
+            MySqlConnector.MySqlConnection sqlcon = new MySqlConnector.MySqlConnection(b.ConnectionString);
+            sqlcon.Open();
+            MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+            com.Connection = sqlcon;
+
+            string mysql = "";
+
+            if (txtStart.Text.Trim().Length > 0 & txtEnd.Text.Trim().Length == 0)
+            {
+                mysql = @"select qsoid, callsign, qsodate, email, band, mode, rstsent,name, j.* 
+from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+COLUMNS (
+	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
+    R VARCHAR(10) PATH '$.R', 
+      SV VARCHAR(100) PATH '$.SV',
+      RV VARCHAR(100) PATH '$.RV',
+      SD VARCHAR(100) PATH '$.SD',
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and qsodate > ?qsodate and j.S <> 'Yes' and email <> '';";
+
+                com.CommandText = mysql;
+                com.Parameters.Add("?qsodate", DbType.DateTime).Value = txtStart.Text;
+
+            }
+
+            if (txtStart.Text.Trim().Length > 0 & txtEnd.Text.Trim().Length > 0)
+            {
+                mysql = @"select qsoid, callsign, qsodate, email, band, mode, rstsent,name, j.* 
+from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+COLUMNS (
+	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
+    R VARCHAR(10) PATH '$.R', 
+      SV VARCHAR(100) PATH '$.SV',
+      RV VARCHAR(100) PATH '$.RV',
+      SD VARCHAR(100) PATH '$.SD',
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and qsodate > ?qsodate and qsodate < ?qsodate2  and j.S <> 'Yes' and email <> '';";
+
+                com.CommandText = mysql;
+                com.Parameters.Add("?qsodate", DbType.DateTime).Value = txtStart.Text;
+                com.Parameters.Add("?qsodate2", DbType.DateTime).Value = txtEnd.Text;
+            }
+
+            //com.CommandText = "select * from log where callsign = 'KB9BVN' and email <> '' and qsodate <> '' LIMIT 2";
+            MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+
+
+
+            while (reader.Read())
+            {
+
+
+
+                try
+                {
+                    string mytime = "";
+                    string mydate = "";
+                    string mycall = reader["callsign"].ToString();
+                    string myname = reader["name"].ToString();
+                    string myemail = reader["email"].ToString();
+                    string rst = reader["rstsent"].ToString();
+
+
+
+                    if (Properties.Settings.Default.ExclusionList.Contains("," + mycall.ToUpper().Trim() + ","))
+                    {
+                        continue;
+                    }
+                    try
+                    {
+                        mytime = reader["qsodate"].ToString().Split(' ')[1].Substring(0).Trim();
+                    }
+                    catch (Exception ex)
+                    {
+                        mytime = "";
+                    }
+                    try
+                    {
+
+                        mydate = reader["qsodate"].ToString().Split(' ')[0];
+                    }
+                    catch (Exception ex)
+                    {
+                        mydate = "";
+                    }
+                    string band = reader["band"].ToString();
+                    string mode = reader["mode"].ToString();
+                    string myqsoid = reader["qsoid"].ToString();
+
+
+                    if (mailimage)
+                    {
+                        //check to see if it is a DUP 
+                        if (checklog("," + myqsoid + ","))
+                        {
+                            continue; // skip printing and sending
+                        }
+                    }
+                    //Image img = Image.FromFile(listBox1.SelectedItem.ToString());
+
+                    string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid);
+                    //save PNG here
+
+                    ImageWriter iw = new ImageWriter();
+
+                    Image img = iw.writeImage(listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
+
+                    if (mailimage)
+                    {
+                        this.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname));
+
+                        int rc = LookupQSLConformation(myqsoid);
+                        writetolog("," + myqsoid + ",");
+                        lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
+                    }
+                    System.Windows.Forms.Application.DoEvents();
+                    try
+                    {
+                        System.Threading.Thread.Sleep(50);
+                        if (deleteimage)
+                        {
+                            System.IO.File.Delete(myfile + imgext);
+                        }
+                    }
+                    catch (Exception fex)
+                    {
+                        //ignore this...
+                        System.Console.WriteLine(fex.Message);
+
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error:" + ex.Message);
+
+                }
+
+
+
+                System.Console.WriteLine(reader["callsign"].ToString());
+
+            }
+
+            MessageBox.Show("Complete");
+
+
+        }
+
 
         void writetolog(string myqsl)
         {
@@ -678,6 +817,13 @@ COLUMNS (
             dblbi.LayoutFile = layoutfile;
             dblbi.ShowDialog();
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ProcessImages(false,false);
+            MessageBox.Show("Your files should be in " + Properties.Settings.Default.TMPDIR);
+            
         }
     }
 }
