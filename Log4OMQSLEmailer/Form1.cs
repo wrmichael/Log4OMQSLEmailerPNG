@@ -59,6 +59,66 @@ namespace Log4OMQSLEmailer
             }
         }
 
+        
+        public bool QSLBefore(string callsign, string band, string mode)
+        {
+            bool found =false;
+
+            MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+            {
+                Server = Properties.Settings.Default.DBHost,
+                UserID = Properties.Settings.Default.DBUser,
+                Password = Properties.Settings.Default.DBPassword,
+                Database = Properties.Settings.Default.DBDatabase
+
+            };
+            MySqlConnector.MySqlConnection sqlcon = new MySqlConnector.MySqlConnection(b.ConnectionString);
+
+            sqlcon.Open();
+            string mysql = "select qsoconfirmations from log where callsign = ?callsign and  band = ?band and mode = ?mode";
+
+            MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+            com.Connection = sqlcon;
+            com.CommandText = mysql;
+            com.Parameters.Add("?callsign", MySqlConnector.MySqlDbType.VarChar).Value = callsign;
+            com.Parameters.Add("?band", MySqlConnector.MySqlDbType.VarChar).Value = band;
+            com.Parameters.Add("?mode", MySqlConnector.MySqlDbType.VarChar).Value = mode;
+
+            MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+
+            while(reader.Read())
+            {
+                string ret = reader["qsoconfirmations"].ToString();
+
+                QSLConfirmation[] qsl = JsonConvert.DeserializeObject<QSLConfirmation[]>(ret);
+                //reader.Close();
+                for (int idx = 0; idx < qsl.Count(); idx++)
+                {
+
+                    if (qsl[idx].CT.Equals("QSL"))
+                    {
+                        if (qsl[idx].S.Equals("Yes"))
+                        {
+                            found = true;
+                            break;
+                        }
+
+                    }
+                }
+                if (found)
+                {
+                    break;
+                }
+                
+            }
+
+            reader.Close();
+            
+
+            return found;
+        }
+
+
         public int LookupQSLConformation(string qsoid)
         {
 
@@ -234,6 +294,8 @@ namespace Log4OMQSLEmailer
             }
          }
         
+
+        
         private void btnQuery_Click(object sender, EventArgs e)
         {
             ProcessImages();
@@ -355,13 +417,27 @@ COLUMNS (
                     string myname = reader["name"].ToString();
                     string myemail = reader["email"].ToString();
                     string rst = reader["rstsent"].ToString();
+                    string band = reader["band"].ToString();
+                    string mode = reader["mode"].ToString();
+                    string myqsoid = reader["qsoid"].ToString();
 
-
-
+                    //Exclude people who don't want QSL cards
                     if (Properties.Settings.Default.ExclusionList.Contains("," + mycall.ToUpper().Trim() + ","))
                     {
                         continue;
-                    }                    
+                    }
+
+                    //Check QSL Before 
+                    if (this.ckQSLBefore.Checked)
+                    {
+                        if (QSLBefore(mycall, band, mode))
+                        {
+                            //mark it as NO and skip it 
+                            continue;
+                        }
+                    }
+
+
                     try
                     {
                         mytime = reader["qsodate"].ToString().Split(' ')[1].Substring(0).Trim();
@@ -379,9 +455,7 @@ COLUMNS (
                     {
                         mydate = "";
                     }
-                    string band = reader["band"].ToString();
-                    string mode = reader["mode"].ToString();
-                    string myqsoid = reader["qsoid"].ToString();
+                   
 
                     //check to see if it is a DUP 
                     if (checklog(  "," + myqsoid + ","))
@@ -559,6 +633,16 @@ COLUMNS (
                     string myemail = reader["email"].ToString();
                     string rst = reader["rstsent"].ToString();
 
+                    if (myemail.Contains(" "))
+                    {
+                        //invalid email - skip it 
+                        continue;
+                    }
+                    if (!myemail.Contains("@"))
+                    {
+                        //invalid email - skip it 
+                        continue;
+                    }
 
 
                     if (Properties.Settings.Default.ExclusionList.Contains("," + mycall.ToUpper().Trim() + ","))
@@ -585,6 +669,18 @@ COLUMNS (
                     string band = reader["band"].ToString();
                     string mode = reader["mode"].ToString();
                     string myqsoid = reader["qsoid"].ToString();
+
+
+                    //Check QSL Before 
+                    if (this.ckQSLBefore.Checked)
+                    {
+                        if (QSLBefore(mycall, band, mode))
+                        {
+                            //mark it as NO and skip it 
+                            continue;
+                        }
+                    }
+
 
 
                     if (mailimage)
