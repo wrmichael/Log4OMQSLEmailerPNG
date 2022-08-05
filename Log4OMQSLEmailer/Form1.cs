@@ -48,16 +48,24 @@ namespace Log4OMQSLEmailer
                 return;
             }
 
-            foreach (string d in System.IO.Directory.GetFiles(Properties.Settings.Default.QSLDir))
+            try
             {
-
-
-                if (d.ToUpper().Contains(".PNG") || d.ToUpper().Contains(".JPG"))
+                foreach (string d in System.IO.Directory.GetFiles(Properties.Settings.Default.QSLDir))
                 {
-                    listBox1.Items.Add(d);
+
+
+                    if (d.ToUpper().Contains(".PNG") || d.ToUpper().Contains(".JPG"))
+                    {
+                        listBox1.Items.Add(d);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading QSL folder:" + Properties.Settings.Default.QSLDir + "\r\n"+ ex.Message);
+            }
         }
+
 
         
         public bool QSLBefore(string callsign, string band, string mode)
