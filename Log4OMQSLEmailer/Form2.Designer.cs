@@ -29,6 +29,7 @@ namespace Log4OMQSLEmailer
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -62,7 +63,7 @@ namespace Log4OMQSLEmailer
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(467, 400);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(56, 19);
             this.button1.TabIndex = 0;
@@ -73,7 +74,7 @@ namespace Log4OMQSLEmailer
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(9, 59);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(471, 20);
             this.textBox1.TabIndex = 1;
@@ -91,7 +92,7 @@ namespace Log4OMQSLEmailer
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(535, 400);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(56, 19);
             this.button2.TabIndex = 3;
@@ -102,7 +103,7 @@ namespace Log4OMQSLEmailer
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(494, 60);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(56, 19);
             this.button3.TabIndex = 4;
@@ -113,7 +114,7 @@ namespace Log4OMQSLEmailer
             // txtDBServer
             // 
             this.txtDBServer.Location = new System.Drawing.Point(11, 101);
-            this.txtDBServer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDBServer.Margin = new System.Windows.Forms.Padding(2);
             this.txtDBServer.Name = "txtDBServer";
             this.txtDBServer.Size = new System.Drawing.Size(76, 20);
             this.txtDBServer.TabIndex = 5;
@@ -131,7 +132,7 @@ namespace Log4OMQSLEmailer
             // txtDBUser
             // 
             this.txtDBUser.Location = new System.Drawing.Point(101, 101);
-            this.txtDBUser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDBUser.Margin = new System.Windows.Forms.Padding(2);
             this.txtDBUser.Name = "txtDBUser";
             this.txtDBUser.Size = new System.Drawing.Size(76, 20);
             this.txtDBUser.TabIndex = 7;
@@ -149,7 +150,7 @@ namespace Log4OMQSLEmailer
             // txtDBPWD
             // 
             this.txtDBPWD.Location = new System.Drawing.Point(200, 101);
-            this.txtDBPWD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDBPWD.Margin = new System.Windows.Forms.Padding(2);
             this.txtDBPWD.Name = "txtDBPWD";
             this.txtDBPWD.Size = new System.Drawing.Size(76, 20);
             this.txtDBPWD.TabIndex = 9;
@@ -177,7 +178,7 @@ namespace Log4OMQSLEmailer
             // txtDB
             // 
             this.txtDB.Location = new System.Drawing.Point(290, 101);
-            this.txtDB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDB.Margin = new System.Windows.Forms.Padding(2);
             this.txtDB.Name = "txtDB";
             this.txtDB.Size = new System.Drawing.Size(76, 20);
             this.txtDB.TabIndex = 11;
@@ -215,7 +216,7 @@ namespace Log4OMQSLEmailer
             // txtSMTPHost
             // 
             this.txtSMTPHost.Location = new System.Drawing.Point(9, 149);
-            this.txtSMTPHost.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtSMTPHost.Margin = new System.Windows.Forms.Padding(2);
             this.txtSMTPHost.Name = "txtSMTPHost";
             this.txtSMTPHost.Size = new System.Drawing.Size(76, 20);
             this.txtSMTPHost.TabIndex = 16;
@@ -223,7 +224,7 @@ namespace Log4OMQSLEmailer
             // txtSMTPUser
             // 
             this.txtSMTPUser.Location = new System.Drawing.Point(101, 149);
-            this.txtSMTPUser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtSMTPUser.Margin = new System.Windows.Forms.Padding(2);
             this.txtSMTPUser.Name = "txtSMTPUser";
             this.txtSMTPUser.Size = new System.Drawing.Size(76, 20);
             this.txtSMTPUser.TabIndex = 17;
@@ -231,7 +232,7 @@ namespace Log4OMQSLEmailer
             // txtSMTPPassword
             // 
             this.txtSMTPPassword.Location = new System.Drawing.Point(190, 149);
-            this.txtSMTPPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtSMTPPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtSMTPPassword.Name = "txtSMTPPassword";
             this.txtSMTPPassword.Size = new System.Drawing.Size(86, 20);
             this.txtSMTPPassword.TabIndex = 18;
@@ -240,7 +241,7 @@ namespace Log4OMQSLEmailer
             // txtSMTPPort
             // 
             this.txtSMTPPort.Location = new System.Drawing.Point(290, 149);
-            this.txtSMTPPort.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtSMTPPort.Margin = new System.Windows.Forms.Padding(2);
             this.txtSMTPPort.Name = "txtSMTPPort";
             this.txtSMTPPort.Size = new System.Drawing.Size(86, 20);
             this.txtSMTPPort.TabIndex = 19;
@@ -258,7 +259,7 @@ namespace Log4OMQSLEmailer
             // txtBody
             // 
             this.txtBody.Location = new System.Drawing.Point(9, 192);
-            this.txtBody.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBody.Margin = new System.Windows.Forms.Padding(2);
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
             this.txtBody.Size = new System.Drawing.Size(583, 134);
@@ -287,7 +288,7 @@ namespace Log4OMQSLEmailer
             // txtExclusionList
             // 
             this.txtExclusionList.Location = new System.Drawing.Point(9, 350);
-            this.txtExclusionList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtExclusionList.Margin = new System.Windows.Forms.Padding(2);
             this.txtExclusionList.Multiline = true;
             this.txtExclusionList.Name = "txtExclusionList";
             this.txtExclusionList.Size = new System.Drawing.Size(583, 46);
@@ -355,7 +356,8 @@ namespace Log4OMQSLEmailer
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form2";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.Form2_Load);

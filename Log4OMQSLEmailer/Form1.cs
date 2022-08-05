@@ -533,6 +533,7 @@ COLUMNS (
 
             if (txtADIFFile.Text.Trim().Length > 0)
             {
+                lstlog.Items.Add("Processing ADIF file: " + txtADIFFile.Text.Trim());
                 this.ProcessADIF(deleteimage, mailimage);
                 MessageBox.Show("complete");
                 return;
@@ -540,25 +541,30 @@ COLUMNS (
 
             if (listBox1.SelectedIndex == -1)
             {
+                lstlog.Items.Add("Must select a template first");
                 return;
             }
             if (listBox1.SelectedItem.ToString().Trim().Length == 0)
             {
+                lstlog.Items.Add("Must select a template first");
                 return;
             }
 
             if (Properties.Settings.Default.QSLDir.Trim().Length == 0)
             {
+                lstlog.Items.Add("QSL Folder is not defined. See settings");
                 return;
             }
 
             if (Properties.Settings.Default.TMPDIR.Trim().Length == 0)
             {
+                lstlog.Items.Add("TMP directory must be defined. See settings");
                 return;
             }
 
             if (!System.IO.Directory.Exists(Properties.Settings.Default.TMPDIR))
             {
+                lstlog.Items.Add("TMP directory does not exist.  Please create or select a new folder.");
                 return;
             }
             string template = listBox1.SelectedItem.ToString();
@@ -635,11 +641,13 @@ COLUMNS (
 
                     if (myemail.Contains(" "))
                     {
+                        lstlog.Items.Add("Invalid Email for " + mycall + " - " +myemail);
                         //invalid email - skip it 
                         continue;
                     }
                     if (!myemail.Contains("@"))
                     {
+                        lstlog.Items.Add("Invalid Email for " + mycall + " - " + myemail);
                         //invalid email - skip it 
                         continue;
                     }
@@ -647,6 +655,7 @@ COLUMNS (
 
                     if (Properties.Settings.Default.ExclusionList.Contains("," + mycall.ToUpper().Trim() + ","))
                     {
+                        lstlog.Items.Add( mycall + " - Exclusion list - do not process");
                         continue;
                     }
                     try
@@ -676,6 +685,7 @@ COLUMNS (
                     {
                         if (QSLBefore(mycall, band, mode))
                         {
+                            lstlog.Items.Add(mycall + " - QSL Before (Band/mode/call)");
                             //mark it as NO and skip it 
                             continue;
                         }
@@ -688,6 +698,7 @@ COLUMNS (
                         //check to see if it is a DUP 
                         if (checklog("," + myqsoid + ","))
                         {
+                            lstlog.Items.Add(myqsoid + " - Duplicate processing,  skipping!");
                             continue; // skip printing and sending
                         }
                     }
@@ -719,6 +730,7 @@ COLUMNS (
                     }
                     catch (Exception fex)
                     {
+                        lstlog.Items.Add(mycall + " - QSOID:" + myqsoid + " - " + myfile + imgext + " error deleting file: " + fex.Message);
                         //ignore this...
                         System.Console.WriteLine(fex.Message);
 
@@ -728,6 +740,8 @@ COLUMNS (
                 }
                 catch (Exception ex)
                 {
+                    lstlog.Items.Add("General error: " + ex.Message);
+                         
                     MessageBox.Show("Error:" + ex.Message);
 
                 }

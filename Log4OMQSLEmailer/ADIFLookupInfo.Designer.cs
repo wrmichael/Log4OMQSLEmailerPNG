@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ADIFLookupInfo));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.txtQRZUser = new System.Windows.Forms.TextBox();
@@ -46,10 +47,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(653, 271);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(490, 220);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 28);
+            this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = true;
@@ -57,10 +57,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(533, 271);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Location = new System.Drawing.Point(400, 220);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 28);
+            this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
             this.button2.Text = "Close";
             this.button2.UseVisualStyleBackColor = true;
@@ -68,10 +67,9 @@
             // 
             // txtQRZUser
             // 
-            this.txtQRZUser.Location = new System.Drawing.Point(8, 66);
-            this.txtQRZUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtQRZUser.Location = new System.Drawing.Point(6, 54);
             this.txtQRZUser.Name = "txtQRZUser";
-            this.txtQRZUser.Size = new System.Drawing.Size(132, 22);
+            this.txtQRZUser.Size = new System.Drawing.Size(100, 20);
             this.txtQRZUser.TabIndex = 3;
             this.txtQRZUser.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -81,11 +79,9 @@
             this.groupBox1.Controls.Add(this.txtQRZPwd);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtQRZUser);
-            this.groupBox1.Location = new System.Drawing.Point(16, 58);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Location = new System.Drawing.Point(12, 47);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox1.Size = new System.Drawing.Size(355, 190);
+            this.groupBox1.Size = new System.Drawing.Size(266, 154);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "QRZ Lookup";
@@ -93,29 +89,26 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 103);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(7, 84);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 17);
+            this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Password";
             // 
             // txtQRZPwd
             // 
-            this.txtQRZPwd.Location = new System.Drawing.Point(8, 122);
-            this.txtQRZPwd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtQRZPwd.Location = new System.Drawing.Point(6, 99);
             this.txtQRZPwd.Name = "txtQRZPwd";
             this.txtQRZPwd.PasswordChar = '*';
-            this.txtQRZPwd.Size = new System.Drawing.Size(132, 22);
+            this.txtQRZPwd.Size = new System.Drawing.Size(100, 20);
             this.txtQRZPwd.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 48);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(7, 39);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 17);
+            this.label1.Size = new System.Drawing.Size(60, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "User Name";
             // 
@@ -125,11 +118,9 @@
             this.groupBox2.Controls.Add(this.txtQRZCWPwd);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.txtQRZCQUser);
-            this.groupBox2.Location = new System.Drawing.Point(399, 58);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Location = new System.Drawing.Point(299, 47);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox2.Size = new System.Drawing.Size(355, 190);
+            this.groupBox2.Size = new System.Drawing.Size(266, 154);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "QRZCQ Lookup";
@@ -137,50 +128,46 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 103);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(7, 84);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 17);
+            this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Password";
             // 
             // txtQRZCWPwd
             // 
-            this.txtQRZCWPwd.Location = new System.Drawing.Point(8, 122);
-            this.txtQRZCWPwd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtQRZCWPwd.Location = new System.Drawing.Point(6, 99);
             this.txtQRZCWPwd.Name = "txtQRZCWPwd";
             this.txtQRZCWPwd.PasswordChar = '*';
-            this.txtQRZCWPwd.Size = new System.Drawing.Size(132, 22);
+            this.txtQRZCWPwd.Size = new System.Drawing.Size(100, 20);
             this.txtQRZCWPwd.TabIndex = 5;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 48);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(7, 39);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(79, 17);
+            this.label4.Size = new System.Drawing.Size(60, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "User Name";
             // 
             // txtQRZCQUser
             // 
-            this.txtQRZCQUser.Location = new System.Drawing.Point(8, 66);
-            this.txtQRZCQUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtQRZCQUser.Location = new System.Drawing.Point(6, 54);
             this.txtQRZCQUser.Name = "txtQRZCQUser";
-            this.txtQRZCQUser.Size = new System.Drawing.Size(132, 22);
+            this.txtQRZCQUser.Size = new System.Drawing.Size(100, 20);
             this.txtQRZCQUser.TabIndex = 3;
             // 
             // ADIFLookupInfo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(788, 348);
+            this.ClientSize = new System.Drawing.Size(591, 283);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ADIFLookupInfo";
             this.Text = "Lookup Information";
             this.Load += new System.EventHandler(this.ADIFLookupInfo_Load);
