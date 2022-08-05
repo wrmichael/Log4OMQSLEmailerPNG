@@ -152,6 +152,7 @@ namespace Log4OMQSLEmailer
             this.txtDBPWD.Location = new System.Drawing.Point(200, 101);
             this.txtDBPWD.Margin = new System.Windows.Forms.Padding(2);
             this.txtDBPWD.Name = "txtDBPWD";
+            this.txtDBPWD.PasswordChar = '*';
             this.txtDBPWD.Size = new System.Drawing.Size(76, 20);
             this.txtDBPWD.TabIndex = 9;
             // 
@@ -234,6 +235,7 @@ namespace Log4OMQSLEmailer
             this.txtSMTPPassword.Location = new System.Drawing.Point(190, 149);
             this.txtSMTPPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtSMTPPassword.Name = "txtSMTPPassword";
+            this.txtSMTPPassword.PasswordChar = '*';
             this.txtSMTPPassword.Size = new System.Drawing.Size(86, 20);
             this.txtSMTPPassword.TabIndex = 18;
             this.txtSMTPPassword.TextChanged += new System.EventHandler(this.txtSMTPPassword_TextChanged);
