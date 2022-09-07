@@ -83,6 +83,12 @@
     </Compile>
     <Compile Include="ADIFReader.cs" />
     <Compile Include="ADIFRecord.cs" />
+    <Compile Include="ByCallSign.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ByCallSign.Designer.cs">
+      <DependentUpon>ByCallSign.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataLayoutByImage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     <Compile Include="QSLLayout.cs" />
     <EmbeddedResource Include="ADIFLookupInfo.resx">
       <DependentUpon>ADIFLookupInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ByCallSign.resx">
+      <DependentUpon>ByCallSign.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataLayoutByImage.resx">
       <DependentUpon>DataLayoutByImage.cs</DependentUpon>

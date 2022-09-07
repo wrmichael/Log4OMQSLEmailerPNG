@@ -52,13 +52,15 @@ namespace Log4OMQSLEmailer
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.ckQSLBefore = new System.Windows.Forms.CheckBox();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.callsignToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtStart
             // 
             this.txtStart.Location = new System.Drawing.Point(6, 88);
-            this.txtStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtStart.Margin = new System.Windows.Forms.Padding(2);
             this.txtStart.Name = "txtStart";
             this.txtStart.Size = new System.Drawing.Size(132, 20);
             this.txtStart.TabIndex = 0;
@@ -87,7 +89,7 @@ namespace Log4OMQSLEmailer
             // txtEnd
             // 
             this.txtEnd.Location = new System.Drawing.Point(151, 88);
-            this.txtEnd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEnd.Margin = new System.Windows.Forms.Padding(2);
             this.txtEnd.Name = "txtEnd";
             this.txtEnd.Size = new System.Drawing.Size(138, 20);
             this.txtEnd.TabIndex = 2;
@@ -96,7 +98,7 @@ namespace Log4OMQSLEmailer
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(6, 128);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
             this.listBox1.ScrollAlwaysVisible = true;
             this.listBox1.Size = new System.Drawing.Size(583, 82);
@@ -105,7 +107,7 @@ namespace Log4OMQSLEmailer
             // btnQuery
             // 
             this.btnQuery.Location = new System.Drawing.Point(492, 67);
-            this.btnQuery.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnQuery.Margin = new System.Windows.Forms.Padding(2);
             this.btnQuery.Name = "btnQuery";
             this.btnQuery.Size = new System.Drawing.Size(45, 24);
             this.btnQuery.TabIndex = 5;
@@ -117,7 +119,8 @@ namespace Log4OMQSLEmailer
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.searchToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -176,7 +179,7 @@ namespace Log4OMQSLEmailer
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(533, 214);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(56, 19);
             this.button1.TabIndex = 7;
@@ -188,7 +191,7 @@ namespace Log4OMQSLEmailer
             // 
             this.lstlog.FormattingEnabled = true;
             this.lstlog.Location = new System.Drawing.Point(6, 234);
-            this.lstlog.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lstlog.Margin = new System.Windows.Forms.Padding(2);
             this.lstlog.Name = "lstlog";
             this.lstlog.ScrollAlwaysVisible = true;
             this.lstlog.Size = new System.Drawing.Size(583, 160);
@@ -233,7 +236,7 @@ namespace Log4OMQSLEmailer
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(464, 214);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(56, 19);
             this.button3.TabIndex = 13;
@@ -244,7 +247,7 @@ namespace Log4OMQSLEmailer
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(496, 94);
-            this.button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(76, 24);
             this.button4.TabIndex = 14;
@@ -263,6 +266,21 @@ namespace Log4OMQSLEmailer
             this.ckQSLBefore.TabIndex = 15;
             this.ckQSLBefore.Text = "Filter QSL Before";
             this.ckQSLBefore.UseVisualStyleBackColor = true;
+            // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.callsignToolStripMenuItem});
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.searchToolStripMenuItem.Text = "Search";
+            // 
+            // callsignToolStripMenuItem
+            // 
+            this.callsignToolStripMenuItem.Name = "callsignToolStripMenuItem";
+            this.callsignToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.callsignToolStripMenuItem.Text = "Callsign";
+            this.callsignToolStripMenuItem.Click += new System.EventHandler(this.callsignToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -287,7 +305,7 @@ namespace Log4OMQSLEmailer
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "QSL Emailer";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -304,14 +322,12 @@ namespace Log4OMQSLEmailer
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtEnd;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button btnQuery;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox lstlog;
         private System.Windows.Forms.ToolStripMenuItem layoytSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aDIFToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lookupInfoToolStripMenuItem;
@@ -322,6 +338,10 @@ namespace Log4OMQSLEmailer
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox ckQSLBefore;
+        private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem callsignToolStripMenuItem;
+        public System.Windows.Forms.ListBox listBox1;
+        public System.Windows.Forms.ListBox lstlog;
     }
 }
 

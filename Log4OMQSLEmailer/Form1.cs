@@ -766,7 +766,7 @@ COLUMNS (
         }
 
 
-        void writetolog(string myqsl)
+        public void writetolog(string myqsl)
         {
             try
             {
@@ -793,7 +793,7 @@ COLUMNS (
 
         }
 
-        void MySendMail(string name, string call, string attachment, string email,string mybody)
+        public void MySendMail(string name, string call, string attachment, string email,string mybody)
         {
             using (System.Net.Mail.MailMessage mm = new System.Net.Mail.MailMessage())
             {
@@ -942,6 +942,14 @@ COLUMNS (
             ProcessImages(false,false);
             MessageBox.Show("Your files should be in " + Properties.Settings.Default.TMPDIR);
             
+        }
+
+        private void callsignToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ByCallSign bcs = new ByCallSign();
+            bcs.form1 = this;
+            bcs.ShowDialog();
+
         }
     }
 }
