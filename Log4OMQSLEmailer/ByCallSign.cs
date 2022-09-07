@@ -91,6 +91,7 @@ COLUMNS (
                     li.Text = myqsoid;
                     li.SubItems.Add(mycall);
                     li.SubItems.Add(mydate);
+                    li.SubItems.Add(mytime);
                     li.SubItems.Add(myemail);
                     li.SubItems.Add(band);
                     li.SubItems.Add(mode);
@@ -143,8 +144,10 @@ COLUMNS (
                 MessageBox.Show("Call Sign is on exclusion list.  Cannot continue!");
                     return;
             }
-
+            listView1.Items.Clear();
             this.QueryByCallSign();
+            listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listView1.Refresh();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -156,31 +159,15 @@ COLUMNS (
                 //"qsoid,callsign,qsodate,email,band,mode,rstsent,name"
                 string mycall = item.SubItems[1].Text;
                 string myqsoid = item.SubItems[0].Text;
-                string band = item.SubItems[4].Text;
-                string mydate; // = item.SubItems[2].Text;
-                string myname = item.SubItems[7].Text;
-                string rst = item.SubItems[6].Text.Trim();
-                string mode = item.SubItems[5].Text;    
-                string myemail = item.SubItems[3].Text;
-                string mytime; // = item.SubItems[3].Text;
+                string band = item.SubItems[5].Text;
+                string mydate = item.SubItems[2].Text;
+                string myname = item.SubItems[8].Text;
+                string rst = item.SubItems[7].Text.Trim();
+                string mode = item.SubItems[6].Text;    
+                string myemail = item.SubItems[4].Text;
+                string mytime = item.SubItems[3].Text;
 
-                try
-                {
-                    mytime = item.SubItems[2].ToString().Split(' ')[1].Substring(0).Trim();
-                }
-                catch (Exception ex)
-                {
-                    mytime = "";
-                }
-                try
-                {
-
-                    mydate = item.SubItems[2].ToString().Split(' ')[0];
-                }
-                catch (Exception ex)
-                {
-                    mydate = "";
-                }
+               
 
 
 
@@ -212,6 +199,20 @@ COLUMNS (
                 }
             }
 
+        }
+
+        private void txtCallSign_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCallSign_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter )
+            {
+                button1_Click(sender, new EventArgs());
+
+            }
         }
     }
 }

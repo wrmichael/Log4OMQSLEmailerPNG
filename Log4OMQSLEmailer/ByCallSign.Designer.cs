@@ -59,6 +59,8 @@
             this.txtCallSign.Name = "txtCallSign";
             this.txtCallSign.Size = new System.Drawing.Size(118, 20);
             this.txtCallSign.TabIndex = 2;
+            this.txtCallSign.TextChanged += new System.EventHandler(this.txtCallSign_TextChanged);
+            this.txtCallSign.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCallSign_KeyPress);
             // 
             // button2
             // 
@@ -80,7 +82,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listView1);
             this.Name = "ByCallSign";
-            this.Text = "By Call Sign";
+            this.Text = "By Call Sign - This will search LOG4OM and update QSL status";
             this.Load += new System.EventHandler(this.ByCallSign_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -272,14 +272,14 @@ namespace Log4OMQSLEmailer
             this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.callsignToolStripMenuItem});
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.searchToolStripMenuItem.Text = "Search";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.searchToolStripMenuItem.Text = "Send";
             // 
             // callsignToolStripMenuItem
             // 
             this.callsignToolStripMenuItem.Name = "callsignToolStripMenuItem";
             this.callsignToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.callsignToolStripMenuItem.Text = "Callsign";
+            this.callsignToolStripMenuItem.Text = "By Callsign";
             this.callsignToolStripMenuItem.Click += new System.EventHandler(this.callsignToolStripMenuItem_Click);
             // 
             // Form1
