@@ -134,6 +134,7 @@ COLUMNS (
                     listView1.Columns.Add(s);
                 }
             }
+            button3_Click(sender, e);
 
         }
 
@@ -152,7 +153,7 @@ COLUMNS (
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string imgext = System.IO.Path.GetExtension(form1.listBox1.SelectedItem.ToString());
+            string imgext = System.IO.Path.GetExtension(this.listBox1.SelectedItem.ToString());
 
             foreach (ListViewItem item in listView1.SelectedItems)
             {
@@ -174,7 +175,7 @@ COLUMNS (
                 ImageWriter iw = new ImageWriter();
                 string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid);
 
-                Image img = iw.writeImage(form1.listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
+                Image img = iw.writeImage(this.listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
 
 
                 form1.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname));
@@ -212,6 +213,36 @@ COLUMNS (
             {
                 button1_Click(sender, new EventArgs());
 
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.QSLDir.Trim().Length == 0)
+            {
+                return;
+            }
+
+            try
+            {
+                foreach (string d in System.IO.Directory.GetFiles(Properties.Settings.Default.QSLDir))
+                {
+
+
+                    if (d.ToUpper().Contains(".PNG") || d.ToUpper().Contains(".JPG"))
+                    {
+                        listBox1.Items.Add(d);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading QSL folder:" + Properties.Settings.Default.QSLDir + "\r\n" + ex.Message);
             }
         }
     }
