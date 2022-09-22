@@ -43,6 +43,7 @@ namespace Log4OMQSLEmailer
 
         private void button1_Click(object sender, EventArgs e)
         {
+            listBox1.Items.Clear();
             if (Properties.Settings.Default.QSLDir.Trim().Length == 0)
             {
                 return;

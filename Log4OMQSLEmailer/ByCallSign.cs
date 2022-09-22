@@ -118,7 +118,7 @@ COLUMNS (
         private void ByCallSign_Load(object sender, EventArgs e)
         {
 
-            string[] qsofields = "qsoid,callsign,qsodate,email,band,mode,rstsent,name".Split(',');
+            string[] qsofields = "qsoid,callsign,qsodate,qsotime,email,band,mode,rstsent,name".Split(',');
 
 
             listView1.Items.Clear();
