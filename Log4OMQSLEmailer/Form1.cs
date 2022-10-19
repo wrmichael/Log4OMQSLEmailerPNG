@@ -660,7 +660,11 @@ COLUMNS (
                         //invalid email - skip it 
                         continue;
                     }
-
+                    if (myemail.ToUpper().Contains("ARRL.NET"))
+                    {
+                        lstlog.Items.Add("Skipping - ARRL Blocks as SPAM - Invalid Email for " + mycall + " - " + myemail);
+                        continue;
+                    }
 
                     if (Properties.Settings.Default.ExclusionList.Contains("," + mycall.ToUpper().Trim() + ","))
                     {
