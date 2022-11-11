@@ -376,7 +376,7 @@ namespace Log4OMQSLEmailer
 
             if (txtStart.Text.Trim().Length > 0 & txtEnd.Text.Trim().Length == 0)
             {
-                mysql = @"select qsoid, callsign, qsodate, email, band, mode, rstsent,name, j.* 
+                mysql = @"select qsoid, callsign,  DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
 from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
 COLUMNS (
 	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
@@ -393,7 +393,7 @@ COLUMNS (
 
             if (txtStart.Text.Trim().Length > 0 & txtEnd.Text.Trim().Length > 0)
             {
-                mysql = @"select qsoid, callsign, qsodate, email, band, mode, rstsent,name, j.* 
+                mysql = @"select qsoid, callsign,  DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
 from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
 COLUMNS (
 	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
@@ -597,7 +597,7 @@ COLUMNS (
 
             if (txtStart.Text.Trim().Length > 0 & txtEnd.Text.Trim().Length == 0)
             {
-                mysql = @"select qsoid, callsign, qsodate, email, band, mode, rstsent,name, j.* 
+                mysql = @"select qsoid, callsign,  DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
 from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
 COLUMNS (
 	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
@@ -614,7 +614,7 @@ COLUMNS (
 
             if (txtStart.Text.Trim().Length > 0 & txtEnd.Text.Trim().Length > 0)
             {
-                mysql = @"select qsoid, callsign, qsodate, email, band, mode, rstsent,name, j.* 
+                mysql = @"select qsoid, callsign,  DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
 from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
 COLUMNS (
 	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
@@ -660,7 +660,7 @@ COLUMNS (
                         //invalid email - skip it 
                         continue;
                     }
-                    if (myemail.ToUpper().Contains("ARRL.NET"))
+                    if (myemail.ToUpper().Contains("ARRL.NET"))  //TO DO MAKE THIS OPTIONAL 
                     {
                         lstlog.Items.Add("Skipping - ARRL Blocks as SPAM - Invalid Email for " + mycall + " - " + myemail);
                         continue;

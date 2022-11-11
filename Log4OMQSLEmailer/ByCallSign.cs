@@ -25,9 +25,12 @@ namespace Log4OMQSLEmailer
                 Server = Properties.Settings.Default.DBHost,
                 UserID = Properties.Settings.Default.DBUser,
                 Password = Properties.Settings.Default.DBPassword,
-                Database = Properties.Settings.Default.DBDatabase
+                Database = Properties.Settings.Default.DBDatabase,
+                DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
+                
 
             };
+//            b.DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc;
             MySqlConnector.MySqlConnection sqlcon = new MySqlConnector.MySqlConnection(b.ConnectionString);
             sqlcon.Open();
             MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
@@ -36,7 +39,7 @@ namespace Log4OMQSLEmailer
             string mysql = "";
 
 
-            mysql = @"select qsoid, callsign, qsodate, email, band, mode, rstsent,name, j.* 
+            mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
 from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
 COLUMNS (
 	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
@@ -47,9 +50,12 @@ COLUMNS (
       RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and email <> '' and callsign = ?callsign;";
 
             com.CommandText = mysql;
+            
             com.Parameters.Add("?callsign", DbType.DateTime).Value = txtCallSign.Text;
+            
             MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
 
+            
             while (reader.Read())
             {
 
