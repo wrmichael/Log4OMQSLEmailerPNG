@@ -205,15 +205,35 @@ namespace Log4OMQSLEmailer
 
             if (System.IO.File.Exists(txtADIFFile.Text))
             {
+                if (Program.X_DEBUG)
+                {
+                    writetodebuglog("ADIF exists ");
+                }
                 ADIFReader ar = new ADIFReader();
                 ar.ADIFPath = txtADIFFile.Text;
 
                 ar.start(mailimage);
+
+                if (Program.X_DEBUG)
+                {
+                    writetodebuglog("Before record loop");
+                    writetodebuglog("count:" + ar.count.ToString());
+                }
+                
+
                 foreach (ADIFRecord rec in ar.records)
                 {
-
+                    if (Program.X_DEBUG)
+                    {
+                        writetodebuglog("Loop Start ADIF ");
+                    }
                     if (rec.email.Trim().Length == 0)
                     {
+                        if (Program.X_DEBUG)
+                        {
+                            writetodebuglog("missing email 1");
+                            
+                        }
                         continue;
                     }
 
@@ -241,6 +261,11 @@ namespace Log4OMQSLEmailer
 
                         if (Properties.Settings.Default.ExclusionList.Contains("," + mycall.ToUpper().Trim() + ","))
                         {
+                            if (Program.X_DEBUG)
+                            {
+                                writetodebuglog("in excluded list:" + mycall);
+
+                            }
                             continue;
                         }
 
@@ -251,6 +276,11 @@ namespace Log4OMQSLEmailer
                         {
                             if (checklog("," + myqsoid + ","))
                             {
+                                if (Program.X_DEBUG)
+                                {
+                                    writetodebuglog("Already send qsoid " + myqsoid);
+                                }
+
                                 continue; // skip printing and sending
                             }
                         }
@@ -261,10 +291,19 @@ namespace Log4OMQSLEmailer
                         string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, myqsoid);
 
                         string imgext = System.IO.Path.GetExtension(listBox1.SelectedItem.ToString());
+                        if (Program.X_DEBUG)
+                        {
+                            writetodebuglog("Before Image write ");
+                        }
 
                         ImageWriter iw = new ImageWriter();
                         
                             iw.writeImage(listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
+
+                        if (Program.X_DEBUG)
+                        {
+                            writetodebuglog("After Image Write  ");
+                        }
 
                         if (mailimage)
                         {
@@ -272,6 +311,12 @@ namespace Log4OMQSLEmailer
                             //int rc = LookupQSLConformation(myqsoid);
                             lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
                             writetolog("," + myqsoid + ",");
+                            if (Program.X_DEBUG)
+                            {
+                                writetodebuglog("Mail message success!"  );
+
+                            }
+
                         }
                         System.Windows.Forms.Application.DoEvents();
                         try
@@ -298,8 +343,11 @@ namespace Log4OMQSLEmailer
                     }
 
                 }
+                if (Program.X_DEBUG)
+                {
+                    writetodebuglog("After record loop");
 
-
+                }
             }
          }
         
@@ -542,8 +590,16 @@ COLUMNS (
 
             if (txtADIFFile.Text.Trim().Length > 0)
             {
+                if (Program.X_DEBUG)
+                {
+                    writetodebuglog("Starting ADIF ");
+                }
                 lstlog.Items.Add("Processing ADIF file: " + txtADIFFile.Text.Trim());
                 this.ProcessADIF(deleteimage, mailimage);
+                if (Program.X_DEBUG)
+                {
+                    writetodebuglog("ADIF Complete");
+                }
                 MessageBox.Show("complete");
                 return;
             }
@@ -770,6 +826,26 @@ COLUMNS (
 
         }
 
+        public void writetodebuglog(string m)
+        {
+            try
+            {
+                using (System.IO.StreamWriter sw = new System.IO.StreamWriter(System.IO.Path.Combine(Properties.Settings.Default.QSLDir, "debug_log.txt"), true))
+                {
+                    sw.WriteLine(m);
+                    sw.Close();
+                }
+             
+            }
+            catch (Exception ex)
+            {
+                listBox1.Items.Add("Error writing to debug log: " + m + " -- " + ex.Message);
+                //its only a hobby - move on...             
+            }
+        }
+
+        
+
 
         public void writetolog(string myqsl)
         {
@@ -805,17 +881,25 @@ COLUMNS (
 
                 mm.To.Add(email);
                 mm.From = new MailAddress(Properties.Settings.Default.SMTPUser);
-                mm.Subject = "QSL for QSO with AC9HP";
+                mm.Subject = "QSL for QSO";
                 mm.Body = mybody;
                 mm.Attachments.Add(new Attachment(attachment));
 
-                SmtpClient smtp = new SmtpClient("smtp-mail.outlook.com", 587);
-                System.Net.NetworkCredential nc = new System.Net.NetworkCredential("wrmichael@hotmail.com", "Ankle45DeepSecurity");
+
+
+                SmtpClient smtp = new SmtpClient(Properties.Settings.Default.SMTPHost, int.Parse(Properties.Settings.Default.SMTPPort));
+                System.Net.NetworkCredential nc = new System.Net.NetworkCredential(Properties.Settings.Default.SMTPUser, Properties.Settings.Default.SMTPPassword);
                 smtp.Credentials = nc;
                 try
                 {
                     smtp.EnableSsl = true;
                     smtp.Send(mm);
+                    if (Program.X_DEBUG)
+                    {
+                        writetodebuglog("SMPT Call made!");
+
+                    }
+
                 }
                 catch (Exception ex)
                 {
