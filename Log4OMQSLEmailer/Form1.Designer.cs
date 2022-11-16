@@ -43,6 +43,8 @@ namespace Log4OMQSLEmailer
             this.lookupInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.layoytSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.callsignToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.lstlog = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,8 +54,7 @@ namespace Log4OMQSLEmailer
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.ckQSLBefore = new System.Windows.Forms.CheckBox();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.callsignToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ck_limit = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -176,6 +177,21 @@ namespace Log4OMQSLEmailer
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.callsignToolStripMenuItem});
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.searchToolStripMenuItem.Text = "Send";
+            // 
+            // callsignToolStripMenuItem
+            // 
+            this.callsignToolStripMenuItem.Name = "callsignToolStripMenuItem";
+            this.callsignToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.callsignToolStripMenuItem.Text = "By Callsign";
+            this.callsignToolStripMenuItem.Click += new System.EventHandler(this.callsignToolStripMenuItem_Click);
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(533, 214);
@@ -267,26 +283,22 @@ namespace Log4OMQSLEmailer
             this.ckQSLBefore.Text = "Filter QSL Before";
             this.ckQSLBefore.UseVisualStyleBackColor = true;
             // 
-            // searchToolStripMenuItem
+            // ck_limit
             // 
-            this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.callsignToolStripMenuItem});
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-            this.searchToolStripMenuItem.Text = "Send";
-            // 
-            // callsignToolStripMenuItem
-            // 
-            this.callsignToolStripMenuItem.Name = "callsignToolStripMenuItem";
-            this.callsignToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.callsignToolStripMenuItem.Text = "By Callsign";
-            this.callsignToolStripMenuItem.Click += new System.EventHandler(this.callsignToolStripMenuItem_Click);
+            this.ck_limit.AutoSize = true;
+            this.ck_limit.Location = new System.Drawing.Point(326, 75);
+            this.ck_limit.Name = "ck_limit";
+            this.ck_limit.Size = new System.Drawing.Size(108, 17);
+            this.ck_limit.TabIndex = 16;
+            this.ck_limit.Text = "Limit Email to 499";
+            this.ck_limit.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 405);
+            this.Controls.Add(this.ck_limit);
             this.Controls.Add(this.ckQSLBefore);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -342,6 +354,7 @@ namespace Log4OMQSLEmailer
         private System.Windows.Forms.ToolStripMenuItem callsignToolStripMenuItem;
         public System.Windows.Forms.ListBox listBox1;
         public System.Windows.Forms.ListBox lstlog;
+        private System.Windows.Forms.CheckBox ck_limit;
     }
 }
 

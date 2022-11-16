@@ -190,19 +190,19 @@ namespace Log4OMQSLEmailer
             }
         }
 
-        string fixADIFTime(string inTime)
+        public string fixADIFTime(string inTime)
         {
             return inTime.Substring(0, 2) + ":" + inTime.Substring(2, 2) + ":" + inTime.Substring(4, 2); 
         }
 
-        string fixDate(string inDate)
+        public string fixDate(string inDate)
         {
             return inDate.Substring(4, 2) + "/" + inDate.Substring(6, 2) + "/" + inDate.Substring(0, 4);
         }
 
         private void ProcessADIF(bool deleteimage=true, bool mailimage=true)
         {
-
+            int limit_count = 0;
             if (System.IO.File.Exists(txtADIFFile.Text))
             {
                 if (Program.X_DEBUG)
@@ -211,7 +211,14 @@ namespace Log4OMQSLEmailer
                 }
                 ADIFReader ar = new ADIFReader();
                 ar.ADIFPath = txtADIFFile.Text;
-
+                if (this.ck_limit.Checked)
+                {
+                    ar.limit_count = 499;    
+                }
+                else {
+                    ar.limit_count = 0;
+                }
+                ar.my_form1 = this; 
                 ar.start(mailimage);
 
                 if (Program.X_DEBUG)
@@ -249,9 +256,9 @@ namespace Log4OMQSLEmailer
                         string band = rec.band;
                         string mode = rec.mode;
                         string myqsoid = rec.call + "_" + rec.mode + "_" + rec.band + "_" + rec.date + "_" + rec.time + "_" + rec.band;
-
-                        //strip any non filename values... 
-                        string exclude_char = "*()!@#$%^&+={}[]|\\;:'\"?/.,<>~`";
+                        
+                            //strip any non filename values... 
+                            string exclude_char = "*()!@#$%^&+={}[]|\\;:'\"?/.,<>~`";
 
                         foreach(char c in exclude_char.ToArray())
                         {
@@ -316,6 +323,7 @@ namespace Log4OMQSLEmailer
                                 writetodebuglog("Mail message success!"  );
 
                             }
+                            limit_count++;
 
                         }
                         System.Windows.Forms.Application.DoEvents();
@@ -347,6 +355,13 @@ namespace Log4OMQSLEmailer
                 {
                     writetodebuglog("After record loop");
 
+                }
+                if (ck_limit.Checked)
+                {
+                    if (limit_count >= 499)
+                    {
+                        return;
+                    }
                 }
             }
          }
@@ -569,6 +584,8 @@ COLUMNS (
 
         void ProcessImages(bool deleteimage = true, bool mailimage = true)
         {
+            int email_count = 0;
+
             if (listBox1.SelectedItem == null)
             {
                 MessageBox.Show("Select a template first!");
@@ -787,11 +804,12 @@ COLUMNS (
                         int rc = LookupQSLConformation(myqsoid);
                         writetolog("," + myqsoid + ",");
                         lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
+                        System.Threading.Thread.Sleep(1500); // help reduce issues with MASS mailing 
                     }
                     System.Windows.Forms.Application.DoEvents();
                     try
                     {
-                        System.Threading.Thread.Sleep(50);
+                        System.Threading.Thread.Sleep(350);
                         if (deleteimage)
                         {
                             System.IO.File.Delete(myfile + imgext);
@@ -865,7 +883,7 @@ COLUMNS (
             }
         }
 
-        bool checklog(string myqsl)
+        public bool checklog(string myqsl)
         {
             
             if (alllog.Contains(myqsl))
