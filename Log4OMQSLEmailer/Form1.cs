@@ -10,9 +10,6 @@ using System.Windows.Forms;
 using System.Net.Mail;
 //using System.Runtime.Serialization;
 using Newtonsoft.Json;
-
-
-
 namespace Log4OMQSLEmailer
 {
     
@@ -192,12 +189,34 @@ namespace Log4OMQSLEmailer
 
         public string fixADIFTime(string inTime)
         {
-            return inTime.Substring(0, 2) + ":" + inTime.Substring(2, 2) + ":" + inTime.Substring(4, 2); 
+            string rt;
+            try
+            {
+                rt = inTime.Substring(0, 2) + ":" + inTime.Substring(2, 2) + ":" + inTime.Substring(4, 2);
+            } catch (Exception ex)
+            {
+                rt = inTime;
+                writetodebuglog("error with time format for: " + inTime);
+            }
+            return rt;
         }
 
         public string fixDate(string inDate)
         {
-            return inDate.Substring(4, 2) + "/" + inDate.Substring(6, 2) + "/" + inDate.Substring(0, 4);
+            string rt;
+
+            try
+            {
+                rt =  inDate.Substring(4, 2) + "/" + inDate.Substring(6, 2) + "/" + inDate.Substring(0, 4);
+
+            }catch(Exception ex)
+            {
+                rt = inDate;
+                writetodebuglog("error with date format for: " + inDate);
+            }
+
+            return rt;
+
         }
 
         private void ProcessADIF(bool deleteimage=true, bool mailimage=true)
@@ -256,7 +275,14 @@ namespace Log4OMQSLEmailer
                         string band = rec.band;
                         string mode = rec.mode;
                         string myqsoid = rec.call + "_" + rec.mode + "_" + rec.band + "_" + rec.date + "_" + rec.time + "_" + rec.band;
-                        
+
+                        if (mytime.Equals("") && mydate.Equals(""))
+                        {
+                            //do not send a card -- some sort of error 
+                            writetodebuglog("Missing date time for qso:" + myqsoid);
+                            continue;
+                        }
+
                             //strip any non filename values... 
                             string exclude_char = "*()!@#$%^&+={}[]|\\;:'\"?/.,<>~`";
 
