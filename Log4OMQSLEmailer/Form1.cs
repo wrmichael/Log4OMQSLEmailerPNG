@@ -340,17 +340,25 @@ namespace Log4OMQSLEmailer
 
                         if (mailimage)
                         {
-                            this.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname));
-                            //int rc = LookupQSLConformation(myqsoid);
-                            lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
-                            writetolog("," + myqsoid + ",");
-                            if (Program.X_DEBUG)
+                            if (this.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname)))
                             {
-                                writetodebuglog("Mail message success!"  );
+                                //int rc = LookupQSLConformation(myqsoid);
+                                lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
+                                writetolog("," + myqsoid + ",");
+                                if (Program.X_DEBUG)
+                                {
+                                    writetodebuglog("Mail message success!");
 
+                                }
+                                limit_count++;
                             }
-                            limit_count++;
-
+                            else
+                            {
+                                lstlog.Items.Add("Check outbox -> Failed to send email for qsoid: " + myqsoid);
+                                writetodebuglog("Failed to send mail for QSOID: " + myqsoid);
+                                //force a sleep 
+                                System.Threading.Thread.Sleep(3000);
+                            }
                         }
                         System.Windows.Forms.Application.DoEvents();
                         try
@@ -918,7 +926,7 @@ COLUMNS (
 
         }
 
-        public void MySendMail(string name, string call, string attachment, string email,string mybody)
+        public bool MySendMail(string name, string call, string attachment, string email,string mybody)
         {
             using (System.Net.Mail.MailMessage mm = new System.Net.Mail.MailMessage())
             {
@@ -943,11 +951,12 @@ COLUMNS (
                         writetodebuglog("SMPT Call made!");
 
                     }
-
+                    return true;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    writetodebuglog("Error sending mail: " + ex.ToString());
+                    return false;
                 }
             }
         }
