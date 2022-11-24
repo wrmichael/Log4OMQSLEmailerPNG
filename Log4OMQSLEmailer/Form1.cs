@@ -187,6 +187,70 @@ namespace Log4OMQSLEmailer
             }
         }
 
+        public int UpdateQSLConfirmation(string qsoid, string Via = "Bureau")
+        {
+
+            MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+            {
+                Server = Properties.Settings.Default.DBHost,
+                UserID = Properties.Settings.Default.DBUser,
+                Password = Properties.Settings.Default.DBPassword,
+                Database = Properties.Settings.Default.DBDatabase
+
+            };
+            MySqlConnector.MySqlConnection sqlcon = new MySqlConnector.MySqlConnection(b.ConnectionString);
+
+            sqlcon.Open();
+            string mysql = "select qsoconfirmations from log where qsoid = ?qsoid";
+
+            MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+            com.Connection = sqlcon;
+            com.CommandText = mysql;
+            com.Parameters.Add("?qsoid", MySqlConnector.MySqlDbType.VarChar).Value = qsoid;
+
+            MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+
+            if (reader.Read())
+            {
+                string ret = reader["qsoconfirmations"].ToString();
+
+                QSLConfirmation[] qsl = JsonConvert.DeserializeObject<QSLConfirmation[]>(ret);
+                reader.Close();
+                for (int idx = 0; idx < qsl.Count(); idx++)
+                {
+
+                    if (qsl[idx].CT.Equals("QSL"))
+                    {
+                        qsl[idx].S = "Yes";
+                        qsl[idx].SV = Via;
+                        qsl[idx].SD = DateTime.Now.ToString("MM-dd-yyyy hh:mm:ss tt");
+                        break;
+                    }
+                }
+
+                //update code here 
+                string qstr = JsonConvert.SerializeObject(qsl);
+
+                mysql = "update log set qsoconfirmations = '" + qstr + "' where qsoid = ?qsoid2";
+                com.Connection = sqlcon;
+
+                com.CommandText = mysql;
+                com.Parameters.Add("?qsoid2", MySqlConnector.MySqlDbType.VarChar).Value = qsoid;
+                int rc = com.ExecuteNonQuery();
+
+                sqlcon.Close();
+
+                return rc;
+            }
+            else
+            {
+
+                return 0;
+            }
+        }
+
+
+
         public string fixADIFTime(string inTime)
         {
             string rt;
@@ -878,6 +942,59 @@ COLUMNS (
 
         }
 
+        public void WriteQSLCard(string qsoid, string layoutfile, string imagefile,string mycall, string myband, string mymode, string myrst, string mydate, string mytime)
+        {
+            int email_count = 0;
+            string imgext = System.IO.Path.GetExtension(imagefile);
+            if (!System.IO.File.Exists(layoutfile))
+            {
+                MessageBox.Show("Missing layout settings for QSL Image");
+                return;
+            }
+            if (Properties.Settings.Default.TMPDIR.Trim().Length == 0)
+            {
+                lstlog.Items.Add("TMP directory must be defined. See settings");
+                return;
+            }
+
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.TMPDIR))
+            {
+                lstlog.Items.Add("TMP directory does not exist.  Please create or select a new folder.");
+                return;
+            }
+
+            string template = imagefile;
+
+ 
+                try
+                {
+                
+                    string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, qsoid) + "_" + mycall;
+                    //save PNG here
+
+                    ImageWriter iw = new ImageWriter();
+
+                    Image img = iw.writeImage(imagefile, myfile, myband, mymode, mycall, myrst, mydate, mytime);
+
+                }
+                catch (Exception ex)
+                {
+                    lstlog.Items.Add("General error: " + ex.Message);
+
+                    MessageBox.Show("Error:" + ex.Message);
+
+                }
+
+
+            
+
+          
+
+
+        }
+
+
+
         public void writetodebuglog(string m)
         {
             try
@@ -1092,6 +1209,13 @@ COLUMNS (
             bcs.form1 = this;
             bcs.ShowDialog();
 
+        }
+
+        private void dXBureauToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DXSearch dx = new DXSearch();
+            dx.form1 = this;
+            dx.ShowDialog();
         }
     }
 }

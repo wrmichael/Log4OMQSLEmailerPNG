@@ -11,6 +11,7 @@ using System.Data.Odbc;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using System.Runtime.CompilerServices;
 
 
 namespace Log4OMQSLEmailer
@@ -245,6 +246,21 @@ namespace Log4OMQSLEmailer
 
         }
 
+        public string getQSLMGR(string s)
+        {
+            string news = "";
+            if (s.ToUpper().Contains("<QSLMGR>"))
+            {
+                news = s.Substring(s.ToUpper().IndexOf("<QSLMGR>") + 8);
+                news = news.ToUpper().Split(new string[] { "</QSLMGR>" }, StringSplitOptions.RemoveEmptyEntries)[0];
+            }
+            //       < fname > Raymond G </ fname >
+            //< name > Grob, Jr </ name >
+
+            return news;
+        }
+
+
         public string getfName(string s)
         {
             string news = "";
@@ -428,6 +444,77 @@ namespace Log4OMQSLEmailer
             return newt;
 
         }
+
+
+        public string fetchBoi(string s, string callsign)
+        {
+            
+            string url = "http://xmldata.qrz.com/xml/current/?s=" + s + ";html=" + callsign;
+            string newt = "";
+            
+            WebClient client = new WebClient();
+
+            // Add a user agent header in case the
+            // requested URI contains a query.
+
+            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+
+            Stream data = client.OpenRead(url);
+            StreamReader reader = new StreamReader(data);
+            string d = reader.ReadToEnd();
+            //Console.WriteLine(s);
+            data.Close();
+            reader.Close();
+
+            //look for BUREAU in BIO 
+            if (d.ToUpper().Contains("NO BUREAU") || d.ToUpper().Contains("NO BURO"))
+            {
+                return "NO BUREAU";
+            }
+            if (d.ToUpper().Contains("BUREAU") || d.ToUpper().Contains("BURO"))
+            {
+                return "CHECK BUREAU";
+            }
+
+
+            return "NOT FOUND";
+
+
+        }
+
+        public string getQSLByBureau(string callsign, string k)
+        {
+
+
+
+            string newt = "";
+            string url = "http://xmldata.qrz.com/xml/current/?s=" + k + ";callsign=" + callsign;
+
+            WebClient client = new WebClient();
+
+            // Add a user agent header in case the
+            // requested URI contains a query.
+
+            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+
+            Stream data = client.OpenRead(url);
+            StreamReader reader = new StreamReader(data);
+            string s = reader.ReadToEnd();
+            //Console.WriteLine(s);
+            data.Close();
+            reader.Close();
+            string myfetchBio = fetchBoi(k, callsign);
+            string myqsl = getQSLMGR(s);
+
+            if (myqsl.ToUpper().StartsWith("VIA BUREAU") || myqsl.ToUpper().StartsWith("BUREAU")|| myqsl.ToUpper().StartsWith("BURO"))
+            {
+                return "BUREAU > " + myqsl;  
+            }
+
+            return myfetchBio + " -> " + myqsl;
+
+        }
+
 
         public string getEmail(string s)
         {

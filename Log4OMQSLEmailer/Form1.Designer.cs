@@ -45,6 +45,7 @@ namespace Log4OMQSLEmailer
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.callsignToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dXBureauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.lstlog = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -180,7 +181,8 @@ namespace Log4OMQSLEmailer
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.callsignToolStripMenuItem});
+            this.callsignToolStripMenuItem,
+            this.dXBureauToolStripMenuItem});
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
             this.searchToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.searchToolStripMenuItem.Text = "Send";
@@ -188,9 +190,16 @@ namespace Log4OMQSLEmailer
             // callsignToolStripMenuItem
             // 
             this.callsignToolStripMenuItem.Name = "callsignToolStripMenuItem";
-            this.callsignToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.callsignToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.callsignToolStripMenuItem.Text = "By Callsign";
             this.callsignToolStripMenuItem.Click += new System.EventHandler(this.callsignToolStripMenuItem_Click);
+            // 
+            // dXBureauToolStripMenuItem
+            // 
+            this.dXBureauToolStripMenuItem.Name = "dXBureauToolStripMenuItem";
+            this.dXBureauToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.dXBureauToolStripMenuItem.Text = "By DX Bureau (Paper Cards)";
+            this.dXBureauToolStripMenuItem.Click += new System.EventHandler(this.dXBureauToolStripMenuItem_Click);
             // 
             // button1
             // 
@@ -355,6 +364,7 @@ namespace Log4OMQSLEmailer
         public System.Windows.Forms.ListBox listBox1;
         public System.Windows.Forms.ListBox lstlog;
         private System.Windows.Forms.CheckBox ck_limit;
+        private System.Windows.Forms.ToolStripMenuItem dXBureauToolStripMenuItem;
     }
 }
 
