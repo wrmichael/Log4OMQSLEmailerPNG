@@ -184,7 +184,7 @@ COLUMNS (
                 Image img = iw.writeImage(this.listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
 
 
-                form1.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname));
+                form1.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname), Properties.Settings.Default.YourCallSign);
 
                 int rc = form1.LookupQSLConformation(myqsoid);
                 form1.writetolog("," + myqsoid + ",");

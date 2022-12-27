@@ -24,6 +24,7 @@ namespace Log4OMQSLEmailer
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            txtYourCallSign.Text = Properties.Settings.Default.YourCallSign;
             textBox1.Text = Properties.Settings.Default.QSLDir;
             txtDB.Text = Properties.Settings.Default.DBDatabase;
             txtDBPWD.Text = Properties.Settings.Default.DBPassword;
@@ -41,6 +42,7 @@ namespace Log4OMQSLEmailer
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.YourCallSign = txtYourCallSign.Text;
             Properties.Settings.Default.QSLDir = textBox1.Text;
             Properties.Settings.Default.DBDatabase = txtDB.Text;
             Properties.Settings.Default.DBHost = txtDBServer.Text;

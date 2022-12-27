@@ -404,7 +404,7 @@ namespace Log4OMQSLEmailer
 
                         if (mailimage)
                         {
-                            if (this.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname)))
+                            if (this.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname),Properties.Settings.Default.YourCallSign))
                             {
                                 //int rc = LookupQSLConformation(myqsoid);
                                 lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
@@ -642,7 +642,7 @@ COLUMNS (
                     
                     Image img = iw.writeImage(listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
                     
-                    this.MySendMail(myname, mycall, myfile + imgext, myemail,Properties.Settings.Default.MessageBody.Replace("<NAME>",myname));
+                    this.MySendMail(myname, mycall, myfile + imgext, myemail,Properties.Settings.Default.MessageBody.Replace("<NAME>",myname),Properties.Settings.Default.YourCallSign);
                     int rc = LookupQSLConformation(myqsoid);
                     writetolog("," + myqsoid + ",");
                     lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
@@ -897,7 +897,7 @@ COLUMNS (
 
                     if (mailimage)
                     {
-                        this.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname));
+                        this.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname), Properties.Settings.Default.YourCallSign);
 
                         int rc = LookupQSLConformation(myqsoid);
                         writetolog("," + myqsoid + ",");
@@ -1043,18 +1043,16 @@ COLUMNS (
 
         }
 
-        public bool MySendMail(string name, string call, string attachment, string email,string mybody)
+        public bool MySendMail(string name, string call, string attachment, string email,string mybody, string yourcall)
         {
             using (System.Net.Mail.MailMessage mm = new System.Net.Mail.MailMessage())
             {
 
                 mm.To.Add(email);
                 mm.From = new MailAddress(Properties.Settings.Default.SMTPUser);
-                mm.Subject = "QSL for QSO";
+                mm.Subject = "Digital QSL " + call + " DE " + yourcall;
                 mm.Body = mybody;
                 mm.Attachments.Add(new Attachment(attachment));
-
-
 
                 SmtpClient smtp = new SmtpClient(Properties.Settings.Default.SMTPHost, int.Parse(Properties.Settings.Default.SMTPPort));
                 System.Net.NetworkCredential nc = new System.Net.NetworkCredential(Properties.Settings.Default.SMTPUser, Properties.Settings.Default.SMTPPassword);
