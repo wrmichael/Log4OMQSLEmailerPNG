@@ -13,10 +13,10 @@ namespace Log4OMQSLEmailer
     public partial class ByCallSign : Form
     {
 
-        public Form1 form1; 
+        public Form1 form1;
 
 
-        public void QueryByCallSign()
+        public void QueryByCallSign(bool ignoreQSLStatus = false, bool ignoreEmail = false)
         {
 
             //connect to databsae 
@@ -38,8 +38,34 @@ namespace Log4OMQSLEmailer
 
             string mysql = "";
 
-
-            mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
+            if (ignoreQSLStatus)
+            {
+                if (ignoreEmail)
+                {
+                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name from log where callsign = ?callsign;";
+                }
+                else
+                {
+                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name from log where  email <> '' and callsign = ?callsign;";
+                }
+            }
+            else
+            {
+                if (ignoreEmail)
+                {
+                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
+from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+COLUMNS (
+	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
+    R VARCHAR(10) PATH '$.R', 
+      SV VARCHAR(100) PATH '$.SV',
+      RV VARCHAR(100) PATH '$.RV',
+      SD VARCHAR(100) PATH '$.SD',
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and callsign = ?callsign;";
+                }
+                else
+                { 
+                mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
 from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
 COLUMNS (
 	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
@@ -48,10 +74,11 @@ COLUMNS (
       RV VARCHAR(100) PATH '$.RV',
       SD VARCHAR(100) PATH '$.SD',
       RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and email <> '' and callsign = ?callsign;";
-
+            }
+            }
             com.CommandText = mysql;
             
-            com.Parameters.Add("?callsign", DbType.DateTime).Value = txtCallSign.Text;
+            com.Parameters.Add("?callsign", DbType.String).Value = txtCallSign.Text;
             
             MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
 
@@ -152,7 +179,7 @@ COLUMNS (
                     return;
             }
             listView1.Items.Clear();
-            this.QueryByCallSign();
+            this.QueryByCallSign(ckIgnoreQSL.Checked, ckIgnoreEmail.Checked);
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listView1.Refresh();
         }
@@ -214,7 +241,7 @@ COLUMNS (
         }
 
         private void txtCallSign_KeyPress(object sender, KeyPressEventArgs e)
-        {
+       {
             if (e.KeyChar == (char)Keys.Enter )
             {
                 button1_Click(sender, new EventArgs());
@@ -249,6 +276,41 @@ COLUMNS (
             catch (Exception ex)
             {
                 MessageBox.Show("Error reading QSL folder:" + Properties.Settings.Default.QSLDir + "\r\n" + ex.Message);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string imgext = System.IO.Path.GetExtension(this.listBox1.SelectedItem.ToString());
+
+            foreach (ListViewItem item in listView1.SelectedItems)
+            {
+                //"qsoid,callsign,qsodate,email,band,mode,rstsent,name"
+                string mycall = item.SubItems[1].Text;
+                string myqsoid = item.SubItems[0].Text;
+                string band = item.SubItems[5].Text;
+                string mydate = item.SubItems[2].Text;
+                string myname = item.SubItems[8].Text;
+                string rst = item.SubItems[7].Text.Trim();
+                string mode = item.SubItems[6].Text;
+                string myemail = item.SubItems[4].Text;
+                string mytime = item.SubItems[3].Text;
+
+                ImageWriter iw = new ImageWriter();
+                string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, mycall + "_" + band + "_" + mode + "_" + mydate.Replace('/','-') + "_" + mytime.Replace(':',' ') + "_" + myqsoid);
+
+                Image img = iw.writeImage(this.listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
+
+
+                //form1.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname), Properties.Settings.Default.YourCallSign);
+
+                int rc = form1.LookupQSLConformation(myqsoid);
+                form1.writetolog("," + myqsoid + ",");
+                form1.lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
+
+                System.Windows.Forms.Application.DoEvents();
+                
+               
             }
         }
     }

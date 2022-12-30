@@ -82,7 +82,7 @@ COLUMNS (
       SV VARCHAR(100) PATH '$.SV',
       RV VARCHAR(100) PATH '$.RV',
       SD VARCHAR(100) PATH '$.SD',
-      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and   qsodate > ?qsodate and qsodate < ?qsodate2  and j.S <> 'Yes'    and email <> '' and dxcc <> mydxcc ";
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and   qsodate > ?qsodate and qsodate < ?qsodate2  and j.S <> 'Yes'   and dxcc <> mydxcc ";
 
             com.CommandText = mysql;
 

@@ -36,6 +36,9 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.ckIgnoreQSL = new System.Windows.Forms.CheckBox();
+            this.ckIgnoreEmail = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // listView1
@@ -116,11 +119,44 @@
             this.label1.Text = "Select QSO\'s to email";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(691, 411);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(91, 30);
+            this.button4.TabIndex = 14;
+            this.button4.Text = "Create Images";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // ckIgnoreQSL
+            // 
+            this.ckIgnoreQSL.AutoSize = true;
+            this.ckIgnoreQSL.Location = new System.Drawing.Point(261, 18);
+            this.ckIgnoreQSL.Name = "ckIgnoreQSL";
+            this.ckIgnoreQSL.Size = new System.Drawing.Size(113, 17);
+            this.ckIgnoreQSL.TabIndex = 15;
+            this.ckIgnoreQSL.Text = "Ignore QSL Status";
+            this.ckIgnoreQSL.UseVisualStyleBackColor = true;
+            // 
+            // ckIgnoreEmail
+            // 
+            this.ckIgnoreEmail.AutoSize = true;
+            this.ckIgnoreEmail.Location = new System.Drawing.Point(380, 18);
+            this.ckIgnoreEmail.Name = "ckIgnoreEmail";
+            this.ckIgnoreEmail.Size = new System.Drawing.Size(84, 17);
+            this.ckIgnoreEmail.TabIndex = 16;
+            this.ckIgnoreEmail.Text = "Ignore Email";
+            this.ckIgnoreEmail.UseVisualStyleBackColor = true;
+            // 
             // ByCallSign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ckIgnoreEmail);
+            this.Controls.Add(this.ckIgnoreQSL);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label3);
@@ -147,5 +183,8 @@
         public System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.CheckBox ckIgnoreQSL;
+        private System.Windows.Forms.CheckBox ckIgnoreEmail;
     }
 }
