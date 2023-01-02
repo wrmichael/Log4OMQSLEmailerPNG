@@ -1215,6 +1215,28 @@ COLUMNS (
             dx.form1 = this;
             dx.ShowDialog();
         }
+
+        private void bySKCCBureauToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SKCCBureauDownload sd = new SKCCBureauDownload();
+
+            string bu = "";
+            foreach (string s in sd.getAmateurs())
+            {
+                if (s.StartsWith("<table>"))
+                {
+                    continue;
+                }
+                bu = bu + "'" +s + "'," ;
+            }
+            bu = bu.TrimEnd(',');
+            BySKCC frmby = new BySKCC();
+            frmby.BureuUsers = bu;
+            frmby.form1 = this;
+            frmby.ShowDialog(); 
+            System.Console.Write(sd.Bureau_users);
+            
+        }
     }
 }
 

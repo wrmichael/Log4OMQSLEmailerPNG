@@ -46,6 +46,7 @@ namespace Log4OMQSLEmailer
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.callsignToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dXBureauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manualSendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.lstlog = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -56,6 +57,7 @@ namespace Log4OMQSLEmailer
             this.button4 = new System.Windows.Forms.Button();
             this.ckQSLBefore = new System.Windows.Forms.CheckBox();
             this.ck_limit = new System.Windows.Forms.CheckBox();
+            this.bySKCCBureauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -182,7 +184,9 @@ namespace Log4OMQSLEmailer
             // 
             this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.callsignToolStripMenuItem,
-            this.dXBureauToolStripMenuItem});
+            this.dXBureauToolStripMenuItem,
+            this.manualSendToolStripMenuItem,
+            this.bySKCCBureauToolStripMenuItem});
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
             this.searchToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.searchToolStripMenuItem.Text = "Send";
@@ -200,6 +204,12 @@ namespace Log4OMQSLEmailer
             this.dXBureauToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.dXBureauToolStripMenuItem.Text = "By DX Bureau (Paper Cards)";
             this.dXBureauToolStripMenuItem.Click += new System.EventHandler(this.dXBureauToolStripMenuItem_Click);
+            // 
+            // manualSendToolStripMenuItem
+            // 
+            this.manualSendToolStripMenuItem.Name = "manualSendToolStripMenuItem";
+            this.manualSendToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.manualSendToolStripMenuItem.Text = "Manual Send";
             // 
             // button1
             // 
@@ -302,6 +312,13 @@ namespace Log4OMQSLEmailer
             this.ck_limit.Text = "Limit Email to 499";
             this.ck_limit.UseVisualStyleBackColor = true;
             // 
+            // bySKCCBureauToolStripMenuItem
+            // 
+            this.bySKCCBureauToolStripMenuItem.Name = "bySKCCBureauToolStripMenuItem";
+            this.bySKCCBureauToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.bySKCCBureauToolStripMenuItem.Text = "By SKCC Bureau";
+            this.bySKCCBureauToolStripMenuItem.Click += new System.EventHandler(this.bySKCCBureauToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -365,6 +382,8 @@ namespace Log4OMQSLEmailer
         public System.Windows.Forms.ListBox lstlog;
         private System.Windows.Forms.CheckBox ck_limit;
         private System.Windows.Forms.ToolStripMenuItem dXBureauToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manualSendToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bySKCCBureauToolStripMenuItem;
     }
 }
 
