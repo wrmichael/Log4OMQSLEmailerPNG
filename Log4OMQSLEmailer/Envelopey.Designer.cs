@@ -1,7 +1,7 @@
 ﻿
 namespace Log4OMQSLEmailer
 {
-    partial class Form1
+    partial class Envelope
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace Log4OMQSLEmailer
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Envelope));
             this.txtStart = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,6 +47,7 @@ namespace Log4OMQSLEmailer
             this.callsignToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dXBureauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualSendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bySKCCBureauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.lstlog = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -57,9 +58,11 @@ namespace Log4OMQSLEmailer
             this.button4 = new System.Windows.Forms.Button();
             this.ckQSLBefore = new System.Windows.Forms.CheckBox();
             this.ck_limit = new System.Windows.Forms.CheckBox();
-            this.bySKCCBureauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.envelopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtFrom = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtTo = new System.Windows.Forms.TextBox();
+            this.button5 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +73,7 @@ namespace Log4OMQSLEmailer
             this.txtStart.Name = "txtStart";
             this.txtStart.Size = new System.Drawing.Size(132, 20);
             this.txtStart.TabIndex = 0;
+            this.txtStart.Visible = false;
             // 
             // label1
             // 
@@ -80,6 +84,7 @@ namespace Log4OMQSLEmailer
             this.label1.Size = new System.Drawing.Size(132, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Start Date (YYYY-MM-DD)";
+            this.label1.Visible = false;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
@@ -91,6 +96,7 @@ namespace Log4OMQSLEmailer
             this.label2.Size = new System.Drawing.Size(129, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "End Date (YYYY-MM-DD)";
+            this.label2.Visible = false;
             // 
             // txtEnd
             // 
@@ -99,11 +105,12 @@ namespace Log4OMQSLEmailer
             this.txtEnd.Name = "txtEnd";
             this.txtEnd.Size = new System.Drawing.Size(138, 20);
             this.txtEnd.TabIndex = 2;
+            this.txtEnd.Visible = false;
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(6, 128);
+            this.listBox1.Location = new System.Drawing.Point(9, 192);
             this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
             this.listBox1.ScrollAlwaysVisible = true;
@@ -119,6 +126,7 @@ namespace Log4OMQSLEmailer
             this.btnQuery.TabIndex = 5;
             this.btnQuery.Text = "Email";
             this.btnQuery.UseVisualStyleBackColor = true;
+            this.btnQuery.Visible = false;
             this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
             // 
             // menuStrip1
@@ -126,8 +134,7 @@ namespace Log4OMQSLEmailer
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.searchToolStripMenuItem,
-            this.envelopeToolStripMenuItem});
+            this.searchToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -152,6 +159,7 @@ namespace Log4OMQSLEmailer
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Visible = false;
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // aDIFToolStripMenuItem
@@ -161,6 +169,7 @@ namespace Log4OMQSLEmailer
             this.aDIFToolStripMenuItem.Name = "aDIFToolStripMenuItem";
             this.aDIFToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.aDIFToolStripMenuItem.Text = "ADIF";
+            this.aDIFToolStripMenuItem.Visible = false;
             // 
             // lookupInfoToolStripMenuItem
             // 
@@ -174,6 +183,7 @@ namespace Log4OMQSLEmailer
             this.layoytSettingsToolStripMenuItem.Name = "layoytSettingsToolStripMenuItem";
             this.layoytSettingsToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.layoytSettingsToolStripMenuItem.Text = "Layoyt Settings";
+            this.layoytSettingsToolStripMenuItem.Visible = false;
             this.layoytSettingsToolStripMenuItem.Click += new System.EventHandler(this.layoytSettingsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
@@ -193,30 +203,32 @@ namespace Log4OMQSLEmailer
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
             this.searchToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.searchToolStripMenuItem.Text = "Send";
+            this.searchToolStripMenuItem.Visible = false;
             // 
             // callsignToolStripMenuItem
             // 
             this.callsignToolStripMenuItem.Name = "callsignToolStripMenuItem";
-            this.callsignToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.callsignToolStripMenuItem.Text = "By Callsign";
-            this.callsignToolStripMenuItem.Click += new System.EventHandler(this.callsignToolStripMenuItem_Click);
+            this.callsignToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             // 
             // dXBureauToolStripMenuItem
             // 
             this.dXBureauToolStripMenuItem.Name = "dXBureauToolStripMenuItem";
-            this.dXBureauToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.dXBureauToolStripMenuItem.Text = "By DX Bureau (Paper Cards)";
-            this.dXBureauToolStripMenuItem.Click += new System.EventHandler(this.dXBureauToolStripMenuItem_Click);
+            this.dXBureauToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             // 
             // manualSendToolStripMenuItem
             // 
             this.manualSendToolStripMenuItem.Name = "manualSendToolStripMenuItem";
-            this.manualSendToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.manualSendToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.manualSendToolStripMenuItem.Text = "Manual Send";
+            // 
+            // bySKCCBureauToolStripMenuItem
+            // 
+            this.bySKCCBureauToolStripMenuItem.Name = "bySKCCBureauToolStripMenuItem";
+            this.bySKCCBureauToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(533, 214);
+            this.button1.Location = new System.Drawing.Point(534, 302);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(56, 19);
@@ -228,17 +240,17 @@ namespace Log4OMQSLEmailer
             // lstlog
             // 
             this.lstlog.FormattingEnabled = true;
-            this.lstlog.Location = new System.Drawing.Point(6, 234);
+            this.lstlog.Location = new System.Drawing.Point(6, 325);
             this.lstlog.Margin = new System.Windows.Forms.Padding(2);
             this.lstlog.Name = "lstlog";
             this.lstlog.ScrollAlwaysVisible = true;
-            this.lstlog.Size = new System.Drawing.Size(583, 160);
+            this.lstlog.Size = new System.Drawing.Size(583, 69);
             this.lstlog.TabIndex = 8;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 111);
+            this.label3.Location = new System.Drawing.Point(6, 165);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(116, 13);
             this.label3.TabIndex = 9;
@@ -252,6 +264,7 @@ namespace Log4OMQSLEmailer
             this.button2.TabIndex = 10;
             this.button2.Text = "...";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // txtADIFFile
@@ -260,6 +273,7 @@ namespace Log4OMQSLEmailer
             this.txtADIFFile.Name = "txtADIFFile";
             this.txtADIFFile.Size = new System.Drawing.Size(541, 20);
             this.txtADIFFile.TabIndex = 11;
+            this.txtADIFFile.Visible = false;
             // 
             // label4
             // 
@@ -270,10 +284,11 @@ namespace Log4OMQSLEmailer
             this.label4.TabIndex = 12;
             this.label4.Text = "ADIF File (When selected will ignore dates and will not use LOG4OM2 DB Info -> Wi" +
     "ll need to lookup email from qrzcq or qrz)";
+            this.label4.Visible = false;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(464, 214);
+            this.button3.Location = new System.Drawing.Point(465, 302);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(56, 19);
@@ -284,14 +299,10 @@ namespace Log4OMQSLEmailer
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(496, 94);
-            this.button4.Margin = new System.Windows.Forms.Padding(2);
+            this.button4.Location = new System.Drawing.Point(0, 0);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(76, 24);
-            this.button4.TabIndex = 14;
-            this.button4.Text = "Local Save";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 22;
             // 
             // ckQSLBefore
             // 
@@ -304,6 +315,7 @@ namespace Log4OMQSLEmailer
             this.ckQSLBefore.TabIndex = 15;
             this.ckQSLBefore.Text = "Filter QSL Before";
             this.ckQSLBefore.UseVisualStyleBackColor = true;
+            this.ckQSLBefore.Visible = false;
             // 
             // ck_limit
             // 
@@ -314,34 +326,60 @@ namespace Log4OMQSLEmailer
             this.ck_limit.TabIndex = 16;
             this.ck_limit.Text = "Limit Email to 499";
             this.ck_limit.UseVisualStyleBackColor = true;
+            this.ck_limit.Visible = false;
             // 
-            // bySKCCBureauToolStripMenuItem
+            // txtFrom
             // 
-            this.bySKCCBureauToolStripMenuItem.Name = "bySKCCBureauToolStripMenuItem";
-            this.bySKCCBureauToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.bySKCCBureauToolStripMenuItem.Text = "By SKCC Bureau";
-            this.bySKCCBureauToolStripMenuItem.Click += new System.EventHandler(this.bySKCCBureauToolStripMenuItem_Click);
+            this.txtFrom.Location = new System.Drawing.Point(9, 142);
+            this.txtFrom.Name = "txtFrom";
+            this.txtFrom.Size = new System.Drawing.Size(108, 20);
+            this.txtFrom.TabIndex = 17;
             // 
-            // envelopeToolStripMenuItem
+            // label5
             // 
-            this.envelopeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createToolStripMenuItem});
-            this.envelopeToolStripMenuItem.Name = "envelopeToolStripMenuItem";
-            this.envelopeToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.envelopeToolStripMenuItem.Text = "Envelope";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(11, 121);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(71, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "From CallSign";
             // 
-            // createToolStripMenuItem
+            // label6
             // 
-            this.createToolStripMenuItem.Name = "createToolStripMenuItem";
-            this.createToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.createToolStripMenuItem.Text = "Create";
-            this.createToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(134, 121);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "To CallSign";
             // 
-            // Form1
+            // txtTo
+            // 
+            this.txtTo.Location = new System.Drawing.Point(132, 142);
+            this.txtTo.Name = "txtTo";
+            this.txtTo.Size = new System.Drawing.Size(108, 20);
+            this.txtTo.TabIndex = 19;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(267, 144);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(84, 21);
+            this.button5.TabIndex = 21;
+            this.button5.Text = "Print";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // Envelope
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 405);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtTo);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtFrom);
             this.Controls.Add(this.ck_limit);
             this.Controls.Add(this.ckQSLBefore);
             this.Controls.Add(this.button4);
@@ -362,8 +400,8 @@ namespace Log4OMQSLEmailer
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
-            this.Text = "QSL Emailer";
+            this.Name = "Envelope";
+            this.Text = "Envelope Maker";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -402,8 +440,11 @@ namespace Log4OMQSLEmailer
         private System.Windows.Forms.ToolStripMenuItem dXBureauToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manualSendToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bySKCCBureauToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem envelopeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem createToolStripMenuItem;
+        private System.Windows.Forms.TextBox txtFrom;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtTo;
+        private System.Windows.Forms.Button button5;
     }
 }
 

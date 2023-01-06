@@ -380,7 +380,7 @@ COLUMNS (
                 string mytime = item.SubItems[3].Text;
 
                 ImageWriter iw = new ImageWriter();
-                string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, mycall + "_" + band + "_" + mode + "_" + mydate.Replace('/','-') + "_" + mytime.Replace(':',' ') + "_" + myqsoid);
+                string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, mycall.Replace('/','_') + "_" + band + "_" + mode + "_" + mydate.Replace('/','-') + "_" + mytime.Replace(':',' ') + "_" + myqsoid);
 
                 Image img = iw.writeImage(this.listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
 

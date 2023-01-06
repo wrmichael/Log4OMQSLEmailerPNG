@@ -406,5 +406,17 @@ namespace Log4OMQSLEmailer.Properties {
                 this["YourCallSign"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EnvelopePath {
+            get {
+                return ((string)(this["EnvelopePath"]));
+            }
+            set {
+                this["EnvelopePath"] = value;
+            }
+        }
     }
 }

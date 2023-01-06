@@ -1237,6 +1237,13 @@ COLUMNS (
             System.Console.Write(sd.Bureau_users);
             
         }
+
+        private void createToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Envelope env = new Envelope();
+            env.ShowDialog(); 
+
+        }
     }
 }
 

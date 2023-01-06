@@ -10,11 +10,13 @@ namespace Log4OMQSLEmailer
     {
         public int FontSize; 
         public System.Drawing.PointF Callsign { get; set; }
+        public System.Drawing.PointF HisCallsign { get; set; }
         public System.Drawing.PointF Date { get; set; }
         public System.Drawing.PointF Time { get; set; }
         public System.Drawing.PointF SentRST { get; set; }
         public System.Drawing.PointF Mode { get; set; }
         public System.Drawing.PointF Band { get; set; }
+        public bool ignoreMyAddress { get; set; }
 
     }
 }

@@ -18,7 +18,7 @@ namespace Log4OMQSLEmailer
 {
     class GlobalClassSmall
     {
-
+        public bool printEnvelope = false;
         public string key;
         public string username;
         public string password;
@@ -235,13 +235,14 @@ namespace Log4OMQSLEmailer
             newt = newt + getAmateurCity(s) + " " + getAmateurState(s) + " " + getAmateurZip(s) + "\r\n";
             newt = newt + getAmateurCountry(s);
 
-
+            if (!printEnvelope)
+            { 
             //if not explicit mail, do not print 
             if (!s.Contains("<mqsl>1</mqsl>"))
             {
                 newt = "";
             }
-
+            }
             return newt;
 
         }

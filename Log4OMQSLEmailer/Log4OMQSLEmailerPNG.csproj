@@ -95,6 +95,12 @@
     <Compile Include="ByCallSign.Designer.cs">
       <DependentUpon>ByCallSign.cs</DependentUpon>
     </Compile>
+    <Compile Include="ENVDataLayoutByImage .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ENVDataLayoutByImage .Designer.cs">
+      <DependentUpon>ENVDataLayoutByImage .cs</DependentUpon>
+    </Compile>
     <Compile Include="DataLayoutByImage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +118,12 @@
     </Compile>
     <Compile Include="DXSearch.Designer.cs">
       <DependentUpon>DXSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Envelopey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Envelopey.Designer.cs">
+      <DependentUpon>Envelopey.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -141,6 +153,9 @@
     <EmbeddedResource Include="ByCallSign.resx">
       <DependentUpon>ByCallSign.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ENVDataLayoutByImage .resx">
+      <DependentUpon>ENVDataLayoutByImage .cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataLayoutByImage.resx">
       <DependentUpon>DataLayoutByImage.cs</DependentUpon>
     </EmbeddedResource>
@@ -149,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DXSearch.resx">
       <DependentUpon>DXSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Envelopey.resx">
+      <DependentUpon>Envelopey.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
