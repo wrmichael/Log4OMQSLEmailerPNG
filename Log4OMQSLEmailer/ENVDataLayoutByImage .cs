@@ -98,7 +98,7 @@ namespace Log4OMQSLEmailer
             ql.Callsign = new PointF(int.Parse(txtCallX.Text), int.Parse(txtCallY.Text));
             ql.HisCallsign = new PointF(int.Parse(txtHiscallX.Text), int.Parse(txtHisCallY.Text));
             //ql.SentRST = new PointF(int.Parse(txtRSTX.Text), int.Parse(txtRSTY.Text));
-            //ql.FontSize = int.Parse(txtFontSize.Text);
+            ql.FontSize = int.Parse(txtFontSize.Text);
 
             string sql = JsonConvert.SerializeObject(ql);
 
@@ -213,6 +213,11 @@ namespace Log4OMQSLEmailer
             }
 
             return destImage;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

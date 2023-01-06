@@ -12,6 +12,7 @@ using System.Net.Mail;
 using Newtonsoft.Json;
 using System.Collections;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Diagnostics;
 
 namespace Log4OMQSLEmailer
 {
@@ -469,218 +470,218 @@ namespace Log4OMQSLEmailer
         
 
         
-        private void btnQuery_Click(object sender, EventArgs e)
-        {
-            //ProcessImages();
+//        private void btnQuery_Click(object sender, EventArgs e)
+//        {
+//            //ProcessImages();
 
-            return; 
-            //sold code here.   
+//            return; 
+//            //sold code here.   
 
-            string imgext = System.IO.Path.GetExtension(listBox1.SelectedItem.ToString());
+//            string imgext = System.IO.Path.GetExtension(listBox1.SelectedItem.ToString());
 
-            string layoutfile = this.listBox1.SelectedItem.ToString();
+//            string layoutfile = this.listBox1.SelectedItem.ToString();
 
-            layoutfile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(layoutfile), System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout");
+//            layoutfile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(layoutfile), System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout");
 
-            //layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
-            if (!System.IO.File.Exists(layoutfile))
-            {
-                MessageBox.Show("Missing layout settings for QSL Image");
-                return;
-            }
+//            //layoutfile = System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout";
+//            if (!System.IO.File.Exists(layoutfile))
+//            {
+//                MessageBox.Show("Missing layout settings for QSL Image");
+//                return;
+//            }
 
-            //if (txtADIFFile.Text.Trim().Length > 0)
-            //{
-            //    this.ProcessADIF();
-            //    MessageBox.Show("complete");
-            //    return;
-            //}
+//            //if (txtADIFFile.Text.Trim().Length > 0)
+//            //{
+//            //    this.ProcessADIF();
+//            //    MessageBox.Show("complete");
+//            //    return;
+//            //}
 
-            if (listBox1.SelectedIndex == -1)
-            {
-                return;
-            }
-            if (listBox1.SelectedItem.ToString().Trim().Length == 0)
-            {
-                return;
-            }
+//            if (listBox1.SelectedIndex == -1)
+//            {
+//                return;
+//            }
+//            if (listBox1.SelectedItem.ToString().Trim().Length == 0)
+//            {
+//                return;
+//            }
 
-            if (Properties.Settings.Default.QSLDir.Trim().Length == 0)
-            {
-                return;
-            }
+//            if (Properties.Settings.Default.QSLDir.Trim().Length == 0)
+//            {
+//                return;
+//            }
 
-            if (Properties.Settings.Default.TMPDIR.Trim().Length ==0)
-            {
-                return;
-            }
+//            if (Properties.Settings.Default.TMPDIR.Trim().Length ==0)
+//            {
+//                return;
+//            }
 
-            if (!System.IO.Directory.Exists(Properties.Settings.Default.TMPDIR))
-            {
-                return;
-            }
-            string template = listBox1.SelectedItem.ToString();
-
-            
-
-            MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
-            {
-                Server = Properties.Settings.Default.DBHost,
-                UserID = Properties.Settings.Default.DBUser,
-                Password = Properties.Settings.Default.DBPassword,
-                Database = Properties.Settings.Default.DBDatabase
-
-            };
-            MySqlConnector.MySqlConnection sqlcon = new MySqlConnector.MySqlConnection(b.ConnectionString);
-            sqlcon.Open();
-            MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
-            com.Connection = sqlcon;
-
-            string mysql = "";
-
-            if (txtStart.Text.Trim().Length > 0 & txtEnd.Text.Trim().Length == 0)
-            {
-                mysql = @"select qsoid, callsign,  DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
-from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
-COLUMNS (
-	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
-    R VARCHAR(10) PATH '$.R', 
-      SV VARCHAR(100) PATH '$.SV',
-      RV VARCHAR(100) PATH '$.RV',
-      SD VARCHAR(100) PATH '$.SD',
-      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and qsodate > ?qsodate and j.S <> 'Yes' and email <> '';";
-
-                com.CommandText = mysql;
-                com.Parameters.Add("?qsodate", DbType.DateTime).Value = txtStart.Text;
-
-            }
-
-            if (txtStart.Text.Trim().Length > 0 & txtEnd.Text.Trim().Length > 0)
-            {
-                mysql = @"select qsoid, callsign,  DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
-from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
-COLUMNS (
-	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
-    R VARCHAR(10) PATH '$.R', 
-      SV VARCHAR(100) PATH '$.SV',
-      RV VARCHAR(100) PATH '$.RV',
-      SD VARCHAR(100) PATH '$.SD',
-      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and qsodate > ?qsodate and qsodate < ?qsodate2  and j.S <> 'Yes' and email <> '';";
-
-                com.CommandText = mysql;
-                com.Parameters.Add("?qsodate", DbType.DateTime).Value = txtStart.Text;
-                com.Parameters.Add("?qsodate2", DbType.DateTime).Value = txtEnd.Text;
-            }
-
-            //com.CommandText = "select * from log where callsign = 'KB9BVN' and email <> '' and qsodate <> '' LIMIT 2";
-            MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+//            if (!System.IO.Directory.Exists(Properties.Settings.Default.TMPDIR))
+//            {
+//                return;
+//            }
+//            string template = listBox1.SelectedItem.ToString();
 
             
 
-            while (reader.Read())
-            {
+//            MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+//            {
+//                Server = Properties.Settings.Default.DBHost,
+//                UserID = Properties.Settings.Default.DBUser,
+//                Password = Properties.Settings.Default.DBPassword,
+//                Database = Properties.Settings.Default.DBDatabase
+
+//            };
+//            MySqlConnector.MySqlConnection sqlcon = new MySqlConnector.MySqlConnection(b.ConnectionString);
+//            sqlcon.Open();
+//            MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+//            com.Connection = sqlcon;
+
+//            string mysql = "";
+
+//            if (txtStart.Text.Trim().Length > 0 & txtEnd.Text.Trim().Length == 0)
+//            {
+//                mysql = @"select qsoid, callsign,  DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
+//from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+//COLUMNS (
+//	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
+//    R VARCHAR(10) PATH '$.R', 
+//      SV VARCHAR(100) PATH '$.SV',
+//      RV VARCHAR(100) PATH '$.RV',
+//      SD VARCHAR(100) PATH '$.SD',
+//      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and qsodate > ?qsodate and j.S <> 'Yes' and email <> '';";
+
+//                com.CommandText = mysql;
+//                com.Parameters.Add("?qsodate", DbType.DateTime).Value = txtStart.Text;
+
+//            }
+
+//            if (txtStart.Text.Trim().Length > 0 & txtEnd.Text.Trim().Length > 0)
+//            {
+//                mysql = @"select qsoid, callsign,  DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
+//from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+//COLUMNS (
+//	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
+//    R VARCHAR(10) PATH '$.R', 
+//      SV VARCHAR(100) PATH '$.SV',
+//      RV VARCHAR(100) PATH '$.RV',
+//      SD VARCHAR(100) PATH '$.SD',
+//      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and qsodate > ?qsodate and qsodate < ?qsodate2  and j.S <> 'Yes' and email <> '';";
+
+//                com.CommandText = mysql;
+//                com.Parameters.Add("?qsodate", DbType.DateTime).Value = txtStart.Text;
+//                com.Parameters.Add("?qsodate2", DbType.DateTime).Value = txtEnd.Text;
+//            }
+
+//            //com.CommandText = "select * from log where callsign = 'KB9BVN' and email <> '' and qsodate <> '' LIMIT 2";
+//            MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+
+            
+
+//            while (reader.Read())
+//            {
 
 
 
-                try
-                {
-                    string mytime = "";
-                    string mydate = "";
-                    string mycall = reader["callsign"].ToString();
-                    string myname = reader["name"].ToString();
-                    string myemail = reader["email"].ToString();
-                    string rst = reader["rstsent"].ToString();
-                    string band = reader["band"].ToString();
-                    string mode = reader["mode"].ToString();
-                    string myqsoid = reader["qsoid"].ToString();
+//                try
+//                {
+//                    string mytime = "";
+//                    string mydate = "";
+//                    string mycall = reader["callsign"].ToString();
+//                    string myname = reader["name"].ToString();
+//                    string myemail = reader["email"].ToString();
+//                    string rst = reader["rstsent"].ToString();
+//                    string band = reader["band"].ToString();
+//                    string mode = reader["mode"].ToString();
+//                    string myqsoid = reader["qsoid"].ToString();
 
-                    //Exclude people who don't want QSL cards
-                    if (Properties.Settings.Default.ExclusionList.Contains("," + mycall.ToUpper().Trim() + ","))
-                    {
-                        continue;
-                    }
+//                    //Exclude people who don't want QSL cards
+//                    if (Properties.Settings.Default.ExclusionList.Contains("," + mycall.ToUpper().Trim() + ","))
+//                    {
+//                        continue;
+//                    }
 
-                    ////Check QSL Before 
-                    //if (this.ckQSLBefore.Checked)
-                    //{
-                    //    if (QSLBefore(mycall, band, mode))
-                    //    {
-                    //        //mark it as NO and skip it 
-                    //        continue;
-                    //    }
-                    //}
+//                    ////Check QSL Before 
+//                    //if (this.ckQSLBefore.Checked)
+//                    //{
+//                    //    if (QSLBefore(mycall, band, mode))
+//                    //    {
+//                    //        //mark it as NO and skip it 
+//                    //        continue;
+//                    //    }
+//                    //}
 
 
-                    try
-                    {
-                        mytime = reader["qsodate"].ToString().Split(' ')[1].Substring(0).Trim();
-                    }
-                    catch (Exception ex)
-                    {
-                        mytime = "";
-                    }
-                    try
-                    {
+//                    try
+//                    {
+//                        mytime = reader["qsodate"].ToString().Split(' ')[1].Substring(0).Trim();
+//                    }
+//                    catch (Exception ex)
+//                    {
+//                        mytime = "";
+//                    }
+//                    try
+//                    {
 
-                        mydate = reader["qsodate"].ToString().Split(' ')[0];
-                    }
-                    catch (Exception ex)
-                    {
-                        mydate = "";
-                    }
+//                        mydate = reader["qsodate"].ToString().Split(' ')[0];
+//                    }
+//                    catch (Exception ex)
+//                    {
+//                        mydate = "";
+//                    }
                    
 
-                    //check to see if it is a DUP 
-                    if (checklog(  "," + myqsoid + ","))
-                    {
-                        continue; // skip printing and sending
-                    }
+//                    //check to see if it is a DUP 
+//                    if (checklog(  "," + myqsoid + ","))
+//                    {
+//                        continue; // skip printing and sending
+//                    }
                     
-                    //Image img = Image.FromFile(listBox1.SelectedItem.ToString());
+//                    //Image img = Image.FromFile(listBox1.SelectedItem.ToString());
                     
-                    string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR  ,  myqsoid );
-                    //save PNG here
+//                    string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR  ,  myqsoid );
+//                    //save PNG here
                     
-                    ImageWriter iw = new ImageWriter();
+//                    ImageWriter iw = new ImageWriter();
                     
-                    Image img = iw.writeImage(listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
+//                    Image img = iw.writeImage(listBox1.SelectedItem.ToString(), myfile, band, mode, mycall, rst, mydate, mytime);
                     
-                    this.MySendMail(myname, mycall, myfile + imgext, myemail,Properties.Settings.Default.MessageBody.Replace("<NAME>",myname),Properties.Settings.Default.YourCallSign);
-                    int rc = LookupQSLConformation(myqsoid);
-                    writetolog("," + myqsoid + ",");
-                    lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
+//                    this.MySendMail(myname, mycall, myfile + imgext, myemail,Properties.Settings.Default.MessageBody.Replace("<NAME>",myname),Properties.Settings.Default.YourCallSign);
+//                    int rc = LookupQSLConformation(myqsoid);
+//                    writetolog("," + myqsoid + ",");
+//                    lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
                     
-                    System.Windows.Forms.Application.DoEvents();
-                    try
-                    {
-                        System.Threading.Thread.Sleep(50);
-                   System.IO.File.Delete(myfile + imgext);
+//                    System.Windows.Forms.Application.DoEvents();
+//                    try
+//                    {
+//                        System.Threading.Thread.Sleep(50);
+//                   System.IO.File.Delete(myfile + imgext);
 
-                }
-                catch (Exception fex)
-                {
-                        //ignore this...
-                    System.Console.WriteLine(fex.Message);
+//                }
+//                catch (Exception fex)
+//                {
+//                        //ignore this...
+//                    System.Console.WriteLine(fex.Message);
 
-                }
+//                }
 
 
-            }
-                catch (Exception ex)
-            {
-                MessageBox.Show("Error:" + ex.Message);
+//            }
+//                catch (Exception ex)
+//            {
+//                MessageBox.Show("Error:" + ex.Message);
 
-            }
+//            }
 
         
            
-                System.Console.WriteLine(reader["callsign"].ToString());
+//                System.Console.WriteLine(reader["callsign"].ToString());
 
-            }
+//            }
            
-            MessageBox.Show("Complete");
+//            MessageBox.Show("Complete");
 
-        }
+//        }
 
 
 //        void ProcessImages(bool deleteimage = true, bool mailimage = true)
@@ -1083,7 +1084,7 @@ COLUMNS (
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            txtFrom.Text = Properties.Settings.Default.YourCallSign;
             string tmppath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string envelopePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (Properties.Settings.Default.TMPDIR.Trim().Length == 0)
@@ -1156,15 +1157,15 @@ COLUMNS (
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //    OpenFileDialog ofd = new OpenFileDialog();
 
             
-            ofd.ShowDialog();
-            txtADIFFile.Text = ofd.FileName;
+        //    ofd.ShowDialog();
+        //    txtADIFFile.Text = ofd.FileName;
 
-        }
+        //}
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1184,12 +1185,10 @@ COLUMNS (
             {
                 return;    
             }
-
+            string sql = "";
             string layoutfile = this.listBox1.SelectedItem.ToString();
 
             layoutfile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(layoutfile), System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout");
-
-
             ENVDataLayoutByImage dblbi = new ENVDataLayoutByImage();
             dblbi.QSLImage = this.listBox1.SelectedItem.ToString();
             dblbi.LayoutFile = layoutfile;
@@ -1199,75 +1198,178 @@ COLUMNS (
 
         private void button5_Click(object sender, EventArgs e)
         {
-           
-
-
             GlobalClassSmall gc = new GlobalClassSmall();
-            gc.printEnvelope = true; 
+            gc.printEnvelope = true;
             gc.username = Properties.Settings.Default.QRZUser;
             gc.password = Properties.Settings.Default.QRZPassword;
 
+            string layoutfile = this.listBox1.SelectedItem.ToString();
+            QSLLayout ql = new QSLLayout();
+            layoutfile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(layoutfile), System.IO.Path.GetFileNameWithoutExtension(layoutfile) + ".layout");
+            string sql;
 
-            string k = gc.GetKey();
-            string hisaddress = gc.getAddress(txtTo.Text, k);
-            string myaddress = gc.getAddress(txtFrom.Text, k);
+            if (System.IO.File.Exists(layoutfile))
+            {
+                //load values from file 
+                JsonSerializer js = new JsonSerializer();
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(layoutfile))
+                {
+                    sql = sr.ReadToEnd();
+                    ql = JsonConvert.DeserializeObject<QSLLayout>(sql);
+                    sr.Close();
+
+                }
+            }
             string imgext = System.IO.Path.GetExtension(this.listBox1.SelectedItem.ToString());
 
-                //"qsoid,callsign,qsodate,email,band,mode,rstsent,name"
+
+            string k = gc.GetKey();
+            string myaddress = gc.getAddress(txtFrom.Text, k, ckIgnorecallsign.Checked);
+
+            foreach (String hiscall in lstToCall.Items)
+            {
+               
+                // Code to create image based on template image 
+
             
+                string hisaddress = gc.getAddress(hiscall, k, ckIgnorecallsign.Checked);
+               
+               
+                //"qsoid,callsign,qsodate,email,band,mode,rstsent,name"
+
                 ImageWriter iw = new ImageWriter();
-                string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, txtTo.Text);
+                string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, hiscall);
+                if (ql.ignoreMyAddress)
+                {
+                    Image img = iw.writeENVImage(this.listBox1.SelectedItem.ToString(), myfile, "", hisaddress);
+                    img.Dispose();
+                }
+                else
+                {
+                    Image img = iw.writeENVImage(this.listBox1.SelectedItem.ToString(), myfile, myaddress, hisaddress);
+                    img.Dispose();
+                }
 
-                Image img = iw.writeENVImage(this.listBox1.SelectedItem.ToString(), myfile,"",hisaddress);
-            img.Dispose();
-            System.GC.Collect();
 
-
+                System.GC.Collect();
+            }
+            lstToCall.Items.Clear();
             }
 
-            //private void button4_Click(object sender, EventArgs e)
-            //{
-            //    ProcessImages(false,false);
-            //    MessageBox.Show("Your files should be in " + Properties.Settings.Default.TMPDIR);
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            lstToCall.Items.Add(txtTo.Text);
+            txtTo.Text = "";
 
-            //}
-
-            //private void callsignToolStripMenuItem_Click(object sender, EventArgs e)
-            //{
-            //    ByCallSign bcs = new ByCallSign();
-            //    bcs.form1 = this;
-            //    bcs.ShowDialog();
-
-            //}
-
-            //    private void dXBureauToolStripMenuItem_Click(object sender, EventArgs e)
-            //    {
-            //        DXSearch dx = new DXSearch();
-            //        dx.form1 = this;
-            //        dx.ShowDialog();
-            //    }
-
-            //    private void bySKCCBureauToolStripMenuItem_Click(object sender, EventArgs e)
-            //    {
-            //        SKCCBureauDownload sd = new SKCCBureauDownload();
-
-            //        string bu = "";
-            //        foreach (string s in sd.getAmateurs())
-            //        {
-            //            if (s.StartsWith("<table>"))
-            //            {
-            //                continue;
-            //            }
-            //            bu = bu + "'" +s + "'," ;
-            //        }
-            //        bu = bu.TrimEnd(',');
-            //        BySKCC frmby = new BySKCC();
-            //        frmby.BureuUsers = bu;
-            //        frmby.form1 = this;
-            //        frmby.ShowDialog(); 
-            //        System.Console.Write(sd.Bureau_users);
-
-            //    }
         }
+
+        private void lstToCall_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (lstToCall.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
+            lstToCall.Items.Remove(lstToCall.SelectedItem);
+
+        }
+
+        private void lstToCall_DoubleClick(object sender, EventArgs e)
+        {
+            txtTo.Text = lstToCall.SelectedItem.ToString();
+            lstToCall.Items.RemoveAt(lstToCall.SelectedIndex);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(Properties.Settings.Default.TMPDIR);
+            }
+            catch (Win32Exception win32Exception)
+            {
+                //The system cannot find the file specified...
+                Console.WriteLine(win32Exception.Message);
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            string calls = Clipboard.GetText();
+
+            foreach (string s in calls.Split(new string[] { "\r\n" }, StringSplitOptions.None))
+            {
+                lstToCall.Items.Add(s);
+
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            // code to create image based on envelope size 
+            
+            //ENV #10
+            Bitmap bm = new Bitmap(942, 399,System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            Graphics g = Graphics.FromImage(bm);
+            Pen pen = new Pen(Color.White, 2);
+            SolidBrush brush = new SolidBrush(Color.White);
+            g.FillRectangle(brush,new Rectangle(0,0, bm.Width, bm.Height));
+
+            bm.Save(System.IO.Path.Combine(Properties.Settings.Default.EnvelopePath, "ENVELOPE_10.JPG"), System.Drawing.Imaging.ImageFormat.Jpeg);
+            bm.Dispose();
+            System.GC.Collect();
+            button1_Click(sender, e);
+                
+        }
+
+        //private void button4_Click(object sender, EventArgs e)
+        //{
+        //    ProcessImages(false,false);
+        //    MessageBox.Show("Your files should be in " + Properties.Settings.Default.TMPDIR);
+
+        //}
+
+        //private void callsignToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    ByCallSign bcs = new ByCallSign();
+        //    bcs.form1 = this;
+        //    bcs.ShowDialog();
+
+        //}
+
+        //    private void dXBureauToolStripMenuItem_Click(object sender, EventArgs e)
+        //    {
+        //        DXSearch dx = new DXSearch();
+        //        dx.form1 = this;
+        //        dx.ShowDialog();
+        //    }
+
+        //    private void bySKCCBureauToolStripMenuItem_Click(object sender, EventArgs e)
+        //    {
+        //        SKCCBureauDownload sd = new SKCCBureauDownload();
+
+        //        string bu = "";
+        //        foreach (string s in sd.getAmateurs())
+        //        {
+        //            if (s.StartsWith("<table>"))
+        //            {
+        //                continue;
+        //            }
+        //            bu = bu + "'" +s + "'," ;
+        //        }
+        //        bu = bu.TrimEnd(',');
+        //        BySKCC frmby = new BySKCC();
+        //        frmby.BureuUsers = bu;
+        //        frmby.form1 = this;
+        //        frmby.ShowDialog(); 
+        //        System.Console.Write(sd.Bureau_users);
+
+        //    }
+    }
 }
 

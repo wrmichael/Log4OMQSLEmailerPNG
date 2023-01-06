@@ -12,7 +12,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using System.Runtime.CompilerServices;
-
+using System.Runtime.InteropServices;
 
 namespace Log4OMQSLEmailer
 {
@@ -211,7 +211,7 @@ namespace Log4OMQSLEmailer
         }
 
 
-        public string getAddress(string t, string k)
+        public string getAddress(string t, string k, bool ignoreCallSign=false)
         {
             string newt = "";
             string url = "http://xmldata.qrz.com/xml/current/?s=" + k + ";callsign=" + t;
@@ -230,7 +230,16 @@ namespace Log4OMQSLEmailer
             data.Close();
             reader.Close();
 
-            newt = t.ToUpper() + "\r\n" + getfName(s) + " " + getName(s) + "\r\n";
+            if (ignoreCallSign)
+            {
+                newt = t.ToUpper() + "\r\n" + getfName(s) + " " + getName(s) + "\r\n";
+            }
+            else
+            {
+                newt = t.ToUpper() + "\r\n" + getfName(s) + " " + getName(s) + "\r\n";
+            }
+
+            
             newt = newt + getAmateurAddress(s) + "\r\n";
             newt = newt + getAmateurCity(s) + " " + getAmateurState(s) + " " + getAmateurZip(s) + "\r\n";
             newt = newt + getAmateurCountry(s);
@@ -238,10 +247,10 @@ namespace Log4OMQSLEmailer
             if (!printEnvelope)
             { 
             //if not explicit mail, do not print 
-            if (!s.Contains("<mqsl>1</mqsl>"))
-            {
-                newt = "";
-            }
+                if (!s.Contains("<mqsl>1</mqsl>"))
+                {
+                    newt = "";
+                }
             }
             return newt;
 
