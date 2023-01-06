@@ -17,6 +17,8 @@ namespace Log4OMQSLEmailer
 {
     public partial class ENVDataLayoutByImage : Form
     {
+        int setText = -1;
+
         public string QSLImage = "";
         public string LayoutFile = "";
         public QSLLayout ql = new QSLLayout();
@@ -28,6 +30,9 @@ namespace Log4OMQSLEmailer
         private void DataLayout_Load(object sender, EventArgs e)
         {
             string sql = "";
+
+            button5.BackColor = Color.LightBlue;
+            button4.BackColor = Color.LightBlue;
 
             if (System.IO.File.Exists(LayoutFile))
             {
@@ -55,7 +60,9 @@ namespace Log4OMQSLEmailer
                 txtCallX.Text = ql.Callsign.X.ToString();
                 txtCallY.Text = ql.Callsign.Y.ToString();
                 txtFontSize.Text = ql.FontSize.ToString();
-            
+                txtImagePath.Text = ql.ImagePath;
+                txtImageX.Text = ql.ImageLoc.X.ToString();
+                txtImageY.Text = ql.ImageLoc.Y.ToString();
 
 
             }
@@ -99,6 +106,16 @@ namespace Log4OMQSLEmailer
             ql.HisCallsign = new PointF(int.Parse(txtHiscallX.Text), int.Parse(txtHisCallY.Text));
             //ql.SentRST = new PointF(int.Parse(txtRSTX.Text), int.Parse(txtRSTY.Text));
             ql.FontSize = int.Parse(txtFontSize.Text);
+            try
+            {
+                ql.ImageLoc = new PointF(int.Parse(txtImageX.Text), int.Parse(txtImageY.Text));
+            }
+            catch (Exception ex)
+            { 
+                //ignore it 
+            }
+
+            ql.ImagePath = txtImagePath.Text;
 
             string sql = JsonConvert.SerializeObject(ql);
 
@@ -116,8 +133,15 @@ namespace Log4OMQSLEmailer
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
-           
+
+            if (txtImageX.Text.Equals(""))
+            {
+                txtImageX.Text = "0";
+            }
+            if (txtImageY.Text.Equals(""))
+            {
+                txtImageY.Text = "0";
+            }
             if (txtHiscallX.Text.Equals(""))
             {
                 txtHiscallX.Text = "0";
@@ -144,6 +168,8 @@ namespace Log4OMQSLEmailer
 
             
             ql.Callsign = new PointF(int.Parse(txtCallX.Text), int.Parse(txtCallY.Text));
+            ql.ImageLoc = new PointF(int.Parse(txtImageX.Text), int.Parse(txtImageY.Text));
+            ql.ImagePath = txtImagePath.Text;
             ql.HisCallsign = new PointF(int.Parse(txtHiscallX.Text), int.Parse(txtHisCallY.Text));
             ql.FontSize = int.Parse(txtFontSize.Text);
 
@@ -154,7 +180,24 @@ namespace Log4OMQSLEmailer
 
             lblImageSize.Text = img.Width.ToString() + "/" + img.Height.ToString();
 
+            //try
+            //{
+            //    if (ql.ImagePath.Trim().Length > 0)
+            //    {
 
+            //        if (System.IO.File.Exists(ql.ImagePath))
+            //        {
+            //            Graphics g = Graphics.FromImage(img);
+
+            //            Image img2 = Image.FromFile(ql.ImagePath);
+            //            g.DrawImage(img2, ql.ImageLoc);
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{ 
+            //    //ignore if bad iage /etc 
+            //}
 
             ImageWriter iw = new ImageWriter();
 
@@ -185,9 +228,21 @@ namespace Log4OMQSLEmailer
             img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, "TEST" + ".png"), System.Drawing.Imaging.ImageFormat.Png);
             */
 
-            panel1.BackgroundImage = ResizeImage(img, panel1.Width, panel1.Height);
+            //panel1.BackgroundImage = ResizeImage(img, panel1.Width, panel1.Height);
             
-            panel1.Refresh();
+            //panel1.Refresh();
+            pictureBox1.BackgroundImage = img;
+
+            if (this.Width < pictureBox1.Width)
+            {
+                this.Width = pictureBox1.Width + 10;
+            }
+
+            if (this.Height < (pictureBox1.Height + pictureBox1.Top))
+            {
+                this.Height = (pictureBox1.Height + pictureBox1.Top) + 10;
+            }
+
         }
 
         public static Bitmap ResizeImage(Image image, int width, int height)
@@ -217,6 +272,86 @@ namespace Log4OMQSLEmailer
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            string loc = e.Location.X.ToString() + "/" + e.Location.Y.ToString();
+            label7.Text = loc;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            string loc = e.Location.X.ToString() + "/" + e.Location.Y.ToString();
+            label7.Text = loc;
+        }
+
+        private void pictureBox1_MouseUp_1(object sender, MouseEventArgs e)
+        {
+            string loc = e.Location.X.ToString() + "/" + e.Location.Y.ToString();
+            label7.Text = loc;
+            if (setText.Equals(1))
+            {
+                txtCallX.Text = e.Location.X.ToString();
+                txtCallY.Text = e.Location.Y.ToString();
+                setText = -1;
+                button5.BackColor = Color.LightBlue;
+            }
+            if (setText.Equals(2))
+            {
+                txtHiscallX.Text = e.Location.X.ToString();
+                txtHisCallY.Text = e.Location.Y.ToString();
+                setText = -1;
+                button4.BackColor = Color.LightBlue;
+            }
+            if (setText.Equals(3))
+            {
+                txtImageX.Text = e.Location.X.ToString();
+                txtImageY.Text = e.Location.Y.ToString();
+                setText = -1;
+                button6.BackColor = Color.LightBlue;
+            }
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            setText = 1;
+            button5.BackColor = Color.GreenYellow;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            setText = 2;
+            button4.BackColor = Color.GreenYellow; 
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            setText = 3;
+            button6.BackColor = Color.GreenYellow;
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            if (txtImagePath.Text.Trim().Length > 0)
+            {
+                fd.FileName = txtImagePath.Text.Trim();
+                fd.ShowDialog();
+                txtImagePath.Text = fd.FileName;
+            }
+            else
+            {
+                fd.ShowDialog();
+                txtImagePath.Text = fd.FileName;
+            }
 
         }
     }

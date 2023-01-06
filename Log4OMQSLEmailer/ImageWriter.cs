@@ -40,9 +40,27 @@ namespace Log4OMQSLEmailer
             Font font = new Font("Arial", ql.FontSize, FontStyle.Bold, GraphicsUnit.Pixel);
 
 
+            
+            try
+            {
+                if (ql.ImagePath.Trim().Length > 0)
+                {
+
+                    if (System.IO.File.Exists(ql.ImagePath))
+                    {
+                      
+                        Image img2 = Image.FromFile(ql.ImagePath);
+                        g.DrawImage(img2, ql.ImageLoc);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //ignore if bad iage /etc 
+            }
+
             g.DrawString(HisAddress, font, Brushes.Black, ql.HisCallsign);
             g.DrawString(Address, font, Brushes.Black, ql.Callsign);
-            
 
             if (sourceExt.ToUpper().Equals(".PNG"))
             {

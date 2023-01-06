@@ -18,5 +18,8 @@ namespace Log4OMQSLEmailer
         public System.Drawing.PointF Band { get; set; }
         public bool ignoreMyAddress { get; set; }
 
+        public String ImagePath { get; set; }
+        public System.Drawing.PointF ImageLoc { get; set; }
+
     }
 }
