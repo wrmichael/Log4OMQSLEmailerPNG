@@ -142,6 +142,8 @@
             // ckIgnoreEmail
             // 
             this.ckIgnoreEmail.AutoSize = true;
+            this.ckIgnoreEmail.Checked = true;
+            this.ckIgnoreEmail.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckIgnoreEmail.Location = new System.Drawing.Point(380, 18);
             this.ckIgnoreEmail.Name = "ckIgnoreEmail";
             this.ckIgnoreEmail.Size = new System.Drawing.Size(84, 17);

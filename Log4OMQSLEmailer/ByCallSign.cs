@@ -18,6 +18,22 @@ namespace Log4OMQSLEmailer
 
         public void QueryByCallSign(bool ignoreQSLStatus = false, bool ignoreEmail = false)
         {
+            List<string> list = new List<string>();
+
+            foreach (string t in txtCallSign.Text.Split(','))
+            {
+                if (!t.Equals(""))
+                {
+                    list.Add("?" + t);
+                }
+            }
+
+            string p = "";
+            foreach (string t in list)
+            {
+                p = p + t.Replace('/','0').Replace('\\','0').Replace('-','0') + ",";
+            }
+            p = p.TrimEnd(',');
 
             //connect to databsae 
             MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
@@ -42,11 +58,11 @@ namespace Log4OMQSLEmailer
             {
                 if (ignoreEmail)
                 {
-                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name from log where callsign = ?callsign;";
+                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name from log where callsign in ( " + p+ ");";
                 }
                 else
                 {
-                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name from log where  email <> '' and callsign = ?callsign;";
+                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name from log where  email <> '' and callsign in ( " + p+ ")";
                 }
             }
             else
@@ -61,7 +77,7 @@ COLUMNS (
       SV VARCHAR(100) PATH '$.SV',
       RV VARCHAR(100) PATH '$.RV',
       SD VARCHAR(100) PATH '$.SD',
-      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and callsign = ?callsign;";
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and callsign  in ( " + p + ");";
                 }
                 else
                 { 
@@ -73,13 +89,19 @@ COLUMNS (
       SV VARCHAR(100) PATH '$.SV',
       RV VARCHAR(100) PATH '$.RV',
       SD VARCHAR(100) PATH '$.SD',
-      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and email <> '' and callsign = ?callsign;";
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and email <> '' and callsign = ( " + p+ ");";
             }
             }
             com.CommandText = mysql;
-            
-            com.Parameters.Add("?callsign", DbType.String).Value = txtCallSign.Text;
-            
+
+
+            foreach (string t in txtCallSign.Text.Split(','))
+            {
+                if (!t.Equals(""))
+                {
+                    com.Parameters.Add("?"+t.Replace('/', '0').Replace('\\', '0').Replace('-', '0'), DbType.String).Value = t;
+                }
+            }
             MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
 
             
@@ -148,6 +170,12 @@ COLUMNS (
             InitializeComponent();
         }
 
+        public void AutoSearchBycall(string call,object sender, EventArgs e)
+        {
+            txtCallSign.Text = call;
+            button1_Click(sender,e);
+
+        }
         private void ByCallSign_Load(object sender, EventArgs e)
         {
 

@@ -95,6 +95,12 @@
     <Compile Include="ByCallSign.Designer.cs">
       <DependentUpon>ByCallSign.cs</DependentUpon>
     </Compile>
+    <Compile Include="MailSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MailSearch.Designer.cs">
+      <DependentUpon>MailSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="ENVDataLayoutByImage .cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ByCallSign.resx">
       <DependentUpon>ByCallSign.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MailSearch.resx">
+      <DependentUpon>MailSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ENVDataLayoutByImage .resx">
       <DependentUpon>ENVDataLayoutByImage .cs</DependentUpon>

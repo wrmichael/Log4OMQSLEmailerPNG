@@ -1244,6 +1244,13 @@ COLUMNS (
             env.ShowDialog(); 
 
         }
+
+        private void byMailDirectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MailSearch lx = new MailSearch();
+            lx.form1 = this;
+            lx.ShowDialog();
+        }
     }
 }
 

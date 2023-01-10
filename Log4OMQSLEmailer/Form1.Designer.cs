@@ -60,6 +60,7 @@ namespace Log4OMQSLEmailer
             this.bySKCCBureauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.envelopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byMailDirectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -189,10 +190,11 @@ namespace Log4OMQSLEmailer
             this.callsignToolStripMenuItem,
             this.dXBureauToolStripMenuItem,
             this.manualSendToolStripMenuItem,
-            this.bySKCCBureauToolStripMenuItem});
+            this.bySKCCBureauToolStripMenuItem,
+            this.byMailDirectToolStripMenuItem});
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-            this.searchToolStripMenuItem.Text = "Send";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.searchToolStripMenuItem.Text = "Search";
             // 
             // callsignToolStripMenuItem
             // 
@@ -337,6 +339,13 @@ namespace Log4OMQSLEmailer
             this.createToolStripMenuItem.Text = "Create";
             this.createToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
             // 
+            // byMailDirectToolStripMenuItem
+            // 
+            this.byMailDirectToolStripMenuItem.Name = "byMailDirectToolStripMenuItem";
+            this.byMailDirectToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.byMailDirectToolStripMenuItem.Text = "By Mail Direct";
+            this.byMailDirectToolStripMenuItem.Click += new System.EventHandler(this.byMailDirectToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -404,6 +413,7 @@ namespace Log4OMQSLEmailer
         private System.Windows.Forms.ToolStripMenuItem bySKCCBureauToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem envelopeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byMailDirectToolStripMenuItem;
     }
 }
 
