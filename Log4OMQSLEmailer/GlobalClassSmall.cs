@@ -516,7 +516,7 @@ namespace Log4OMQSLEmailer
             string myfetchBio = fetchBoi(k, callsign);
             string myqsl = getQSLMGR(s);
 
-            if (myqsl.ToUpper().StartsWith("VIA BUREAU") || myqsl.ToUpper().StartsWith("BUREAU")|| myqsl.ToUpper().StartsWith("BURO"))
+            if (myqsl.ToUpper().EndsWith("/BURO") || myqsl.ToUpper().StartsWith("QSL BUREAU") || myqsl.ToUpper().Contains("/BURO") || myqsl.ToUpper().Contains("/BUREAU") || myqsl.ToUpper().Contains(",BUREAU,") || myqsl.ToUpper().Contains(",BURO,") || myqsl.ToUpper().Contains("OR BURO") || myqsl.ToUpper().Contains("OR BUREAU") || myqsl.ToUpper().Contains("OR VIA BURO") || myqsl.ToUpper().Contains("/BUREAU/") || myqsl.ToUpper().Contains("/BURO/") || myqsl.ToUpper().StartsWith("VIA BUREAU") || myqsl.ToUpper().StartsWith("BUREAU")|| myqsl.ToUpper().StartsWith("BURO"))
             {
                 return "BUREAU > " + myqsl;  
             }

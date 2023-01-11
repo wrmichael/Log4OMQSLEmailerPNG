@@ -25,6 +25,159 @@ namespace Log4OMQSLEmailer
 
         }
 
+        public int sQSLBefore(string callsign)
+        {
+
+            try
+            {
+                //connect to databsae 
+                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+                {
+                    Server = Properties.Settings.Default.DBHost,
+                    UserID = Properties.Settings.Default.DBUser,
+                    Password = Properties.Settings.Default.DBPassword,
+                    Database = Properties.Settings.Default.DBDatabase,
+                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
+
+
+                };
+                //if all the above return AllowDrop record we have a dup
+                //connect to databsae 
+                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
+                sqlcon2.Open();
+
+                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+                com.Connection = sqlcon2;
+
+                string mysql = "";
+
+                mysql = @"select j.* 
+from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+COLUMNS (
+	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
+    R VARCHAR(10) PATH '$.R', 
+      SV VARCHAR(100) PATH '$.SV',
+      RV VARCHAR(100) PATH '$.RV',
+      SD VARCHAR(100) PATH '$.SD',
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and callsign = ?callsign  and j.S = 'Yes'";
+                com.CommandText = mysql;
+
+                com.Parameters.Add("?callsign", DbType.String).Value = callsign;
+                //com.Parameters.Add("?band", DbType.String).Value = mode;
+                //com.Parameters.Add("?mode", DbType.String).Value = band;
+
+
+                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+
+                
+                int rows = 0;
+                while (reader.Read())
+                {
+                    rows++;
+                    
+                }
+                reader.Close();
+                com.Dispose();
+                sqlcon2.Close();
+                System.GC.Collect();
+                return rows;
+
+                try
+                {
+                    reader.Close();
+                    com.Dispose();
+                    sqlcon2.Close();
+                    System.GC.Collect();
+                }
+                catch (Exception ex)
+                {
+                    return -1;
+                }
+            }
+            catch (Exception exs)
+            {
+
+            }
+            return -1;
+        }
+
+        public int rQSLBefore(string callsign)
+        {
+
+            try
+            {
+                //connect to databsae 
+                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+                {
+                    Server = Properties.Settings.Default.DBHost,
+                    UserID = Properties.Settings.Default.DBUser,
+                    Password = Properties.Settings.Default.DBPassword,
+                    Database = Properties.Settings.Default.DBDatabase,
+                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
+
+
+                };
+                //if all the above return AllowDrop record we have a dup
+                //connect to databsae 
+                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
+                sqlcon2.Open();
+
+                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+                com.Connection = sqlcon2;
+
+                string mysql = "";
+
+                mysql = @"select j.* 
+from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+COLUMNS (
+	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
+    R VARCHAR(10) PATH '$.R', 
+      SV VARCHAR(100) PATH '$.SV',
+      RV VARCHAR(100) PATH '$.RV',
+      SD VARCHAR(100) PATH '$.SD',
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and   callsign =  ?callsign  and j.R = 'Yes'";
+                com.CommandText = mysql;
+
+                com.Parameters.Add("?callsign", DbType.String).Value = callsign;
+                //com.Parameters.Add("?band", DbType.String).Value = mode;
+                //com.Parameters.Add("?mode", DbType.String).Value = band;
+
+
+                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+
+
+                int rows = 0;
+                while (reader.Read())
+                {
+                    rows++;
+
+                }
+                reader.Close();
+                com.Dispose();
+                sqlcon2.Close();
+                System.GC.Collect();
+                return rows;
+
+                try
+                {
+                    reader.Close();
+                    com.Dispose();
+                    sqlcon2.Close();
+                    System.GC.Collect();
+                }
+                catch (Exception ex)
+                {
+                    return -1;
+                }
+            }
+            catch (Exception exs)
+            {
+
+            }
+            return -1;
+        }
+
+
 
         public void DirectMailQuery()
         {
@@ -37,8 +190,6 @@ namespace Log4OMQSLEmailer
                 Password = Properties.Settings.Default.DBPassword,
                 Database = Properties.Settings.Default.DBDatabase,
                 DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
-
-
             };
             //            b.DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc;
             MySqlConnector.MySqlConnection sqlcon = new MySqlConnector.MySqlConnection(b.ConnectionString);
@@ -163,15 +314,40 @@ COLUMNS (
                     li.SubItems.Add(myname);
                     li.SubItems.Add(directmail);
                     li.SubItems.Add(UseBureau);
-                    UseBureau = UseBureau.ToUpper();
-                    if (UseBureau.Contains("DIRECT WITH") || UseBureau.Contains("SASE,IRC") || UseBureau.Contains("SASE APPRE") || UseBureau.Contains("SASE ONLY") || UseBureau.Contains("PSE SASE")|| UseBureau.Contains("SASE PSE")|| UseBureau.Contains("DIRECT ONLY WITH")|| UseBureau.Contains("DIRECT WITH S.A.S.E")|| UseBureau.Contains("SASE OR"))
-                    {
-                        li.BackColor = Color.LightGoldenrodYellow;
-                    }
 
-                    if (UseBureau.Contains(",DIRECT,") || UseBureau.Contains("NO SASE")|| UseBureau.Contains("NO S.A.S.E")|| UseBureau.Contains("NO \"SASE\""))
+
+                    int sqsl = sQSLBefore(mycall);
+                    int rqsl = rQSLBefore(mycall);
+
+                    li.SubItems.Add(sqsl.ToString());
+                    li.SubItems.Add(rqsl.ToString());
+
+                    UseBureau = UseBureau.ToUpper();
+
+                    if (UseBureau.StartsWith("DIRECT OR") || UseBureau.StartsWith("DIRECT ONLY") || UseBureau.Contains("VIA DIRECT") || UseBureau.Contains("DIRECT,") || UseBureau.Contains("NO SASE") || UseBureau.Contains("NO S.A.S.E") || UseBureau.Contains("NO \"SASE\""))
                     {
                         li.BackColor = Color.LightGreen;
+                    }
+
+
+                    if (UseBureau.Contains("S.A.S.E. NEED") || UseBureau.Contains("SASE NEED") || UseBureau.Contains("PSE S.A.S.E.") || UseBureau.Contains("PSE SASE") || UseBureau.Contains("INCLUDE SASE") || UseBureau.Contains("INCLUDE S.A.S.E") || UseBureau.Contains("DIRECT WITH") || UseBureau.Contains("SASE,IRC") || UseBureau.Contains("SASE APPRE") || UseBureau.Contains("SASE ONLY") || UseBureau.Contains("PSE SASE")|| UseBureau.Contains("SASE PSE")|| UseBureau.Contains("DIRECT ONLY WITH")|| UseBureau.Contains("DIRECT WITH S.A.S.E")|| UseBureau.Contains("SASE OR"))
+                    {
+                        li.BackColor = Color.Orange;
+                    }
+
+                    if (UseBureau.Contains("SKCC") || UseBureau.Contains("S.K.C.C."))
+                    {
+                        li.BackColor = Color.CadetBlue;
+                    }
+
+                    //show liars  (wants cards but return cards)
+                    if (sqsl>0 && rqsl==-1)
+                    {
+                        li.BackColor = Color.Red;
+                        if (ckDeadBeat.Checked)
+                        {
+                            continue;
+                        }
                     }
 
 
@@ -191,7 +367,7 @@ COLUMNS (
 
         private void DXSearch_Load(object sender, EventArgs e)
         {
-            string[] qsofields = "qsoid,callsign,qsodate,qsotime,email,band,mode,rstsent,name,DirectMail,Bureau,QSL Notes".Split(',');
+            string[] qsofields = "qsoid,callsign,qsodate,qsotime,email,band,mode,rstsent,name,DirectMail,Bureau,QSLRB4,QSLSB4,QSL Notes".Split(',');
 
 
             listView1.Items.Clear();
@@ -223,7 +399,11 @@ COLUMNS (
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            if (listBox1.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a template first");
+                return;
+            }
             foreach (ListViewItem lvi in listView1.Items)
             {
                 if (lvi.Selected)
@@ -291,7 +471,7 @@ COLUMNS (
             callsigns = callsigns.TrimEnd(',');
 
             ByCallSign fm = new ByCallSign();
-            
+            fm.form1 = this.form1;
             fm.Show();
             fm.AutoSearchBycall(callsigns, sender, e);
         }

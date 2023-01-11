@@ -1076,7 +1076,77 @@ COLUMNS (
             }
         }
 
-      
+        public bool duplicateByDateCheck(string callsign, string mode, string band)
+        {
+
+            try
+            {
+                //connect to databsae 
+                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+                {
+                    Server = Properties.Settings.Default.DBHost,
+                    UserID = Properties.Settings.Default.DBUser,
+                    Password = Properties.Settings.Default.DBPassword,
+                    Database = Properties.Settings.Default.DBDatabase,
+                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
+
+
+                };
+                //if all the above return AllowDrop record we have a dup
+                //connect to databsae 
+                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
+                sqlcon2.Open();
+
+                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+                com.Connection = sqlcon2;
+
+                string mysql = "";
+
+                mysql = @"select qsoid, callsign, j.* 
+from log,JSON_TABLE(log.qsoconfirmations,'$[*]' COLUMNS (	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',    R VARCHAR(10) PATH '$.R', SV VARCHAR(100) PATH '$.SV',
+      RV VARCHAR(100) PATH '$.RV',SD VARCHAR(100) PATH '$.SD',RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S = 'Yes' and callsign = @callsign and mode = @mymode and band = @myband";
+                com.CommandText = mysql;
+
+                com.Parameters.Add("@callsign", DbType.String).Value = callsign;
+                com.Parameters.Add("@myband", DbType.String).Value = band;
+                com.Parameters.Add("@mymode", DbType.String).Value = mode;
+
+
+                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+
+                int count = 0;
+                while (reader.Read())
+                {
+                    count++;
+                    
+                }
+                if (count > 0)
+                {
+                    reader.Close();
+                    com.Dispose();
+                    sqlcon2.Close();
+                    System.GC.Collect();
+                    return true;
+                }
+
+                try
+                {
+                    reader.Close();
+                    com.Dispose();
+                    sqlcon2.Close();
+                    System.GC.Collect();
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+            catch (Exception exs)
+            {
+
+            }
+            return false;
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {

@@ -43,6 +43,9 @@
             // 
             // listView1
             // 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(11, 212);
             this.listView1.Name = "listView1";
@@ -71,6 +74,7 @@
             // 
             // button2
             // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Location = new System.Drawing.Point(691, 375);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(91, 30);
@@ -121,6 +125,7 @@
             // 
             // button4
             // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button4.Location = new System.Drawing.Point(691, 411);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(91, 30);

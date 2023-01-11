@@ -190,8 +190,8 @@ COLUMNS (
                 com.CommandText = mysql;
 
                 com.Parameters.Add("?callsign", DbType.String).Value = callsign;
-                com.Parameters.Add("?band", DbType.String).Value = mode;
-                com.Parameters.Add("?mode", DbType.String).Value = band;
+                com.Parameters.Add("?band", DbType.String).Value = band;
+                com.Parameters.Add("?mode", DbType.String).Value = mode;
 
 
                 MySqlConnector.MySqlDataReader reader = com.ExecuteReader();

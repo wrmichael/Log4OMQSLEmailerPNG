@@ -309,6 +309,12 @@ COLUMNS (
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (this.listBox1.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a template");
+                return;
+            }
+
             string imgext = System.IO.Path.GetExtension(this.listBox1.SelectedItem.ToString());
 
             foreach (ListViewItem item in listView1.SelectedItems)
@@ -340,6 +346,11 @@ COLUMNS (
                 
                
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            form1.duplicateByDateCheck("F6EJN", "CW", "40m");
         }
     }
 }

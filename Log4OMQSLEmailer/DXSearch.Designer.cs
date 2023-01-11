@@ -40,6 +40,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.ckDeadBeat = new System.Windows.Forms.CheckBox();
+            this.ckQSOB4 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -158,11 +160,37 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // ckDeadBeat
+            // 
+            this.ckDeadBeat.AutoSize = true;
+            this.ckDeadBeat.Checked = true;
+            this.ckDeadBeat.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckDeadBeat.Location = new System.Drawing.Point(572, 34);
+            this.ckDeadBeat.Name = "ckDeadBeat";
+            this.ckDeadBeat.Size = new System.Drawing.Size(111, 17);
+            this.ckDeadBeat.TabIndex = 28;
+            this.ckDeadBeat.Text = "Ignore Deadbeats";
+            this.ckDeadBeat.UseVisualStyleBackColor = true;
+            // 
+            // ckQSOB4
+            // 
+            this.ckQSOB4.AutoSize = true;
+            this.ckQSOB4.Checked = true;
+            this.ckQSOB4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckQSOB4.Location = new System.Drawing.Point(572, 57);
+            this.ckQSOB4.Name = "ckQSOB4";
+            this.ckQSOB4.Size = new System.Drawing.Size(162, 17);
+            this.ckQSOB4.TabIndex = 29;
+            this.ckQSOB4.Text = "Ignore QSO B4 (band/mode)";
+            this.ckQSOB4.UseVisualStyleBackColor = true;
+            // 
             // DXSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ckQSOB4);
+            this.Controls.Add(this.ckDeadBeat);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -197,5 +225,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox ckDeadBeat;
+        private System.Windows.Forms.CheckBox ckQSOB4;
     }
 }

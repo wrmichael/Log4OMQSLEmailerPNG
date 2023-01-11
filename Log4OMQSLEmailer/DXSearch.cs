@@ -104,6 +104,11 @@ COLUMNS (
                     string mytime = "";
                     string mydate = "";
                     string mycall = reader["callsign"].ToString();
+                    if (mycall.ToUpper().Equals("CO2VDD"))
+                    {
+                        System.Console.Write("TEST");
+                    }
+
                     GlobalClassSmall g = new GlobalClassSmall();
                     g.username = Properties.Settings.Default.QRZUser;
                     g.password = Properties.Settings.Default.QRZPassword;
@@ -121,7 +126,7 @@ COLUMNS (
 
                     if (UseBureau.StartsWith("NOT FOUND ->"))
                     {
-                        if ((!UseBureau.Contains("BUREAU")) || (!UseBureau.Contains("BURO")))
+                        if ((!UseBureau.Contains("BUREAU")) && (!UseBureau.Contains("BURO")))
                         {
                             continue;
                         }
@@ -165,6 +170,38 @@ COLUMNS (
                     li.SubItems.Add(rst);
                     li.SubItems.Add(myname);
                     li.SubItems.Add(UseBureau);
+
+                    bool duplicate = form1.duplicateByDateCheck(mycall, mode, band);
+                    if (duplicate)
+                    {
+                        if (ckQSOB4.Checked)
+                        {
+                            continue;
+                        }
+                        else
+                        { 
+                        
+                        }
+                    }
+
+                    li.SubItems.Add(duplicate.ToString());
+                    int sqsl = sQSLBefore(mycall);
+                    int rqsl = rQSLBefore(mycall);
+
+                    li.SubItems.Add(sqsl.ToString());
+                    li.SubItems.Add(rqsl.ToString());
+
+                    //show liars  (wants cards but return cards)
+                    if (sqsl > 0 && rqsl == -1)
+                    {
+                        li.BackColor = Color.Red;
+                        if (ckDeadBeat.Checked)
+                        {
+                            continue;
+                        }
+                    }
+
+
                     listView1.Items.Add(li);
 
 
@@ -177,11 +214,162 @@ COLUMNS (
 
             }
         }
+        public int sQSLBefore(string callsign)
+        {
+
+            try
+            {
+                //connect to databsae 
+                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+                {
+                    Server = Properties.Settings.Default.DBHost,
+                    UserID = Properties.Settings.Default.DBUser,
+                    Password = Properties.Settings.Default.DBPassword,
+                    Database = Properties.Settings.Default.DBDatabase,
+                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
+
+
+                };
+                //if all the above return AllowDrop record we have a dup
+                //connect to databsae 
+                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
+                sqlcon2.Open();
+
+                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+                com.Connection = sqlcon2;
+
+                string mysql = "";
+
+                mysql = @"select j.* 
+from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+COLUMNS (
+	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
+    R VARCHAR(10) PATH '$.R', 
+      SV VARCHAR(100) PATH '$.SV',
+      RV VARCHAR(100) PATH '$.RV',
+      SD VARCHAR(100) PATH '$.SD',
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and callsign = ?callsign  and j.S = 'Yes'";
+                com.CommandText = mysql;
+
+                com.Parameters.Add("?callsign", DbType.String).Value = callsign;
+                //com.Parameters.Add("?band", DbType.String).Value = mode;
+                //com.Parameters.Add("?mode", DbType.String).Value = band;
+
+
+                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+
+
+                int rows = 0;
+                while (reader.Read())
+                {
+                    rows++;
+
+                }
+                reader.Close();
+                com.Dispose();
+                sqlcon2.Close();
+                System.GC.Collect();
+                return rows;
+
+                try
+                {
+                    reader.Close();
+                    com.Dispose();
+                    sqlcon2.Close();
+                    System.GC.Collect();
+                }
+                catch (Exception ex)
+                {
+                    return -1;
+                }
+            }
+            catch (Exception exs)
+            {
+
+            }
+            return -1;
+        }
+
+        public int rQSLBefore(string callsign)
+        {
+
+            try
+            {
+                //connect to databsae 
+                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+                {
+                    Server = Properties.Settings.Default.DBHost,
+                    UserID = Properties.Settings.Default.DBUser,
+                    Password = Properties.Settings.Default.DBPassword,
+                    Database = Properties.Settings.Default.DBDatabase,
+                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
+
+
+                };
+                //if all the above return AllowDrop record we have a dup
+                //connect to databsae 
+                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
+                sqlcon2.Open();
+
+                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+                com.Connection = sqlcon2;
+
+                string mysql = "";
+
+                mysql = @"select j.* 
+from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+COLUMNS (
+	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
+    R VARCHAR(10) PATH '$.R', 
+      SV VARCHAR(100) PATH '$.SV',
+      RV VARCHAR(100) PATH '$.RV',
+      SD VARCHAR(100) PATH '$.SD',
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and   callsign =  ?callsign  and j.R = 'Yes'";
+                com.CommandText = mysql;
+
+                com.Parameters.Add("?callsign", DbType.String).Value = callsign;
+                //com.Parameters.Add("?band", DbType.String).Value = mode;
+                //com.Parameters.Add("?mode", DbType.String).Value = band;
+
+
+                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+
+
+                int rows = 0;
+                while (reader.Read())
+                {
+                    rows++;
+
+                }
+                reader.Close();
+                com.Dispose();
+                sqlcon2.Close();
+                System.GC.Collect();
+                return rows;
+
+                try
+                {
+                    reader.Close();
+                    com.Dispose();
+                    sqlcon2.Close();
+                    System.GC.Collect();
+                }
+                catch (Exception ex)
+                {
+                    return -1;
+                }
+            }
+            catch (Exception exs)
+            {
+
+            }
+            return -1;
+        }
 
 
         private void DXSearch_Load(object sender, EventArgs e)
         {
-            string[] qsofields = "qsoid,callsign,qsodate,qsotime,email,band,mode,rstsent,name,Bureau,QSL Notes".Split(',');
+            string[] qsofields = "qsoid,callsign,qsodate,qsotime,email,band,mode,rstsent,name,Bureau,Duplicate,rQSL,sQSL,QSL Notes".Split(',');
 
 
             listView1.Items.Clear();
@@ -203,6 +391,7 @@ COLUMNS (
         private void button1_Click(object sender, EventArgs e)
         {
             
+
             listView1.Items.Clear();
             this.BureauDXQuery();
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -213,6 +402,7 @@ COLUMNS (
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (listBox1.SelectedItems.Count ==0) return;
 
             foreach (ListViewItem lvi in listView1.Items)
             {
