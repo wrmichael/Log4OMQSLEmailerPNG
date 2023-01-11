@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -351,6 +352,19 @@ COLUMNS (
         private void button5_Click(object sender, EventArgs e)
         {
             form1.duplicateByDateCheck("F6EJN", "CW", "40m");
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(Properties.Settings.Default.TMPDIR);
+            }
+            catch (Win32Exception win32Exception)
+            {
+                //The system cannot find the file specified...
+                Console.WriteLine(win32Exception.Message);
+            }
         }
     }
 }

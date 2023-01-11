@@ -39,6 +39,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.ckIgnoreQSL = new System.Windows.Forms.CheckBox();
             this.ckIgnoreEmail = new System.Windows.Forms.CheckBox();
+            this.button5 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listView1
@@ -128,7 +129,7 @@
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button4.Location = new System.Drawing.Point(691, 411);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(91, 30);
+            this.button4.Size = new System.Drawing.Size(91, 23);
             this.button4.TabIndex = 14;
             this.button4.Text = "Create Images";
             this.button4.UseVisualStyleBackColor = true;
@@ -156,11 +157,23 @@
             this.ckIgnoreEmail.Text = "Ignore Email";
             this.ckIgnoreEmail.UseVisualStyleBackColor = true;
             // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Location = new System.Drawing.Point(610, 411);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 17;
+            this.button5.Text = "Open TMP";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click_1);
+            // 
             // ByCallSign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.ckIgnoreEmail);
             this.Controls.Add(this.ckIgnoreQSL);
             this.Controls.Add(this.button4);
@@ -193,5 +206,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox ckIgnoreQSL;
         private System.Windows.Forms.CheckBox ckIgnoreEmail;
+        private System.Windows.Forms.Button button5;
     }
 }

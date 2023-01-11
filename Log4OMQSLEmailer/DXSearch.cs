@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -451,6 +452,19 @@ COLUMNS (
             catch (Exception ex)
             {
                 MessageBox.Show("Error reading QSL folder:" + Properties.Settings.Default.QSLDir + "\r\n" + ex.Message);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(Properties.Settings.Default.TMPDIR);
+            }
+            catch (Win32Exception win32Exception)
+            {
+                //The system cannot find the file specified...
+                Console.WriteLine(win32Exception.Message);
             }
         }
     }

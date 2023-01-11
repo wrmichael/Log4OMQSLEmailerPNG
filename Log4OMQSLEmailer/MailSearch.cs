@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -474,6 +475,19 @@ COLUMNS (
             fm.form1 = this.form1;
             fm.Show();
             fm.AutoSearchBycall(callsigns, sender, e);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(Properties.Settings.Default.TMPDIR);
+            }
+            catch (Win32Exception win32Exception)
+            {
+                //The system cannot find the file specified...
+                Console.WriteLine(win32Exception.Message);
+            }
         }
     }
 }
