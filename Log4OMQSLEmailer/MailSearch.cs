@@ -26,159 +26,6 @@ namespace Log4OMQSLEmailer
 
         }
 
-        public int sQSLBefore(string callsign)
-        {
-
-            try
-            {
-                //connect to databsae 
-                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
-                {
-                    Server = Properties.Settings.Default.DBHost,
-                    UserID = Properties.Settings.Default.DBUser,
-                    Password = Properties.Settings.Default.DBPassword,
-                    Database = Properties.Settings.Default.DBDatabase,
-                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
-
-
-                };
-                //if all the above return AllowDrop record we have a dup
-                //connect to databsae 
-                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
-                sqlcon2.Open();
-
-                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
-                com.Connection = sqlcon2;
-
-                string mysql = "";
-
-                mysql = @"select j.* 
-from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
-COLUMNS (
-	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
-    R VARCHAR(10) PATH '$.R', 
-      SV VARCHAR(100) PATH '$.SV',
-      RV VARCHAR(100) PATH '$.RV',
-      SD VARCHAR(100) PATH '$.SD',
-      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and callsign = ?callsign  and j.S = 'Yes'";
-                com.CommandText = mysql;
-
-                com.Parameters.Add("?callsign", DbType.String).Value = callsign;
-                //com.Parameters.Add("?band", DbType.String).Value = mode;
-                //com.Parameters.Add("?mode", DbType.String).Value = band;
-
-
-                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
-
-                
-                int rows = 0;
-                while (reader.Read())
-                {
-                    rows++;
-                    
-                }
-                reader.Close();
-                com.Dispose();
-                sqlcon2.Close();
-                System.GC.Collect();
-                return rows;
-
-                try
-                {
-                    reader.Close();
-                    com.Dispose();
-                    sqlcon2.Close();
-                    System.GC.Collect();
-                }
-                catch (Exception ex)
-                {
-                    return -1;
-                }
-            }
-            catch (Exception exs)
-            {
-
-            }
-            return -1;
-        }
-
-        public int rQSLBefore(string callsign)
-        {
-
-            try
-            {
-                //connect to databsae 
-                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
-                {
-                    Server = Properties.Settings.Default.DBHost,
-                    UserID = Properties.Settings.Default.DBUser,
-                    Password = Properties.Settings.Default.DBPassword,
-                    Database = Properties.Settings.Default.DBDatabase,
-                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
-
-
-                };
-                //if all the above return AllowDrop record we have a dup
-                //connect to databsae 
-                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
-                sqlcon2.Open();
-
-                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
-                com.Connection = sqlcon2;
-
-                string mysql = "";
-
-                mysql = @"select j.* 
-from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
-COLUMNS (
-	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
-    R VARCHAR(10) PATH '$.R', 
-      SV VARCHAR(100) PATH '$.SV',
-      RV VARCHAR(100) PATH '$.RV',
-      SD VARCHAR(100) PATH '$.SD',
-      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and   callsign =  ?callsign  and j.R = 'Yes'";
-                com.CommandText = mysql;
-
-                com.Parameters.Add("?callsign", DbType.String).Value = callsign;
-                //com.Parameters.Add("?band", DbType.String).Value = mode;
-                //com.Parameters.Add("?mode", DbType.String).Value = band;
-
-
-                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
-
-
-                int rows = 0;
-                while (reader.Read())
-                {
-                    rows++;
-
-                }
-                reader.Close();
-                com.Dispose();
-                sqlcon2.Close();
-                System.GC.Collect();
-                return rows;
-
-                try
-                {
-                    reader.Close();
-                    com.Dispose();
-                    sqlcon2.Close();
-                    System.GC.Collect();
-                }
-                catch (Exception ex)
-                {
-                    return -1;
-                }
-            }
-            catch (Exception exs)
-            {
-
-            }
-            return -1;
-        }
-
-
 
         public void DirectMailQuery()
         {
@@ -317,8 +164,13 @@ COLUMNS (
                     li.SubItems.Add(UseBureau);
 
 
-                    int sqsl = sQSLBefore(mycall);
-                    int rqsl = rQSLBefore(mycall);
+                    if (mycall.Equals("KB9BVN"))
+                    {
+                        System.Console.Write("TEST");
+                    }
+
+                    int sqsl = form1.sQSLBefore(mycall);
+                    int rqsl = form1.rQSLBefore(mycall);
 
                     li.SubItems.Add(sqsl.ToString());
                     li.SubItems.Add(rqsl.ToString());
@@ -351,6 +203,19 @@ COLUMNS (
                         }
                     }
 
+                    if (rqsl > 0)
+                    {
+                        //check for QSL By band before
+                        string qslb4 = form1.QSLBefore(mycall, band, mode).ToString();
+                        li.SubItems.Add(qslb4);
+                        if (li.BackColor != Color.Red)
+                        {
+                            li.BackColor = Color.PowderBlue;
+                        }
+                    }else
+                    {
+                        li.SubItems.Add("No");
+                    }
 
                     listView1.Items.Add(li);
 
@@ -368,7 +233,7 @@ COLUMNS (
 
         private void DXSearch_Load(object sender, EventArgs e)
         {
-            string[] qsofields = "qsoid,callsign,qsodate,qsotime,email,band,mode,rstsent,name,DirectMail,Bureau,QSLRB4,QSLSB4,QSL Notes".Split(',');
+            string[] qsofields = "qsoid,callsign,qsodate,qsotime,email,band,mode,rstsent,name,DirectMail,Bureau,QSLRB4,QSLSB4,QSL by Band/Mode,QSL Notes".Split(',');
 
 
             listView1.Items.Clear();

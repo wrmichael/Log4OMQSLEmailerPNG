@@ -186,8 +186,8 @@ COLUMNS (
                     }
 
                     li.SubItems.Add(duplicate.ToString());
-                    int sqsl = sQSLBefore(mycall);
-                    int rqsl = rQSLBefore(mycall);
+                    int sqsl = form1.sQSLBefore(mycall);
+                    int rqsl = form1.rQSLBefore(mycall);
 
                     li.SubItems.Add(sqsl.ToString());
                     li.SubItems.Add(rqsl.ToString());
@@ -214,158 +214,178 @@ COLUMNS (
                 listView1.Refresh();
 
             }
-        }
-        public int sQSLBefore(string callsign)
-        {
+            try
+            { reader.Close(); }
+            catch (Exception dex)
+            { }
+            try
+            {
+                com.Dispose();
+            }
+            catch (Exception dex)
+            { }
 
             try
             {
-                //connect to databsae 
-                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
-                {
-                    Server = Properties.Settings.Default.DBHost,
-                    UserID = Properties.Settings.Default.DBUser,
-                    Password = Properties.Settings.Default.DBPassword,
-                    Database = Properties.Settings.Default.DBDatabase,
-                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
-
-
-                };
-                //if all the above return AllowDrop record we have a dup
-                //connect to databsae 
-                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
-                sqlcon2.Open();
-
-                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
-                com.Connection = sqlcon2;
-
-                string mysql = "";
-
-                mysql = @"select j.* 
-from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
-COLUMNS (
-	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
-    R VARCHAR(10) PATH '$.R', 
-      SV VARCHAR(100) PATH '$.SV',
-      RV VARCHAR(100) PATH '$.RV',
-      SD VARCHAR(100) PATH '$.SD',
-      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and callsign = ?callsign  and j.S = 'Yes'";
-                com.CommandText = mysql;
-
-                com.Parameters.Add("?callsign", DbType.String).Value = callsign;
-                //com.Parameters.Add("?band", DbType.String).Value = mode;
-                //com.Parameters.Add("?mode", DbType.String).Value = band;
-
-
-                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
-
-
-                int rows = 0;
-                while (reader.Read())
-                {
-                    rows++;
-
-                }
-                reader.Close();
-                com.Dispose();
-                sqlcon2.Close();
-                System.GC.Collect();
-                return rows;
-
-                try
-                {
-                    reader.Close();
-                    com.Dispose();
-                    sqlcon2.Close();
-                    System.GC.Collect();
-                }
-                catch (Exception ex)
-                {
-                    return -1;
-                }
+                sqlcon.Close();
             }
-            catch (Exception exs)
-            {
+            catch (Exception dex)
+            { }
 
-            }
-            return -1;
+            System.GC.Collect();
+
         }
+//        public int sQSLBefore(string callsign)
+//        {
 
-        public int rQSLBefore(string callsign)
-        {
-
-            try
-            {
-                //connect to databsae 
-                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
-                {
-                    Server = Properties.Settings.Default.DBHost,
-                    UserID = Properties.Settings.Default.DBUser,
-                    Password = Properties.Settings.Default.DBPassword,
-                    Database = Properties.Settings.Default.DBDatabase,
-                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
-
-
-                };
-                //if all the above return AllowDrop record we have a dup
-                //connect to databsae 
-                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
-                sqlcon2.Open();
-
-                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
-                com.Connection = sqlcon2;
-
-                string mysql = "";
-
-                mysql = @"select j.* 
-from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
-COLUMNS (
-	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
-    R VARCHAR(10) PATH '$.R', 
-      SV VARCHAR(100) PATH '$.SV',
-      RV VARCHAR(100) PATH '$.RV',
-      SD VARCHAR(100) PATH '$.SD',
-      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and   callsign =  ?callsign  and j.R = 'Yes'";
-                com.CommandText = mysql;
-
-                com.Parameters.Add("?callsign", DbType.String).Value = callsign;
-                //com.Parameters.Add("?band", DbType.String).Value = mode;
-                //com.Parameters.Add("?mode", DbType.String).Value = band;
+//            try
+//            {
+//                //connect to databsae 
+//                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+//                {
+//                    Server = Properties.Settings.Default.DBHost,
+//                    UserID = Properties.Settings.Default.DBUser,
+//                    Password = Properties.Settings.Default.DBPassword,
+//                    Database = Properties.Settings.Default.DBDatabase,
+//                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
 
 
-                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+//                };
+//                //if all the above return AllowDrop record we have a dup
+//                //connect to databsae 
+//                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
+//                sqlcon2.Open();
+
+//                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+//                com.Connection = sqlcon2;
+
+//                string mysql = "";
+
+//                mysql = @"select j.* 
+//from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+//COLUMNS (
+//	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
+//    R VARCHAR(10) PATH '$.R', 
+//      SV VARCHAR(100) PATH '$.SV',
+//      RV VARCHAR(100) PATH '$.RV',
+//      SD VARCHAR(100) PATH '$.SD',
+//      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and callsign = ?callsign  and j.S = 'Yes'";
+//                com.CommandText = mysql;
+
+//                com.Parameters.Add("?callsign", DbType.String).Value = callsign;
+//                //com.Parameters.Add("?band", DbType.String).Value = mode;
+//                //com.Parameters.Add("?mode", DbType.String).Value = band;
 
 
-                int rows = 0;
-                while (reader.Read())
-                {
-                    rows++;
+//                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
 
-                }
-                reader.Close();
-                com.Dispose();
-                sqlcon2.Close();
-                System.GC.Collect();
-                return rows;
 
-                try
-                {
-                    reader.Close();
-                    com.Dispose();
-                    sqlcon2.Close();
-                    System.GC.Collect();
-                }
-                catch (Exception ex)
-                {
-                    return -1;
-                }
-            }
-            catch (Exception exs)
-            {
+//                int rows = 0;
+//                while (reader.Read())
+//                {
+//                    rows++;
 
-            }
-            return -1;
-        }
+//                }
+//                reader.Close();
+//                com.Dispose();
+//                sqlcon2.Close();
+//                System.GC.Collect();
+//                return rows;
+
+//                try
+//                {
+//                    reader.Close();
+//                    com.Dispose();
+//                    sqlcon2.Close();
+//                    System.GC.Collect();
+//                }
+//                catch (Exception ex)
+//                {
+//                    return -1;
+//                }
+//            }
+//            catch (Exception exs)
+//            {
+
+//            }
+//            return -1;
+//        }
+
+//        public int rQSLBefore(string callsign)
+//        {
+
+//            try
+//            {
+//                //connect to databsae 
+//                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+//                {
+//                    Server = Properties.Settings.Default.DBHost,
+//                    UserID = Properties.Settings.Default.DBUser,
+//                    Password = Properties.Settings.Default.DBPassword,
+//                    Database = Properties.Settings.Default.DBDatabase,
+//                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
+
+
+//                };
+//                //if all the above return AllowDrop record we have a dup
+//                //connect to databsae 
+//                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
+//                sqlcon2.Open();
+
+//                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+//                com.Connection = sqlcon2;
+
+//                string mysql = "";
+
+//                mysql = @"select j.* 
+//from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+//COLUMNS (
+//	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
+//    R VARCHAR(10) PATH '$.R', 
+//      SV VARCHAR(100) PATH '$.SV',
+//      RV VARCHAR(100) PATH '$.RV',
+//      SD VARCHAR(100) PATH '$.SD',
+//      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and   callsign =  ?callsign  and j.R = 'Yes'";
+//                com.CommandText = mysql;
+
+//                com.Parameters.Add("?callsign", DbType.String).Value = callsign;
+//                //com.Parameters.Add("?band", DbType.String).Value = mode;
+//                //com.Parameters.Add("?mode", DbType.String).Value = band;
+
+
+//                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+
+
+//                int rows = 0;
+//                while (reader.Read())
+//                {
+//                    rows++;
+
+//                }
+//                reader.Close();
+//                com.Dispose();
+//                sqlcon2.Close();
+//                System.GC.Collect();
+//                return rows;
+
+//                try
+//                {
+//                    reader.Close();
+//                    com.Dispose();
+//                    sqlcon2.Close();
+//                    System.GC.Collect();
+//                }
+//                catch (Exception ex)
+//                {
+//                    return -1;
+//                }
+//            }
+//            catch (Exception exs)
+//            {
+
+//            }
+//            return -1;
+//        }
 
 
         private void DXSearch_Load(object sender, EventArgs e)

@@ -1198,6 +1198,10 @@ namespace Log4OMQSLEmailer
 
         private void button5_Click(object sender, EventArgs e)
         {
+            if (listBox1.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a letter template first");
+            }
             GlobalClassSmall gc = new GlobalClassSmall();
             gc.printEnvelope = true;
             gc.username = Properties.Settings.Default.QRZUser;

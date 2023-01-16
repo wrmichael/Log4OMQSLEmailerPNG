@@ -444,7 +444,7 @@ namespace Log4OMQSLEmailer
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error:" + ex.Message);
+                        MessageBox.Show("ProcessADIF Error:" + ex.Message);
 
                     }
 
@@ -665,7 +665,7 @@ COLUMNS (
             }
                 catch (Exception ex)
             {
-                MessageBox.Show("Error:" + ex.Message);
+                MessageBox.Show( "Button1 Error:" + ex.Message);
 
             }
 
@@ -927,7 +927,7 @@ COLUMNS (
                 {
                     lstlog.Items.Add("General error: " + ex.Message);
                          
-                    MessageBox.Show("Error:" + ex.Message);
+                    MessageBox.Show("Process Images Error:" + ex.Message);
 
                 }
 
@@ -969,7 +969,7 @@ COLUMNS (
                 try
                 {
                 
-                    string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, qsoid) + "_" + mycall;
+                    string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, qsoid) + "_" + mycall.Replace('/','-');
                     //save PNG here
 
                     ImageWriter iw = new ImageWriter();
@@ -981,7 +981,7 @@ COLUMNS (
                 {
                     lstlog.Items.Add("General error: " + ex.Message);
 
-                    MessageBox.Show("Error:" + ex.Message);
+                    MessageBox.Show("WriteQSLCard Error:" + ex.Message);
 
                 }
 
@@ -1147,6 +1147,156 @@ from log,JSON_TABLE(log.qsoconfirmations,'$[*]' COLUMNS (	ct VARCHAR(10) PATH '$
             }
             return false;
         }
+
+
+        public int sQSLBefore(string callsign)
+        {
+
+            try
+            {
+                //connect to databsae 
+                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+                {
+                    Server = Properties.Settings.Default.DBHost,
+                    UserID = Properties.Settings.Default.DBUser,
+                    Password = Properties.Settings.Default.DBPassword,
+                    Database = Properties.Settings.Default.DBDatabase,
+                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
+
+
+                };
+                //if all the above return AllowDrop record we have a dup
+                //connect to databsae 
+                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
+                sqlcon2.Open();
+
+                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+                com.Connection = sqlcon2;
+
+                string mysql = "";
+
+                mysql = @"select j.* 
+from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+COLUMNS (
+	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
+    R VARCHAR(10) PATH '$.R', 
+      SV VARCHAR(100) PATH '$.SV',
+      RV VARCHAR(100) PATH '$.RV',
+      SD VARCHAR(100) PATH '$.SD',
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and callsign = ?callsign  and j.S = 'Yes'";
+                com.CommandText = mysql;
+
+                com.Parameters.Add("?callsign", DbType.String).Value = callsign;
+                //com.Parameters.Add("?band", DbType.String).Value = mode;
+                //com.Parameters.Add("?mode", DbType.String).Value = band;
+
+
+                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+
+
+                int rows = 0;
+                while (reader.Read())
+                {
+                    rows++;
+
+                }
+                reader.Close();
+                com.Dispose();
+                sqlcon2.Close();
+                System.GC.Collect();
+                return rows;
+
+                try
+                {
+                    reader.Close();
+                    com.Dispose();
+                    sqlcon2.Close();
+                    System.GC.Collect();
+                }
+                catch (Exception ex)
+                {
+                    return -1;
+                }
+            }
+            catch (Exception exs)
+            {
+
+            }
+            return -1;
+        }
+
+        public int rQSLBefore(string callsign)
+        {
+
+            try
+            {
+                //connect to databsae 
+                MySqlConnector.MySqlConnectionStringBuilder b = new MySqlConnector.MySqlConnectionStringBuilder
+                {
+                    Server = Properties.Settings.Default.DBHost,
+                    UserID = Properties.Settings.Default.DBUser,
+                    Password = Properties.Settings.Default.DBPassword,
+                    Database = Properties.Settings.Default.DBDatabase,
+                    DateTimeKind = MySqlConnector.MySqlDateTimeKind.Utc
+
+
+                };
+                //if all the above return AllowDrop record we have a dup
+                //connect to databsae 
+                MySqlConnector.MySqlConnection sqlcon2 = new MySqlConnector.MySqlConnection(b.ConnectionString);
+                sqlcon2.Open();
+
+                MySqlConnector.MySqlCommand com = new MySqlConnector.MySqlCommand();
+                com.Connection = sqlcon2;
+
+                string mysql = "";
+
+                mysql = @"select j.* 
+from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
+COLUMNS (ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S', R VARCHAR(10) PATH '$.R', SV VARCHAR(100) PATH '$.SV', RV VARCHAR(100) PATH '$.RV', SD VARCHAR(100) PATH '$.SD', RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and callsign = ?callsign  and j.R = 'Yes'";
+                com.CommandText = mysql;
+
+                com.Parameters.Add("?callsign", DbType.String).Value = callsign;
+                //com.Parameters.Add("?band", DbType.String).Value = mode;
+                //com.Parameters.Add("?mode", DbType.String).Value = band;
+
+
+                MySqlConnector.MySqlDataReader reader = com.ExecuteReader();
+
+
+                int rows = 0;
+                while (reader.Read())
+                {
+                    rows++;
+
+                }
+                reader.Close();
+                com.Dispose();
+                sqlcon2.Close();
+                System.GC.Collect();
+                return rows;
+
+                try
+                {
+                    reader.Close();
+                    com.Dispose();
+                    sqlcon2.Close();
+                    System.GC.Collect();
+                }
+                catch (Exception ex)
+                {
+                    return -1;
+                }
+            }
+            catch (Exception exs)
+            {
+
+            }
+            return -1;
+        }
+
+
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
