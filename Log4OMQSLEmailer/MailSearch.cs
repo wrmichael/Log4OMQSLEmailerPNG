@@ -172,8 +172,8 @@ COLUMNS (
                     int sqsl = form1.sQSLBefore(mycall);
                     int rqsl = form1.rQSLBefore(mycall);
 
-                    li.SubItems.Add(sqsl.ToString());
                     li.SubItems.Add(rqsl.ToString());
+                    li.SubItems.Add(sqsl.ToString());
 
                     UseBureau = UseBureau.ToUpper();
 
@@ -194,7 +194,7 @@ COLUMNS (
                     }
 
                     //show liars  (wants cards but return cards)
-                    if (sqsl>0 && rqsl==-1)
+                    if (sqsl>0 && rqsl<=0)
                     {
                         li.BackColor = Color.Red;
                         if (ckDeadBeat.Checked)

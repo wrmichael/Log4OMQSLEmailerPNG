@@ -39,6 +39,9 @@
             this.button4 = new System.Windows.Forms.Button();
             this.ckIgnoreQSL = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.ckcw = new System.Windows.Forms.CheckBox();
+            this.ckQSOB4 = new System.Windows.Forms.CheckBox();
+            this.ckDeadBeat = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // listView1
@@ -156,11 +159,46 @@
             this.label2.TabIndex = 16;
             this.label2.Text = "Callsign - leave blank for all";
             // 
+            // ckcw
+            // 
+            this.ckcw.AutoSize = true;
+            this.ckcw.Checked = true;
+            this.ckcw.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckcw.Location = new System.Drawing.Point(402, 20);
+            this.ckcw.Name = "ckcw";
+            this.ckcw.Size = new System.Drawing.Size(68, 17);
+            this.ckcw.TabIndex = 17;
+            this.ckcw.Text = "CW Only";
+            this.ckcw.UseVisualStyleBackColor = true;
+            // 
+            // ckQSOB4
+            // 
+            this.ckQSOB4.AutoSize = true;
+            this.ckQSOB4.Location = new System.Drawing.Point(618, 37);
+            this.ckQSOB4.Name = "ckQSOB4";
+            this.ckQSOB4.Size = new System.Drawing.Size(162, 17);
+            this.ckQSOB4.TabIndex = 33;
+            this.ckQSOB4.Text = "Ignore QSO B4 (band/mode)";
+            this.ckQSOB4.UseVisualStyleBackColor = true;
+            // 
+            // ckDeadBeat
+            // 
+            this.ckDeadBeat.AutoSize = true;
+            this.ckDeadBeat.Location = new System.Drawing.Point(618, 14);
+            this.ckDeadBeat.Name = "ckDeadBeat";
+            this.ckDeadBeat.Size = new System.Drawing.Size(111, 17);
+            this.ckDeadBeat.TabIndex = 32;
+            this.ckDeadBeat.Text = "Ignore Deadbeats";
+            this.ckDeadBeat.UseVisualStyleBackColor = true;
+            // 
             // BySKCC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ckQSOB4);
+            this.Controls.Add(this.ckDeadBeat);
+            this.Controls.Add(this.ckcw);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ckIgnoreQSL);
             this.Controls.Add(this.button4);
@@ -193,5 +231,8 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox ckIgnoreQSL;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox ckcw;
+        private System.Windows.Forms.CheckBox ckQSOB4;
+        private System.Windows.Forms.CheckBox ckDeadBeat;
     }
 }

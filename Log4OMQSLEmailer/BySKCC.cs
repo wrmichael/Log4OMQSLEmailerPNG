@@ -116,6 +116,16 @@ COLUMNS (
                     }
                     string band = reader["band"].ToString();
                     string mode = reader["mode"].ToString();
+
+                    if (ckcw.Checked)
+                    {
+                        if (!mode.ToUpper().Equals("CW"))
+                        {
+                            continue;
+                        }
+                    
+                    }
+
                     string myqsoid = reader["qsoid"].ToString();
 
                     if (duplicateByDateCheck(mycall, mode, band))
@@ -139,6 +149,38 @@ COLUMNS (
                     li.SubItems.Add(mode);
                     li.SubItems.Add(rst);
                     li.SubItems.Add(myname);
+
+                    bool duplicate = form1.duplicateByDateCheck(mycall, mode, band);
+                    if (duplicate)
+                    {
+                        if (ckQSOB4.Checked)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+
+                        }
+                    }
+
+                    li.SubItems.Add(duplicate.ToString());
+                    int sqsl = form1.sQSLBefore(mycall);
+                    int rqsl = form1.rQSLBefore(mycall);
+
+                    li.SubItems.Add(rqsl.ToString());
+                    li.SubItems.Add(sqsl.ToString());
+
+                    //show liars  (wants cards but return cards)
+                    if (sqsl > 0 && rqsl == -1)
+                    {
+                        li.BackColor = Color.Red;
+                        if (ckDeadBeat.Checked)
+                        {
+                            continue;
+                        }
+                    }
+
+
                     listView1.Items.Add(li);
 
 
@@ -232,7 +274,7 @@ COLUMNS (
         private void ByCallSign_Load(object sender, EventArgs e)
         {
 
-            string[] qsofields = "qsoid,callsign,qsodate,qsotime,email,band,mode,rstsent,name".Split(',');
+            string[] qsofields = "qsoid,callsign,qsodate,qsotime,email,band,mode,rstsent,name,Duplicate,rQSL,sQSL".Split(',');
 
 
             listView1.Items.Clear();

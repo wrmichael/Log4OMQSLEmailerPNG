@@ -40,6 +40,8 @@
             this.ckIgnoreQSL = new System.Windows.Forms.CheckBox();
             this.ckIgnoreEmail = new System.Windows.Forms.CheckBox();
             this.button5 = new System.Windows.Forms.Button();
+            this.ckQSOB4 = new System.Windows.Forms.CheckBox();
+            this.ckDeadBeat = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // listView1
@@ -168,11 +170,33 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click_1);
             // 
+            // ckQSOB4
+            // 
+            this.ckQSOB4.AutoSize = true;
+            this.ckQSOB4.Location = new System.Drawing.Point(610, 35);
+            this.ckQSOB4.Name = "ckQSOB4";
+            this.ckQSOB4.Size = new System.Drawing.Size(162, 17);
+            this.ckQSOB4.TabIndex = 31;
+            this.ckQSOB4.Text = "Ignore QSO B4 (band/mode)";
+            this.ckQSOB4.UseVisualStyleBackColor = true;
+            // 
+            // ckDeadBeat
+            // 
+            this.ckDeadBeat.AutoSize = true;
+            this.ckDeadBeat.Location = new System.Drawing.Point(610, 12);
+            this.ckDeadBeat.Name = "ckDeadBeat";
+            this.ckDeadBeat.Size = new System.Drawing.Size(111, 17);
+            this.ckDeadBeat.TabIndex = 30;
+            this.ckDeadBeat.Text = "Ignore Deadbeats";
+            this.ckDeadBeat.UseVisualStyleBackColor = true;
+            // 
             // ByCallSign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ckQSOB4);
+            this.Controls.Add(this.ckDeadBeat);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.ckIgnoreEmail);
             this.Controls.Add(this.ckIgnoreQSL);
@@ -207,5 +231,7 @@
         private System.Windows.Forms.CheckBox ckIgnoreQSL;
         private System.Windows.Forms.CheckBox ckIgnoreEmail;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.CheckBox ckQSOB4;
+        private System.Windows.Forms.CheckBox ckDeadBeat;
     }
 }
