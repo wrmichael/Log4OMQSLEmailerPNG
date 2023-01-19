@@ -193,7 +193,7 @@ COLUMNS (
                     li.SubItems.Add(sqsl.ToString());
 
                     //show liars  (wants cards but return cards)
-                    if (sqsl > 0 && rqsl == -1)
+                    if (sqsl > 0 && rqsl <= 0)
                     {
                         li.BackColor = Color.Red;
                         if (ckDeadBeat.Checked)
