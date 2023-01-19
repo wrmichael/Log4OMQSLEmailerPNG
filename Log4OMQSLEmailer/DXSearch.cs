@@ -201,7 +201,11 @@ COLUMNS (
                             continue;
                         }
                     }
-
+                    if (rst.Trim().Length == 0)
+                    {
+                        //this would make a bad print so warn with a color 
+                        li.BackColor = Color.MistyRose;
+                    }
 
                     listView1.Items.Add(li);
 

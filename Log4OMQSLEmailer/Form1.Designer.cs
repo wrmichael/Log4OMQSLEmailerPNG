@@ -47,6 +47,10 @@ namespace Log4OMQSLEmailer
             this.callsignToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dXBureauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualSendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bySKCCBureauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byMailDirectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.envelopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.lstlog = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -57,10 +61,6 @@ namespace Log4OMQSLEmailer
             this.button4 = new System.Windows.Forms.Button();
             this.ckQSLBefore = new System.Windows.Forms.CheckBox();
             this.ck_limit = new System.Windows.Forms.CheckBox();
-            this.bySKCCBureauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.envelopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.byMailDirectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -215,6 +215,36 @@ namespace Log4OMQSLEmailer
             this.manualSendToolStripMenuItem.Name = "manualSendToolStripMenuItem";
             this.manualSendToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.manualSendToolStripMenuItem.Text = "Manual Send";
+            this.manualSendToolStripMenuItem.Visible = false;
+            // 
+            // bySKCCBureauToolStripMenuItem
+            // 
+            this.bySKCCBureauToolStripMenuItem.Name = "bySKCCBureauToolStripMenuItem";
+            this.bySKCCBureauToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.bySKCCBureauToolStripMenuItem.Text = "By SKCC Bureau";
+            this.bySKCCBureauToolStripMenuItem.Click += new System.EventHandler(this.bySKCCBureauToolStripMenuItem_Click);
+            // 
+            // byMailDirectToolStripMenuItem
+            // 
+            this.byMailDirectToolStripMenuItem.Name = "byMailDirectToolStripMenuItem";
+            this.byMailDirectToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.byMailDirectToolStripMenuItem.Text = "By Mail Direct";
+            this.byMailDirectToolStripMenuItem.Click += new System.EventHandler(this.byMailDirectToolStripMenuItem_Click);
+            // 
+            // envelopeToolStripMenuItem
+            // 
+            this.envelopeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createToolStripMenuItem});
+            this.envelopeToolStripMenuItem.Name = "envelopeToolStripMenuItem";
+            this.envelopeToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.envelopeToolStripMenuItem.Text = "Envelope";
+            // 
+            // createToolStripMenuItem
+            // 
+            this.createToolStripMenuItem.Name = "createToolStripMenuItem";
+            this.createToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.createToolStripMenuItem.Text = "Create";
+            this.createToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
             // 
             // button1
             // 
@@ -316,35 +346,6 @@ namespace Log4OMQSLEmailer
             this.ck_limit.TabIndex = 16;
             this.ck_limit.Text = "Limit Email to 499";
             this.ck_limit.UseVisualStyleBackColor = true;
-            // 
-            // bySKCCBureauToolStripMenuItem
-            // 
-            this.bySKCCBureauToolStripMenuItem.Name = "bySKCCBureauToolStripMenuItem";
-            this.bySKCCBureauToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.bySKCCBureauToolStripMenuItem.Text = "By SKCC Bureau";
-            this.bySKCCBureauToolStripMenuItem.Click += new System.EventHandler(this.bySKCCBureauToolStripMenuItem_Click);
-            // 
-            // envelopeToolStripMenuItem
-            // 
-            this.envelopeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createToolStripMenuItem});
-            this.envelopeToolStripMenuItem.Name = "envelopeToolStripMenuItem";
-            this.envelopeToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.envelopeToolStripMenuItem.Text = "Envelope";
-            // 
-            // createToolStripMenuItem
-            // 
-            this.createToolStripMenuItem.Name = "createToolStripMenuItem";
-            this.createToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.createToolStripMenuItem.Text = "Create";
-            this.createToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
-            // 
-            // byMailDirectToolStripMenuItem
-            // 
-            this.byMailDirectToolStripMenuItem.Name = "byMailDirectToolStripMenuItem";
-            this.byMailDirectToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.byMailDirectToolStripMenuItem.Text = "By Mail Direct";
-            this.byMailDirectToolStripMenuItem.Click += new System.EventHandler(this.byMailDirectToolStripMenuItem_Click);
             // 
             // Form1
             // 
