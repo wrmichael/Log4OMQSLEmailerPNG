@@ -174,6 +174,8 @@
             // ckQSOB4
             // 
             this.ckQSOB4.AutoSize = true;
+            this.ckQSOB4.Checked = true;
+            this.ckQSOB4.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckQSOB4.Location = new System.Drawing.Point(618, 37);
             this.ckQSOB4.Name = "ckQSOB4";
             this.ckQSOB4.Size = new System.Drawing.Size(162, 17);

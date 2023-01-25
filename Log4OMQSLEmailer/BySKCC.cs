@@ -127,11 +127,18 @@ COLUMNS (
                     }
 
                     string myqsoid = reader["qsoid"].ToString();
+                    //if (mycall.Equals("WM4P"))
+                    //{
+                    //    System.Console.Write("Stop");
+                    //}
 
-                    if (duplicateByDateCheck(mycall, mode, band))
-                    {
-                        continue;
-                    }
+                    //if (form1.duplicateByDateCheck(mycall, mode, band))
+                    //{
+                    //    if (ckQSOB4.Checked)
+                    //    {
+                    //        continue;
+                    //    }
+                    //}
 
 
                     //double check to make sure we don't have  a duplicate for this day. 
@@ -171,7 +178,7 @@ COLUMNS (
                     li.SubItems.Add(sqsl.ToString());
 
                     //show liars  (wants cards but return cards)
-                    if (sqsl > 0 && rqsl == -1)
+                    if (sqsl > 0 && rqsl <= 0)
                     {
                         li.BackColor = Color.Red;
                         if (ckDeadBeat.Checked)
