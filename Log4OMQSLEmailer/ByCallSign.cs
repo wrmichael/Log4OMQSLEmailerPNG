@@ -59,18 +59,18 @@ namespace Log4OMQSLEmailer
             {
                 if (ignoreEmail)
                 {
-                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name from log where callsign in ( " + p+ ");";
+                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, mysiginfo, email, band, mode, rstsent,name from log where callsign in ( " + p+ ");";
                 }
                 else
                 {
-                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name from log where  email <> '' and callsign in ( " + p+ ")";
+                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, mysiginfo, email, band, mode, rstsent,name from log where  email <> '' and callsign in ( " + p+ ")";
                 }
             }
             else
             {
                 if (ignoreEmail)
                 {
-                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
+                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate,mysiginfo, email, band, mode, rstsent,name, j.* 
 from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
 COLUMNS (
 	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
@@ -82,7 +82,7 @@ COLUMNS (
                 }
                 else
                 { 
-                mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
+                mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate,mysiginfo, email, band, mode, rstsent,name, j.* 
 from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
 COLUMNS (
 	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
@@ -118,6 +118,7 @@ COLUMNS (
                     string mycall = reader["callsign"].ToString();
                     string myname = reader["name"].ToString();
                     string myemail = reader["email"].ToString();
+                    string mysiginfo = reader["mysiginfo"].ToString();
                     string rst = reader["rstsent"].ToString();
 
                     try
@@ -148,6 +149,7 @@ COLUMNS (
                     li.SubItems.Add(mycall);
                     li.SubItems.Add(mydate);
                     li.SubItems.Add(mytime);
+                    li.SubItems.Add(mysiginfo);
                     li.SubItems.Add(myemail);
                     li.SubItems.Add(band);
                     li.SubItems.Add(mode);
@@ -217,7 +219,7 @@ COLUMNS (
         private void ByCallSign_Load(object sender, EventArgs e)
         {
 
-            string[] qsofields = "qsoid,callsign,qsodate,qsotime,email,band,mode,rstsent,name,Duplicate,rQSL,sQSL,".Split(',');
+            string[] qsofields = "qsoid,callsign,qsodate,qsotime,MY_SIG_INFO,email,band,mode,rstsent,name,Duplicate,rQSL,sQSL,".Split(',');
 
 
             listView1.Items.Clear();
@@ -259,12 +261,13 @@ COLUMNS (
                 //"qsoid,callsign,qsodate,email,band,mode,rstsent,name"
                 string mycall = item.SubItems[1].Text;
                 string myqsoid = item.SubItems[0].Text;
-                string band = item.SubItems[5].Text;
+                string band = item.SubItems[6].Text;
                 string mydate = item.SubItems[2].Text;
-                string myname = item.SubItems[8].Text;
-                string rst = item.SubItems[7].Text.Trim();
-                string mode = item.SubItems[6].Text;    
-                string myemail = item.SubItems[4].Text;
+                string myname = item.SubItems[9].Text;
+                string rst = item.SubItems[8].Text.Trim();
+                string mode = item.SubItems[7].Text;    
+                string myemail = item.SubItems[5].Text;
+                string mysiginfo = item.SubItems[4].Text;
                 string mytime = item.SubItems[3].Text;
 
                
@@ -360,12 +363,13 @@ COLUMNS (
                 //"qsoid,callsign,qsodate,email,band,mode,rstsent,name"
                 string mycall = item.SubItems[1].Text;
                 string myqsoid = item.SubItems[0].Text;
-                string band = item.SubItems[5].Text;
+                string band = item.SubItems[6].Text;
                 string mydate = item.SubItems[2].Text;
-                string myname = item.SubItems[8].Text;
-                string rst = item.SubItems[7].Text.Trim();
-                string mode = item.SubItems[6].Text;
+                string myname = item.SubItems[9].Text;
+                string rst = item.SubItems[8].Text.Trim();
+                string mode = item.SubItems[7].Text;
                 string myemail = item.SubItems[4].Text;
+                string mysiginfo = item.SubItems[5].Text;
                 string mytime = item.SubItems[3].Text;
 
                 ImageWriter iw = new ImageWriter();

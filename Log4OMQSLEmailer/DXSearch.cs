@@ -75,7 +75,7 @@ COLUMNS (
              */
 
 
-            mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email, band, mode, rstsent,name, j.* 
+            mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, email,mysiginfo, band, mode, rstsent,name, j.* 
 from log,JSON_TABLE(log.qsoconfirmations,'$[*]'
 COLUMNS (
 	ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S',
@@ -135,6 +135,7 @@ COLUMNS (
 
                     string myname = reader["name"].ToString();
                     string myemail = reader["email"].ToString();
+                    string mysiginfo = reader["mysiginfo"].ToString();
                     string rst = reader["rstsent"].ToString();
 
                     try
@@ -165,6 +166,7 @@ COLUMNS (
                     li.SubItems.Add(mycall);
                     li.SubItems.Add(mydate);
                     li.SubItems.Add(mytime);
+                    li.SubItems.Add(mysiginfo);
                     li.SubItems.Add(myemail);
                     li.SubItems.Add(band);
                     li.SubItems.Add(mode);
@@ -394,7 +396,7 @@ COLUMNS (
 
         private void DXSearch_Load(object sender, EventArgs e)
         {
-            string[] qsofields = "qsoid,callsign,qsodate,qsotime,email,band,mode,rstsent,name,Bureau,Duplicate,rQSL,sQSL,QSL Notes".Split(',');
+            string[] qsofields = "qsoid,callsign,qsodate,qsotime,mysiginfo,email,band,mode,rstsent,name,Bureau,Duplicate,rQSL,sQSL,QSL Notes".Split(',');
 
 
             listView1.Items.Clear();
@@ -437,9 +439,9 @@ COLUMNS (
                     string mycall = lvi.SubItems[1].Text;
                     string mydate = lvi.SubItems[2].Text;
                     string mytime = lvi.SubItems[3].Text;
-                    string myband = lvi.SubItems[5].Text;
-                    string mymode = lvi.SubItems[6].Text;
-                    string myrst = lvi.SubItems[7].Text;
+                    string myband = lvi.SubItems[6].Text;
+                    string mymode = lvi.SubItems[7].Text;
+                    string myrst = lvi.SubItems[8].Text;
 
                     layout = System.IO.Path.GetDirectoryName(layout) + "\\" + System.IO.Path.GetFileNameWithoutExtension(layout) + ".layout";
                     string imagefile = listBox1.SelectedItem.ToString();
