@@ -1201,6 +1201,7 @@ namespace Log4OMQSLEmailer
             if (listBox1.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Please select a letter template first");
+                return;
             }
             GlobalClassSmall gc = new GlobalClassSmall();
             gc.printEnvelope = true;
