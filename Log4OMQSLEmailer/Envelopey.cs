@@ -1243,7 +1243,7 @@ namespace Log4OMQSLEmailer
                 //"qsoid,callsign,qsodate,email,band,mode,rstsent,name"
 
                 ImageWriter iw = new ImageWriter();
-                string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, hiscall);
+                string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, hiscall.Replace('/','-').Replace('\\','-'));
                 if (ql.ignoreMyAddress)
                 {
                     Image img = iw.writeENVImage(this.listBox1.SelectedItem.ToString(), myfile, "", hisaddress);
