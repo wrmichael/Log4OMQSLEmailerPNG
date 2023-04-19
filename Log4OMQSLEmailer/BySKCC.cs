@@ -440,7 +440,7 @@ COLUMNS (
 
                 //form1.MySendMail(myname, mycall, myfile + imgext, myemail, Properties.Settings.Default.MessageBody.Replace("<NAME>", myname), Properties.Settings.Default.YourCallSign);
 
-                int rc = form1.LookupQSLConformation(myqsoid);
+                int rc = form1.UpdateQSLConfirmation(myqsoid,"Bureau");
                 form1.writetolog("," + myqsoid + ",");
                 form1.lstlog.Items.Add(mydate + " - " + mycall + " - " + band + " - " + mode + " - " + myqsoid);
 
