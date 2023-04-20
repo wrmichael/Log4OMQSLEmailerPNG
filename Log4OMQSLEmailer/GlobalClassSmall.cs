@@ -73,7 +73,7 @@ namespace Log4OMQSLEmailer
 
             client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
             
-            Stream data = client.OpenRead("http://xmldata.qrz.com/xml/current/?username=" + this.username + ";password=" + this.password + ";agent=q5.0");
+            Stream data = client.OpenRead("https://xmldata.qrz.com/xml/current/?username=" + this.username + ";password=" + this.password + ";agent=q5.0");
             StreamReader reader = new StreamReader(data);
             string s = reader.ReadToEnd();
 
@@ -132,7 +132,7 @@ namespace Log4OMQSLEmailer
         {
 
             string newt = "";
-            string url = "http://xmldata.qrz.com/xml/current/?s=" + k + ";callsign=" + t;
+            string url = "https://xmldata.qrz.com/xml/current/?s=" + k + ";callsign=" + t;
 
             WebClient client = new WebClient();
 
@@ -161,7 +161,7 @@ namespace Log4OMQSLEmailer
         {
 
             string newt = "";
-            string url = "http://xmldata.qrz.com/xml/current/?s=" + k + ";callsign=" + t;
+            string url = "https://xmldata.qrz.com/xml/current/?s=" + k + ";callsign=" + t;
 
             WebClient client = new WebClient();
 
@@ -189,7 +189,7 @@ namespace Log4OMQSLEmailer
         public string getXML(string t, string k)
         {
             string newt = "";
-            string url = "http://xmldata.qrz.com/xml/current/?s=" + k + ";callsign=" + t;
+            string url = "https://xmldata.qrz.com/xml/current/?s=" + k + ";callsign=" + t;
 
             WebClient client = new WebClient();
 
@@ -404,7 +404,7 @@ namespace Log4OMQSLEmailer
 
             client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
 
-            Stream data = client.OpenRead("http://xmldata.qrz.com/xml/current/?username=" + this.username + ";password=" + this.password + ";agent=q5.0");
+            Stream data = client.OpenRead("https://xmldata.qrz.com/xml/current/?username=" + this.username + ";password=" + this.password + ";agent=q5.0");
             StreamReader reader = new StreamReader(data);
             string s = reader.ReadToEnd();
 
@@ -424,7 +424,7 @@ namespace Log4OMQSLEmailer
 
 
             string newt = "";
-            string url = "http://xmldata.qrz.com/xml/current/?s=" + k + ";callsign=" + callsign;
+            string url = "https://xmldata.qrz.com/xml/current/?s=" + k + ";callsign=" + callsign;
 
             WebClient client = new WebClient();
 
@@ -459,7 +459,7 @@ namespace Log4OMQSLEmailer
         public string fetchBoi(string s, string callsign)
         {
             
-            string url = "http://xmldata.qrz.com/xml/current/?s=" + s + ";html=" + callsign;
+            string url = "https://xmldata.qrz.com/xml/current/?s=" + s + ";html=" + callsign;
             string newt = "";
             
             WebClient client = new WebClient();
@@ -498,7 +498,7 @@ namespace Log4OMQSLEmailer
 
 
             string newt = "";
-            string url = "http://xmldata.qrz.com/xml/current/?s=" + k + ";callsign=" + callsign;
+            string url = "https://xmldata.qrz.com/xml/current/?s=" + k + ";callsign=" + callsign;
 
             WebClient client = new WebClient();
 

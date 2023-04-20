@@ -1471,6 +1471,13 @@ COLUMNS (ct VARCHAR(10) PATH '$.CT', S VARCHAR(10) PATH '$.S', R VARCHAR(10) PAT
             lx.form1 = this;
             lx.ShowDialog();
         }
+
+        private void byMySignInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BySigInfo bcs = new BySigInfo();
+            bcs.form1 = this;
+            bcs.ShowDialog();
+        }
     }
 }
 

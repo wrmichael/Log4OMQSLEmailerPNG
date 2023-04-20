@@ -83,6 +83,12 @@
     </Compile>
     <Compile Include="ADIFReader.cs" />
     <Compile Include="ADIFRecord.cs" />
+    <Compile Include="BySigInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BySigInfo.Designer.cs">
+      <DependentUpon>BySigInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="BySKCC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +158,9 @@
     <Compile Include="SKCCBureauDownload.cs" />
     <EmbeddedResource Include="ADIFLookupInfo.resx">
       <DependentUpon>ADIFLookupInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BySigInfo.resx">
+      <DependentUpon>BySigInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BySKCC.resx">
       <DependentUpon>BySKCC.cs</DependentUpon>

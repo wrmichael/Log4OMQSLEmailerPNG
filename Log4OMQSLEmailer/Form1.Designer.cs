@@ -61,6 +61,7 @@ namespace Log4OMQSLEmailer
             this.button4 = new System.Windows.Forms.Button();
             this.ckQSLBefore = new System.Windows.Forms.CheckBox();
             this.ck_limit = new System.Windows.Forms.CheckBox();
+            this.byMySignInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -191,7 +192,8 @@ namespace Log4OMQSLEmailer
             this.dXBureauToolStripMenuItem,
             this.manualSendToolStripMenuItem,
             this.bySKCCBureauToolStripMenuItem,
-            this.byMailDirectToolStripMenuItem});
+            this.byMailDirectToolStripMenuItem,
+            this.byMySignInfoToolStripMenuItem});
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
             this.searchToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.searchToolStripMenuItem.Text = "Search";
@@ -347,6 +349,13 @@ namespace Log4OMQSLEmailer
             this.ck_limit.Text = "Limit Email to 499";
             this.ck_limit.UseVisualStyleBackColor = true;
             // 
+            // byMySignInfoToolStripMenuItem
+            // 
+            this.byMySignInfoToolStripMenuItem.Name = "byMySignInfoToolStripMenuItem";
+            this.byMySignInfoToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.byMySignInfoToolStripMenuItem.Text = "By My Sign Info";
+            this.byMySignInfoToolStripMenuItem.Click += new System.EventHandler(this.byMySignInfoToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -415,6 +424,7 @@ namespace Log4OMQSLEmailer
         private System.Windows.Forms.ToolStripMenuItem envelopeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byMailDirectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byMySignInfoToolStripMenuItem;
     }
 }
 
