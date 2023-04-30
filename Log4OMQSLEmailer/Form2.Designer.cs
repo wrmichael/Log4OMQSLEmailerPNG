@@ -60,11 +60,14 @@ namespace Log4OMQSLEmailer
             this.txtTMP = new System.Windows.Forms.TextBox();
             this.txtYourCallSign = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtEnvelope = new System.Windows.Forms.TextBox();
+            this.btnEnv = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(467, 425);
+            this.button1.Location = new System.Drawing.Point(467, 453);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(56, 19);
@@ -93,7 +96,7 @@ namespace Log4OMQSLEmailer
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(535, 425);
+            this.button2.Location = new System.Drawing.Point(535, 453);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(56, 19);
@@ -115,7 +118,7 @@ namespace Log4OMQSLEmailer
             // 
             // txtDBServer
             // 
-            this.txtDBServer.Location = new System.Drawing.Point(11, 126);
+            this.txtDBServer.Location = new System.Drawing.Point(11, 159);
             this.txtDBServer.Margin = new System.Windows.Forms.Padding(2);
             this.txtDBServer.Name = "txtDBServer";
             this.txtDBServer.Size = new System.Drawing.Size(76, 20);
@@ -124,7 +127,7 @@ namespace Log4OMQSLEmailer
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 110);
+            this.label2.Location = new System.Drawing.Point(9, 143);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 13);
@@ -133,7 +136,7 @@ namespace Log4OMQSLEmailer
             // 
             // txtDBUser
             // 
-            this.txtDBUser.Location = new System.Drawing.Point(101, 126);
+            this.txtDBUser.Location = new System.Drawing.Point(101, 159);
             this.txtDBUser.Margin = new System.Windows.Forms.Padding(2);
             this.txtDBUser.Name = "txtDBUser";
             this.txtDBUser.Size = new System.Drawing.Size(76, 20);
@@ -142,7 +145,7 @@ namespace Log4OMQSLEmailer
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(99, 110);
+            this.label3.Location = new System.Drawing.Point(99, 143);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
@@ -151,7 +154,7 @@ namespace Log4OMQSLEmailer
             // 
             // txtDBPWD
             // 
-            this.txtDBPWD.Location = new System.Drawing.Point(200, 126);
+            this.txtDBPWD.Location = new System.Drawing.Point(200, 159);
             this.txtDBPWD.Margin = new System.Windows.Forms.Padding(2);
             this.txtDBPWD.Name = "txtDBPWD";
             this.txtDBPWD.PasswordChar = '*';
@@ -161,7 +164,7 @@ namespace Log4OMQSLEmailer
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(198, 110);
+            this.label4.Location = new System.Drawing.Point(198, 143);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 13);
@@ -171,7 +174,7 @@ namespace Log4OMQSLEmailer
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(288, 110);
+            this.label5.Location = new System.Drawing.Point(288, 143);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 13);
@@ -180,7 +183,7 @@ namespace Log4OMQSLEmailer
             // 
             // txtDB
             // 
-            this.txtDB.Location = new System.Drawing.Point(290, 126);
+            this.txtDB.Location = new System.Drawing.Point(290, 159);
             this.txtDB.Margin = new System.Windows.Forms.Padding(2);
             this.txtDB.Name = "txtDB";
             this.txtDB.Size = new System.Drawing.Size(76, 20);
@@ -189,7 +192,7 @@ namespace Log4OMQSLEmailer
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 158);
+            this.label6.Location = new System.Drawing.Point(9, 191);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(70, 13);
@@ -199,7 +202,7 @@ namespace Log4OMQSLEmailer
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(99, 158);
+            this.label7.Location = new System.Drawing.Point(99, 191);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(62, 13);
@@ -209,7 +212,7 @@ namespace Log4OMQSLEmailer
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(192, 158);
+            this.label8.Location = new System.Drawing.Point(192, 191);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(86, 13);
@@ -218,7 +221,7 @@ namespace Log4OMQSLEmailer
             // 
             // txtSMTPHost
             // 
-            this.txtSMTPHost.Location = new System.Drawing.Point(9, 174);
+            this.txtSMTPHost.Location = new System.Drawing.Point(9, 207);
             this.txtSMTPHost.Margin = new System.Windows.Forms.Padding(2);
             this.txtSMTPHost.Name = "txtSMTPHost";
             this.txtSMTPHost.Size = new System.Drawing.Size(76, 20);
@@ -226,7 +229,7 @@ namespace Log4OMQSLEmailer
             // 
             // txtSMTPUser
             // 
-            this.txtSMTPUser.Location = new System.Drawing.Point(101, 174);
+            this.txtSMTPUser.Location = new System.Drawing.Point(101, 207);
             this.txtSMTPUser.Margin = new System.Windows.Forms.Padding(2);
             this.txtSMTPUser.Name = "txtSMTPUser";
             this.txtSMTPUser.Size = new System.Drawing.Size(76, 20);
@@ -234,7 +237,7 @@ namespace Log4OMQSLEmailer
             // 
             // txtSMTPPassword
             // 
-            this.txtSMTPPassword.Location = new System.Drawing.Point(190, 174);
+            this.txtSMTPPassword.Location = new System.Drawing.Point(190, 207);
             this.txtSMTPPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtSMTPPassword.Name = "txtSMTPPassword";
             this.txtSMTPPassword.PasswordChar = '*';
@@ -244,7 +247,7 @@ namespace Log4OMQSLEmailer
             // 
             // txtSMTPPort
             // 
-            this.txtSMTPPort.Location = new System.Drawing.Point(290, 174);
+            this.txtSMTPPort.Location = new System.Drawing.Point(290, 207);
             this.txtSMTPPort.Margin = new System.Windows.Forms.Padding(2);
             this.txtSMTPPort.Name = "txtSMTPPort";
             this.txtSMTPPort.Size = new System.Drawing.Size(86, 20);
@@ -253,7 +256,7 @@ namespace Log4OMQSLEmailer
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(292, 158);
+            this.label9.Location = new System.Drawing.Point(292, 191);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(59, 13);
@@ -262,7 +265,7 @@ namespace Log4OMQSLEmailer
             // 
             // txtBody
             // 
-            this.txtBody.Location = new System.Drawing.Point(9, 217);
+            this.txtBody.Location = new System.Drawing.Point(9, 250);
             this.txtBody.Margin = new System.Windows.Forms.Padding(2);
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
@@ -272,7 +275,7 @@ namespace Log4OMQSLEmailer
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(9, 201);
+            this.label10.Location = new System.Drawing.Point(9, 234);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(77, 13);
@@ -282,7 +285,7 @@ namespace Log4OMQSLEmailer
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(11, 359);
+            this.label11.Location = new System.Drawing.Point(11, 387);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(68, 13);
@@ -291,7 +294,7 @@ namespace Log4OMQSLEmailer
             // 
             // txtExclusionList
             // 
-            this.txtExclusionList.Location = new System.Drawing.Point(9, 375);
+            this.txtExclusionList.Location = new System.Drawing.Point(9, 403);
             this.txtExclusionList.Margin = new System.Windows.Forms.Padding(2);
             this.txtExclusionList.Multiline = true;
             this.txtExclusionList.Name = "txtExclusionList";
@@ -343,11 +346,43 @@ namespace Log4OMQSLEmailer
             this.label13.TabIndex = 29;
             this.label13.Text = "Your Callsign";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 106);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(122, 13);
+            this.label14.TabIndex = 30;
+            this.label14.Text = "Envelope Card Directory";
+            this.label14.Click += new System.EventHandler(this.label14_Click);
+            // 
+            // txtEnvelope
+            // 
+            this.txtEnvelope.Location = new System.Drawing.Point(12, 121);
+            this.txtEnvelope.Name = "txtEnvelope";
+            this.txtEnvelope.Size = new System.Drawing.Size(465, 20);
+            this.txtEnvelope.TabIndex = 31;
+            // 
+            // btnEnv
+            // 
+            this.btnEnv.Location = new System.Drawing.Point(494, 122);
+            this.btnEnv.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEnv.Name = "btnEnv";
+            this.btnEnv.Size = new System.Drawing.Size(56, 19);
+            this.btnEnv.TabIndex = 32;
+            this.btnEnv.Text = "...";
+            this.btnEnv.UseVisualStyleBackColor = true;
+            this.btnEnv.Click += new System.EventHandler(this.btnEnv_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 449);
+            this.ClientSize = new System.Drawing.Size(607, 479);
+            this.Controls.Add(this.btnEnv);
+            this.Controls.Add(this.txtEnvelope);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.txtYourCallSign);
             this.Controls.Add(this.btnTmp);
@@ -420,5 +455,8 @@ namespace Log4OMQSLEmailer
         private System.Windows.Forms.TextBox txtTMP;
         private System.Windows.Forms.TextBox txtYourCallSign;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtEnvelope;
+        private System.Windows.Forms.Button btnEnv;
     }
 }

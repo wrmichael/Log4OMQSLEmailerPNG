@@ -1118,6 +1118,7 @@ namespace Log4OMQSLEmailer
 
 
             }
+          
                 try
                 {
                     if (!System.IO.Directory.Exists(Properties.Settings.Default.EnvelopePath))

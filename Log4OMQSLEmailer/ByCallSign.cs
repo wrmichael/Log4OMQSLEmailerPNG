@@ -150,6 +150,24 @@ COLUMNS (
                     li.SubItems.Add(mydate);
                     li.SubItems.Add(mytime);
                     li.SubItems.Add(mysiginfo);
+
+                    GlobalClassSmall g = new GlobalClassSmall();
+                    g.username = Properties.Settings.Default.QRZUser;
+                    g.password = Properties.Settings.Default.QRZPassword;
+                    string k = g.GetKey();
+                    string UseBureau = g.getQSLByBureau(mycall, k);
+                    string directmail = g.getQSLByMail(mycall, k);
+                    if (directmail.Equals("1"))
+                    {
+                        directmail = "YES";
+                    }
+                    if (myemail.Trim().Length == 0)
+                    {
+                        myemail = g.getEmailOnly(mycall, k);
+                    }
+
+
+
                     li.SubItems.Add(myemail);
                     li.SubItems.Add(band);
                     li.SubItems.Add(mode);
@@ -192,6 +210,10 @@ COLUMNS (
                         li.BackColor = Color.MistyRose;
                     }
 
+                    li.SubItems.Add(directmail);
+                    li.SubItems.Add(UseBureau);
+                    
+
                     listView1.Items.Add(li);
 
 
@@ -219,7 +241,7 @@ COLUMNS (
         private void ByCallSign_Load(object sender, EventArgs e)
         {
 
-            string[] qsofields = "qsoid,callsign,qsodate,qsotime,MY_SIG_INFO,email,band,mode,rstsent,name,Duplicate,rQSL,sQSL,".Split(',');
+            string[] qsofields = "qsoid,callsign,qsodate,qsotime,MY_SIG_INFO,email,band,mode,rstsent,name,Duplicate,rQSL,sQSL,Direct Mail, QSL Info".Split(',');
 
 
             listView1.Items.Clear();
