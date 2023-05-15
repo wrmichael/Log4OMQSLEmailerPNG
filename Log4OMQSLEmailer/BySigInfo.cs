@@ -59,11 +59,11 @@ namespace Log4OMQSLEmailer
             {
                 if (ignoreEmail)
                 {
-                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, mysiginfo, email, band, mode, rstsent,name from log where mysiginfo in ( " + p+ ");";
+                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, mysiginfo, email, band, mode, rstsent,name from log where ucase(mysiginfo) in ( " + p.ToUpper() + ");";
                 }
                 else
                 {
-                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, mysiginfo, email, band, mode, rstsent,name from log where  email <> '' and mysiginfo in ( " + p+ ")";
+                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, mysiginfo, email, band, mode, rstsent,name from log where  email <> '' and ucase(mysiginfo) in ( " + p.ToUpper() + ")";
                 }
             }
             else
@@ -90,7 +90,7 @@ COLUMNS (
       SV VARCHAR(100) PATH '$.SV',
       RV VARCHAR(100) PATH '$.RV',
       SD VARCHAR(100) PATH '$.SD',
-      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and email <> '' and mysiginfo = ( " + p+ ");";
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and email <> '' and ucase(mysiginfo) = ( " + p.ToUpper() + ");";
             }
             }
             com.CommandText = mysql;
