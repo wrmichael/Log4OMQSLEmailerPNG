@@ -59,11 +59,11 @@ namespace Log4OMQSLEmailer
             {
                 if (ignoreEmail)
                 {
-                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, mysiginfo, email, band, mode, rstsent,name from log where callsign in ( " + p+ ");";
+                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, mysiginfo, email, band, mode, rstsent,name from log where UCASE(callsign) in ( " + p.ToUpper() + ");";
                 }
                 else
                 {
-                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, mysiginfo, email, band, mode, rstsent,name from log where  email <> '' and callsign in ( " + p+ ")";
+                    mysql = @"select qsoid, callsign, DATE_FORMAT(qsodate,'%Y-%m-%d %T') as qsodate, mysiginfo, email, band, mode, rstsent,name from log where  email <> '' and ucase(callsign) in ( " + p.ToUpper()+ ")";
                 }
             }
             else
@@ -78,7 +78,7 @@ COLUMNS (
       SV VARCHAR(100) PATH '$.SV',
       RV VARCHAR(100) PATH '$.RV',
       SD VARCHAR(100) PATH '$.SD',
-      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and callsign  in ( " + p + ");";
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and ucase(callsign)  in ( " + p.ToUpper() + ");";
                 }
                 else
                 { 
@@ -90,7 +90,7 @@ COLUMNS (
       SV VARCHAR(100) PATH '$.SV',
       RV VARCHAR(100) PATH '$.RV',
       SD VARCHAR(100) PATH '$.SD',
-      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and email <> '' and callsign = ( " + p+ ");";
+      RD VARCHAR(100) PATH '$.RD' ) ) as j where j.ct = 'QSL' and j.S <> 'Yes' and email <> '' and ucase(callsign) = ( " + p.ToUpper() + ");";
             }
             }
             com.CommandText = mysql;
@@ -220,6 +220,7 @@ COLUMNS (
                 }
                 catch (Exception exx)
                 {
+                    MessageBox.Show("An error occurred" + exx.Message);
                 }
                 listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                 listView1.Refresh();
