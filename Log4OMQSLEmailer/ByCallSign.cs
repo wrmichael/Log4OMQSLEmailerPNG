@@ -152,12 +152,40 @@ COLUMNS (
                     li.SubItems.Add(mysiginfo);
 
                     GlobalClassSmall g = new GlobalClassSmall();
-                    g.username = Properties.Settings.Default.QRZUser;
-                    g.password = Properties.Settings.Default.QRZPassword;
-                    string k = g.GetKey();
-                    string UseBureau = g.getQSLByBureau(mycall, k);
-                    string directmail = g.getQSLByMail(mycall, k);
-                    if (directmail.Equals("1"))
+                    string k = "";
+                    try
+                    {
+                       
+                        g.username = Properties.Settings.Default.QRZUser;
+                        g.password = Properties.Settings.Default.QRZPassword;
+                        k= g.GetKey();
+                    }
+                    catch (Exception qex)
+                    {
+                        MessageBox.Show("Error talking to QRZ! \n " + qex.Message);
+
+                    }
+                    string UseBureau = "";
+                    string directmail = "";
+                    try
+                    {
+                        UseBureau = g.getQSLByBureau(mycall, k);
+                        
+                    }
+                    catch (Exception qex)
+                    {
+                        UseBureau = "qrz err";
+
+                    }
+                    try { 
+                        directmail = g.getQSLByMail(mycall, k);
+                    }
+                    catch (Exception qex)
+                    {
+                        UseBureau = "qrz err";
+                    }
+
+                if (directmail.Equals("1"))
                     {
                         directmail = "YES";
                     }
