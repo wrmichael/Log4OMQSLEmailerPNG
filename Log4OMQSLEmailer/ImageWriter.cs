@@ -12,7 +12,7 @@ namespace Log4OMQSLEmailer
     public class ImageWriter
     {
 
-        public Image writeENVImage(string sourceimage, string newImageName, string Address, string HisAddress)
+        public Image writeENVImage(string sourceimage, string newImageName, string Address, string HisAddress, string DE = "")
         {
 
 
@@ -62,6 +62,13 @@ namespace Log4OMQSLEmailer
             g.DrawString(HisAddress, font, Brushes.Black, ql.HisCallsign);
             g.DrawString(Address, font, Brushes.Black, ql.Callsign);
 
+            if (ql.DE.X != 0 && ql.DE.Y != 0)
+            {
+                if (DE.Trim().ToString().Length > 0)
+                { 
+                    g.DrawString(DE, font, Brushes.DimGray, ql.DE);
+                }
+            }
             if (sourceExt.ToUpper().Equals(".PNG"))
             {
                 img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, newImageName + sourceExt), System.Drawing.Imaging.ImageFormat.Png);

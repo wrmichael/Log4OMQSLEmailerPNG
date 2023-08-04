@@ -20,6 +20,6 @@ namespace Log4OMQSLEmailer
 
         public String ImagePath { get; set; }
         public System.Drawing.PointF ImageLoc { get; set; }
-
+        public System.Drawing.PointF DE { get; set; }
     }
 }

@@ -63,7 +63,9 @@ namespace Log4OMQSLEmailer
                 txtImagePath.Text = ql.ImagePath;
                 txtImageX.Text = ql.ImageLoc.X.ToString();
                 txtImageY.Text = ql.ImageLoc.Y.ToString();
+                txtDEx.Text = ql.DE.X.ToString();
 
+                txtDEy.Text = ql.DE.Y.ToString();
 
             }
 
@@ -104,6 +106,7 @@ namespace Log4OMQSLEmailer
             ql.ignoreMyAddress = this.checkBox1.Checked;
             ql.Callsign = new PointF(int.Parse(txtCallX.Text), int.Parse(txtCallY.Text));
             ql.HisCallsign = new PointF(int.Parse(txtHiscallX.Text), int.Parse(txtHisCallY.Text));
+            ql.DE = new PointF(int.Parse(txtDEx.Text), int.Parse(txtDEy.Text));
             //ql.SentRST = new PointF(int.Parse(txtRSTX.Text), int.Parse(txtRSTY.Text));
             ql.FontSize = int.Parse(txtFontSize.Text);
             try
@@ -164,6 +167,14 @@ namespace Log4OMQSLEmailer
             {
                 txtFontSize.Text = "100";
             }
+            if (txtDEx.Text.Equals(""))
+            {
+                txtDEx.Text = "100";
+            }
+            if (txtDEy.Text.Equals(""))
+            {
+                txtDEy.Text = "100";
+            }
             savelayout();
 
             
@@ -172,7 +183,7 @@ namespace Log4OMQSLEmailer
             ql.ImagePath = txtImagePath.Text;
             ql.HisCallsign = new PointF(int.Parse(txtHiscallX.Text), int.Parse(txtHisCallY.Text));
             ql.FontSize = int.Parse(txtFontSize.Text);
-
+            ql.DE = new PointF(int.Parse(txtDEx.Text), int.Parse(txtDEy.Text));
 
 
 
@@ -204,11 +215,11 @@ namespace Log4OMQSLEmailer
             string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, "TEST");
             if (this.checkBox1.Checked)
             {
-                img = iw.writeENVImage(QSLImage, myfile, "", "HISVeryLong Named Person\r\n9000009 LONG STREET NAME OR AVE\r\nBOX #5555555555555555\r\nVERYLONG CITY, ST 99999-9999 ");
+                img = iw.writeENVImage(QSLImage, myfile, "", "HISVeryLong Named Person\r\n9000009 LONG STREET NAME OR AVE\r\nBOX #5555555555555555\r\nVERYLONG CITY, ST 99999-9999 ", "HISCALL DE YOURCALL");
             }
             else
             {
-                img = iw.writeENVImage(QSLImage, myfile, "VeryLong Named Person\r\n9000009 LONG STREET NAME OR AVE\r\nBOX #5555555555555555\r\nVERYLONG CITY, ST 99999-9999 ", "HISVeryLong Named Person\r\n9000009 LONG STREET NAME OR AVE\r\nBOX #5555555555555555\r\nVERYLONG CITY, ST 99999-9999 ");
+                img = iw.writeENVImage(QSLImage, myfile, "VeryLong Named Person\r\n9000009 LONG STREET NAME OR AVE\r\nBOX #5555555555555555\r\nVERYLONG CITY, ST 99999-9999 ", "HISVeryLong Named Person\r\n9000009 LONG STREET NAME OR AVE\r\nBOX #5555555555555555\r\nVERYLONG CITY, ST 99999-9999 ", "HISCALL DE YOURCALL");
             }
             /*
             //save PNG here
@@ -317,7 +328,13 @@ namespace Log4OMQSLEmailer
                 setText = -1;
                 button6.BackColor = Color.LightBlue;
             }
-
+            if (setText.Equals(4))
+            {
+                txtDEx.Text = e.Location.X.ToString();
+                txtDEy.Text = e.Location.Y.ToString();
+                setText = -1;
+                button8.BackColor = Color.LightBlue;
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -353,6 +370,12 @@ namespace Log4OMQSLEmailer
                 txtImagePath.Text = fd.FileName;
             }
 
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            setText = 4;
+            button8.BackColor = Color.GreenYellow;
         }
     }
 }

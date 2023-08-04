@@ -57,6 +57,11 @@
             this.txtImagePath = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.button8 = new System.Windows.Forms.Button();
+            this.txtDEy = new System.Windows.Forms.TextBox();
+            this.txtDEx = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -134,14 +139,14 @@
             // 
             this.txtHisCallY.Location = new System.Drawing.Point(140, 102);
             this.txtHisCallY.Name = "txtHisCallY";
-            this.txtHisCallY.Size = new System.Drawing.Size(49, 20);
+            this.txtHisCallY.Size = new System.Drawing.Size(58, 20);
             this.txtHisCallY.TabIndex = 8;
             // 
             // txtHiscallX
             // 
             this.txtHiscallX.Location = new System.Drawing.Point(140, 72);
             this.txtHiscallX.Name = "txtHiscallX";
-            this.txtHiscallX.Size = new System.Drawing.Size(49, 20);
+            this.txtHiscallX.Size = new System.Drawing.Size(58, 20);
             this.txtHiscallX.TabIndex = 7;
             // 
             // txtFontSize
@@ -217,9 +222,9 @@
             // 
             this.button4.Location = new System.Drawing.Point(140, 43);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(49, 23);
+            this.button4.Size = new System.Drawing.Size(58, 23);
             this.button4.TabIndex = 40;
-            this.button4.Text = "To Call";
+            this.button4.Text = "His Call";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -229,14 +234,14 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(53, 23);
             this.button5.TabIndex = 41;
-            this.button5.Text = "To Call";
+            this.button5.Text = "UR Call";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(273, 53);
+            this.label1.Location = new System.Drawing.Point(355, 50);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(270, 13);
             this.label1.TabIndex = 42;
@@ -244,7 +249,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(218, 46);
+            this.button6.Location = new System.Drawing.Point(300, 43);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(49, 23);
             this.button6.TabIndex = 43;
@@ -272,14 +277,14 @@
             // 
             // txtImageY
             // 
-            this.txtImageY.Location = new System.Drawing.Point(218, 102);
+            this.txtImageY.Location = new System.Drawing.Point(300, 99);
             this.txtImageY.Name = "txtImageY";
             this.txtImageY.Size = new System.Drawing.Size(49, 20);
             this.txtImageY.TabIndex = 45;
             // 
             // txtImageX
             // 
-            this.txtImageX.Location = new System.Drawing.Point(218, 72);
+            this.txtImageX.Location = new System.Drawing.Point(300, 69);
             this.txtImageX.Name = "txtImageX";
             this.txtImageX.Size = new System.Drawing.Size(49, 20);
             this.txtImageX.TabIndex = 44;
@@ -310,12 +315,59 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(279, 102);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(14, 13);
+            this.label10.TabIndex = 55;
+            this.label10.Text = "Y";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(279, 76);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(14, 13);
+            this.label11.TabIndex = 54;
+            this.label11.Text = "X";
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(221, 43);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(58, 23);
+            this.button8.TabIndex = 53;
+            this.button8.Text = "DE";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // txtDEy
+            // 
+            this.txtDEy.Location = new System.Drawing.Point(221, 102);
+            this.txtDEy.Name = "txtDEy";
+            this.txtDEy.Size = new System.Drawing.Size(58, 20);
+            this.txtDEy.TabIndex = 52;
+            // 
+            // txtDEx
+            // 
+            this.txtDEx.Location = new System.Drawing.Point(221, 72);
+            this.txtDEx.Name = "txtDEx";
+            this.txtDEx.Size = new System.Drawing.Size(58, 20);
+            this.txtDEx.TabIndex = 51;
+            // 
             // ENVDataLayoutByImage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(873, 531);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.txtDEy);
+            this.Controls.Add(this.txtDEx);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtImagePath);
@@ -384,5 +436,10 @@
         private System.Windows.Forms.TextBox txtImagePath;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.TextBox txtDEy;
+        private System.Windows.Forms.TextBox txtDEx;
     }
 }

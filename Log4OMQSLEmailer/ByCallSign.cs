@@ -292,7 +292,7 @@ COLUMNS (
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.ExclusionList.ToUpper().Contains("," + txtCallSign.Text.Trim().ToUpper()))
+            if (Properties.Settings.Default.ExclusionList.ToUpper().Contains("," + txtCallSign.Text.Trim().ToUpper() + "," ))
             {
                 MessageBox.Show("Call Sign is on exclusion list.  Cannot continue!");
                     return;

@@ -1247,12 +1247,12 @@ namespace Log4OMQSLEmailer
                 string myfile = System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, hiscall.Replace('/','-').Replace('\\','-'));
                 if (ql.ignoreMyAddress)
                 {
-                    Image img = iw.writeENVImage(this.listBox1.SelectedItem.ToString(), myfile, "", hisaddress);
+                    Image img = iw.writeENVImage(this.listBox1.SelectedItem.ToString(), myfile, "", hisaddress,hiscall.ToUpper()+ " DE " + txtFrom.Text.ToUpper());
                     img.Dispose();
                 }
                 else
                 {
-                    Image img = iw.writeENVImage(this.listBox1.SelectedItem.ToString(), myfile, myaddress, hisaddress);
+                    Image img = iw.writeENVImage(this.listBox1.SelectedItem.ToString(), myfile, myaddress, hisaddress, hiscall.ToUpper() + " DE " + txtFrom.Text.ToUpper());
                     img.Dispose();
                 }
 
