@@ -186,6 +186,15 @@ namespace Log4OMQSLEmailer
 
             Image img = Image.FromFile(QSLImage);
 
+            if (img.Width < img.Height)
+            {
+                panel1.Size = new Size(336, 528);
+            }
+            else
+            {
+                panel1.Size = new Size(528, 336);
+            }
+
             lblImageSize.Text = img.Width.ToString() + "/" + img.Height.ToString();
 
 
@@ -212,7 +221,20 @@ namespace Log4OMQSLEmailer
 
             img.Save(System.IO.Path.Combine(Properties.Settings.Default.TMPDIR, "TEST" + ".png"), System.Drawing.Imaging.ImageFormat.Png);
             */
+
+            if (img.Width < img.Height)
+            {                
+                panel1.Width = (int)(96 * 3.5);
+                panel1.Height = (int)(96* 5.5); 
             
+            }
+            else
+            {
+                panel1.Height = (int)(96 * 3.5);
+                panel1.Width = (int)(96 * 5.5);
+
+            }
+
             panel1.BackgroundImage = ResizeImage(img, panel1.Width, panel1.Height);
             
             panel1.Refresh();
@@ -220,10 +242,13 @@ namespace Log4OMQSLEmailer
 
         public static Bitmap ResizeImage(Image image, int width, int height)
         {
-            var destRect = new Rectangle(0, 0, width, height);
+                       
+            var destRect = new Rectangle(0, 0,width, height);
             var destImage = new Bitmap(width, height);
 
-            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+           
+                destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+            
 
             using (Graphics graphics = Graphics.FromImage(destImage))
             {
@@ -235,8 +260,19 @@ namespace Log4OMQSLEmailer
 
                 using (var wrapMode = new ImageAttributes())
                 {
-                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+
+                    //wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    wrapMode.SetWrapMode(WrapMode.Clamp);
+                    //if (image.Width < image.Height)
+                    //{
+                    //    graphics.DrawImage(image, destRect, 0, 0, image.Height, image.Width, GraphicsUnit.Pixel, wrapMode);
+                    //}
+                    //else
+                    //{
+                        graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+
+                    //}
+
                 }
             }
 

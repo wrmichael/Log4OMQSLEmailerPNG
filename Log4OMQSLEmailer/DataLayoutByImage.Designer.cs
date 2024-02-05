@@ -353,7 +353,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(278, 131);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(56, 19);
             this.button3.TabIndex = 34;
@@ -363,10 +363,11 @@
             // 
             // panel1
             // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Location = new System.Drawing.Point(19, 157);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(503, 263);
+            this.panel1.Size = new System.Drawing.Size(336, 529);
             this.panel1.TabIndex = 35;
             // 
             // lblImageSize
@@ -383,7 +384,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(531, 430);
+            this.ClientSize = new System.Drawing.Size(598, 717);
             this.Controls.Add(this.lblImageSize);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button3);

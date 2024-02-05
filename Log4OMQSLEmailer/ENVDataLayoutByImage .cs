@@ -244,14 +244,30 @@ namespace Log4OMQSLEmailer
             //panel1.Refresh();
             pictureBox1.BackgroundImage = img;
 
-            if (this.Width < pictureBox1.Width)
+            if (img.Width < img.Height)
             {
-                this.Width = pictureBox1.Width + 10;
-            }
 
-            if (this.Height < (pictureBox1.Height + pictureBox1.Top))
+                if (this.Width < pictureBox1.Width)
+                {
+                    this.Width = pictureBox1.Width + 10;
+                }
+
+                if (this.Height < (pictureBox1.Height + pictureBox1.Top))
+                {
+                    this.Height = (pictureBox1.Height + pictureBox1.Top) + 10;
+                }
+            }
+            else
             {
-                this.Height = (pictureBox1.Height + pictureBox1.Top) + 10;
+                if (this.Width < pictureBox1.Width)
+                {
+                    this.Width = pictureBox1.Width + 10;
+                }
+
+                if (this.Height < (pictureBox1.Height + pictureBox1.Top))
+                {
+                    this.Height = (pictureBox1.Height + pictureBox1.Top) + 10;
+                }
             }
 
         }
