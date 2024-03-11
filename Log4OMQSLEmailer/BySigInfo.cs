@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -263,6 +264,18 @@ COLUMNS (
             //    MessageBox.Show("Call Sign is on exclusion list.  Cannot continue!");
             //        return;
             //}
+
+            //preselect item that might be the card we want to print 
+            foreach (string s in listBox1.Items)
+            {
+                string fname = Path.GetFileName(s);
+                if (fname.ToUpper().StartsWith(txtSigInfo.Text.ToUpper()))
+                {
+                    listBox1.SelectedItem = s;
+                    break;
+                }
+            }
+
             listView1.Items.Clear();
             this.QueryBySigInfo(ckIgnoreQSL.Checked, ckIgnoreEmail.Checked);
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
