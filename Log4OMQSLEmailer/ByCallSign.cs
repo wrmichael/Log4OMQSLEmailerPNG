@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -457,6 +458,29 @@ COLUMNS (
                 //The system cannot find the file specified...
                 Console.WriteLine(win32Exception.Message);
             }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (listView1.SelectedItems.Count==0) return;
+
+            string mysiginfo = listView1.SelectedItems[0].SubItems[4].Text;
+            if (mysiginfo.Trim().Length == 0)
+            {
+                return;
+            }
+
+            foreach (string s in listBox1.Items)
+            {
+                string fname = Path.GetFileName(s);
+                if (fname.ToUpper().StartsWith(mysiginfo.ToUpper()))
+                {
+                    listBox1.SelectedItem = s;
+                    break;
+                }
+            }
+
         }
     }
 }
